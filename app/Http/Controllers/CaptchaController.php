@@ -12,11 +12,15 @@ class CaptchaController extends Controller
 {
     public function captcha()
     {
-        if (!session()->has('captcha')) {
-            session(['captcha' => rand(10000, 99999)]);
-        }
+        // if (!session()->has('captcha')) {
+        //     session(['captcha' => rand(10000, 99999)]);
+        // }
 
-        $captcha = session('captcha');
+        // $captcha = session('captcha');
+        // return $captcha;
+
+        $captcha = Captcha::create('default');
+        session(['captcha' => app('captcha')->getPhrase()]); // Simpan captcha di session
         return $captcha;
     }
 }

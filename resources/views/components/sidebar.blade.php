@@ -15,6 +15,8 @@
         <ul class="navbar-nav">
             <x-navlink href="{{ route('home') }}" :active="request()->is('home') " icon="fa-house">Dashboard
             </x-navlink>
+            <x-navlink href="{{ route('two-factor') }}" :active="request()->is('two-factor') " icon="fa-house">Hydrant
+            </x-navlink>
 
 
 

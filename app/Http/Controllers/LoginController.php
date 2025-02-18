@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HydrantQR;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -17,37 +17,69 @@
 <html lang="en">
 
 <x-head></x-head>
+<style>
+    .img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .img-container img {
+        width: 900px;
+        max-width: 100%;
+        height: auto;
+    }
+
+    #startScanner {
+        border-radius: 50%;
+        padding: 20px;
+        width: 65px;
+        height: 65px;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
 
 <body class="g-sidenav-show  bg-gray-100">
     <x-sidebar></x-sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
-        <x-navbar>Dashboard</x-navbar>
+        <x-navbar>
+            @slot('title')
+            Dashboard
+            @endslot
+
+            @slot('name')
+            {{ $user->name }}
+            @endslot
+
+            @slot('dept')
+            {{ $user->dept }}
+            @endslot
+        </x-navbar>
         <div class="container-fluid py-4">
             <x-kpi></x-kpi>
-            <div class="row mt-4">
-                <div class="col-lg-7 mb-lg-0 mb-4">
-                    <x-main-card></x-main-card>
+            <div class="img-container">
+                <img src="{{ asset('img/dashboard.png') }}" alt="Dashboard Image">
+            </div>
+            <div class="row">
+                <div class="col-12 text-center d-flex justify-content-center align-items-center">
+                    <button class="btn btn-success mt-0 shadow-lg" id="startScanner"><i
+                            class="fa-solid fa-qrcode"></i></button>
                 </div>
-                <div class="col-lg-5">
-                    <x-second-card></x-second-card>
+                <div class="col-12 text-center d-flex justify-content-center align-items-center mb-5">
+                    <span class="text-bold ">Scan Here!</span>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-lg-5 mb-lg-0 mb-4">
-                    <x-bar-graph></x-bar-graph>
-                </div>
-                <div class="col-lg-7">
-                    <x-line-graph></x-line-graph>
-                </div>
-            </div>
-            <div class="row my-4">
-                <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
-                    <x-progress-table></x-progress-table>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <x-progress-overview></x-progress-overview>
-                </div>
-            </div>
+            <video id="preview" style="width: 100%; height: auto; display: none;"></video>
+
+            <form id="scan-form" method="POST" action="{{ route('qr-code') }}">
+                @csrf
+                <input type="hidden" name="qrcode_data" id="qrcode_data">
+            </form>
+
             <x-footer></x-footer>
         </div>
     </main>
@@ -72,6 +104,34 @@
     </script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
+
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script>
+        let scanner;
+        document.getElementById('startScanner').addEventListener('click', function () {
+            document.getElementById('preview').style.display = 'block'; // Tampilkan video
+            startScanner();
+        });
+
+        function startScanner() {
+            scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+            scanner.addListener('scan', function (content) {
+                document.getElementById('qrcode_data').value = content;
+                document.getElementById('scan-form').submit();
+            });
+
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                    scanner.start(cameras[0]); // Gunakan kamera pertama
+                } else {
+                    alert('Kamera tidak ditemukan!');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        }
+    </script>
 </body>
 
 </html>

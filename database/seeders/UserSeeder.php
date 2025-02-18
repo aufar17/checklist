@@ -13,16 +13,28 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [[
-            'npk' => '121212',
-            'name' => 'Aufar Chill Guy',
-            'dept' => 'MIS',
-            'sect' => 'Non BaaN',
-            'golongan' => '4',
-            'acting' => '1',
-            'approval' => '1',
-            'password' => '123',
-        ]];
+        $users = [
+            [
+                'npk' => '121212',
+                'name' => 'Aufar Chill Guy',
+                'dept' => 'MIS',
+                'sect' => 'Non BaaN',
+                'golongan' => '4',
+                'acting' => '1',
+                'approval' => '1',
+                'password' => '123',
+            ],
+            [
+                'npk' => '131313',
+                'name' => 'Aufar Crud',
+                'dept' => 'HRD',
+                'sect' => 'KONI',
+                'golongan' => '4',
+                'acting' => '1',
+                'approval' => '1',
+                'password' => '123',
+            ]
+        ];
 
         foreach ($users as $user) {
             User::create($user);
