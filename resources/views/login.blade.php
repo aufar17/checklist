@@ -1,0 +1,219 @@
+<!--
+=========================================================
+* Soft UI Dashboard - v1.0.3
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
+* Copyright 2021 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-icon.png') }}">
+    <link rel="icon" type="image/png"
+        href="{{ url('https://www.ifpusa.com/wp-content/uploads/2021/11/KYB%20DRUPAL%20LOGO.png') }}">
+    <title>
+        Kayaba Indonesia
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- Nucleo Icons -->
+    <link href="{{ asset('css/nucleo-icons.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/nucleo-icons.css') }}" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link href="{{ asset('css/login.css') }}" rel="stylesheet" />
+
+
+</head>
+
+<style>
+    .otp-input {
+        width: 40px;
+        height: 50px;
+        font-size: 24px;
+        text-align: center;
+        margin: 5px;
+        border: 2px solid #ced4da;
+        border-radius: 8px;
+    }
+
+    .otp-input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+</style>
+
+<body class="d-flex flex-column min-vh-100">
+    <main class="d-flex flex-grow-1 align-items-center justify-content-center">
+        <section class="flex-grow-1">
+            <div class="page-header min-vh-75">
+                <div class="wrapper">
+                    <div class="container-main shadow-lg">
+                        <div class="row no-gutters">
+                            @if (session('error'))
+                            <div class="alert alert-danger text-dark text-center">
+                                {{ session('error') }}
+                            </div>
+                            @endif
+
+                            @if ($errors->has('captcha'))
+                            <span class="alert alert-danger text-dark text-center">{{ $errors->first('captcha')
+                                }}</span>
+                            @endif
+
+                            <div class="col-lg-6 left">
+                                <div class="title text-center">
+                                    <img src="{{ asset('img/logo.png') }}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 right">
+                                <header>SIGN IN</header>
+                                <form action="{{ route('login') }}" method="POST">
+                                    @csrf
+                                    <div class="form-group mb-4">
+                                        <input type="etxt" class="form-control" id="exampleInputUsername1"
+                                            placeholder="" name="npk" />
+                                        <label for="exampleInputPassword1" class="form-label">Username</label>
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                            placeholder="" name="password" />
+                                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    </div>
+                                    <div class="captcha-container text-center mb-4">
+                                        <img src="{{ route('captcha') }}?_={{ time() }}" id="captcha-img"
+                                            class="img-fluid w-50 rounded border captcha-img">
+                                        <button type="button" class="btn btn-warning mx-3" id="refresh-captcha">
+                                            <i class="fa-solid fa-arrows-rotate"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" id="exampleInputCaptcha1"
+                                            placeholder="" name="captcha" />
+
+                                        <label for="exampleInputCaptcha1" class="form-label">Captcha</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-login w-100 mt-3">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+    </main>
+
+    <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+    <footer class="footer mb-5 text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-8 mx-auto text-center mt-1">
+                    <p class="mb-0 text-secondary">
+                        Copyright © <script>
+                            document.write(new Date().getFullYear())
+                        </script> PT Kayaba Indonesia
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Modal OTP -->
+
+    <div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">OTP Verification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        @csrf
+                        <div class="mb-3 text-center">
+                            <label for="otp" class=" fs-xl form-label">6 Digit OTP</label>
+                            <div class="d-flex justify-content-center">
+                                <input type="text" class="otp-input" name="otp[]" maxlength="1">
+                                <input type="text" class="otp-input" name="otp[]" maxlength="1">
+                                <input type="text" class="otp-input" name="otp[]" maxlength="1">
+                                <input type="text" class="otp-input" name="otp[]" maxlength="1">
+                                <input type="text" class="otp-input" name="otp[]" maxlength="1">
+                                <input type="text" class="otp-input" name="otp[]" maxlength="1">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Verify</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+    <!--   Core JS Files   -->
+    <script src="{{ asset('js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('js/core/popper.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/perfect-scrollbar.min.js') }}"></script>
+    <script>
+        {{ asset('js/modal-otp.js') }}
+    </script>
+
+    {{-- <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+    </script> --}}
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{{ asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        let captchaImg = document.getElementById("captcha-img");
+        let refreshBtn = document.getElementById("refresh-captcha");
+
+        refreshBtn.addEventListener("click", function () {
+            captchaImg.src = "/captcha?_=" + new Date().getTime(); 
+        });
+    });
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+
+
+
+</body>
+
+</html>
