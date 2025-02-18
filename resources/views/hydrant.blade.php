@@ -34,8 +34,8 @@
     #startScanner {
         border-radius: 50%;
         padding: 20px;
-        width: 75px;
-        height: 75px;
+        width: 65px;
+        height: 65px;
         font-size: 24px;
         display: flex;
         justify-content: center;
@@ -76,7 +76,7 @@
                             class="fa-solid fa-qrcode"></i></button>
                 </div>
                 <div class="col-12 text-center d-flex justify-content-center align-items-center mb-5">
-                    <span class="fw-bold">SCAN HERE!</span>
+                    <span class="text-bold ">Scan Here!</span>
                 </div>
             </div>
             <video id="preview" style="width: 100%; height: auto; display: none;"></video>
@@ -99,6 +99,13 @@
     <script src="{{ asset('js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('js/plugins/chartjs.min.js') }}"></script>
     <script src="{{ asset('js/curve-chart.js') }}"></script>
+    <script src="js/data-table.js"></script>
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="js/dataTables.bootstrap4.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
@@ -116,40 +123,8 @@
     </script>
     <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
 
-    {{-- <script>
-        {{ asset('js/scanqr.js') }}
-    </script> --}}
-
-    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script>
-        let scanner;
-    document.getElementById("startScanner").addEventListener("click", function () {
-    document.getElementById("preview").style.display = "block"; // Tampilkan video
-    startScanner();
-    });
-
-    function startScanner() {
-    scanner = new Instascan.Scanner({
-    video: document.getElementById("preview"),
-    });
-
-    scanner.addListener("scan", function (content) {
-    document.getElementById("qrcode_data").value = content;
-    document.getElementById("scan-form").submit();
-    });
-
-    Instascan.Camera.getCameras()
-    .then(function (cameras) {
-    if (cameras.length > 0) {
-    scanner.start(cameras[0]); // Gunakan kamera pertama
-    } else {
-    alert("Kamera tidak ditemukan!");
-    }
-    })
-    .catch(function (e) {
-    console.error(e);
-    });
-    }
+        {{ asset('js/scanqr.js') }}
     </script>
 </body>
 

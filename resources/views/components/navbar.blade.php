@@ -130,7 +130,7 @@
                     <a href="javascript:;" class="nav-link text-body font-weight-bold px-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-user text-lg me-sm-1"></i>
-                        <span class="d-sm-inline d-none">Admin</span>
+                        <span class="d-sm-inline d-none">{{ $role }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
                         <div class="row">

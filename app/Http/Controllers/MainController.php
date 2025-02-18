@@ -30,4 +30,22 @@ class MainController extends Controller
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
     }
+
+    public function hydrant()
+    {
+        $session = Auth::check();
+        if ($session) {
+            $user = Auth::user();
+            $data = [
+                'user' => $user,
+                'session' => $session,
+            ];
+
+            return view('hydrant', $data);
+        }
+
+        if (!$session) {
+            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        }
+    }
 }
