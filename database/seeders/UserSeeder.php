@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
                 'npk' => '131313',
                 'name' => 'Aufar Crud',
                 'dept' => 'HRD',
-                'sect' => 'KONI',
+                'sect' => 'TES',
                 'golongan' => '4',
                 'acting' => '1',
                 'approval' => '1',

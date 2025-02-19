@@ -68,17 +68,17 @@
             <div class="page-header min-vh-75">
                 <div class="wrapper">
                     <div class="container-main shadow-lg">
-                        <div class="row no-gutters">
-                            @if (session('error'))
-                            <div class="alert alert-danger text-dark text-center">
-                                {{ session('error') }}
-                            </div>
-                            @endif
+                        @if (session('error'))
+                        <div class="alert alert-danger text-dark text-center">
+                            {{ session('error') }}
+                        </div>
+                        @endif
 
-                            @if ($errors->has('captcha'))
-                            <span class="alert alert-danger text-dark text-center">{{ $errors->first('captcha')
-                                }}</span>
-                            @endif
+                        @if ($errors->has('captcha'))
+                        <div class="alert alert-danger text-dark text-center">{{ $errors->first('captcha')
+                            }}</div>
+                        @endif
+                        <div class="row no-gutters">
 
                             <div class="col-lg-6 left">
                                 <div class="title text-center">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckOtp;
+use App\Http\Middleware\CheckSession;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->appendToGroup('web', [
-            CheckOtp::class
+            CheckOtp::class,
+            CheckSession::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

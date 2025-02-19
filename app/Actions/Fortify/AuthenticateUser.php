@@ -22,17 +22,7 @@ class AuthenticateUser
             return redirect()->route('login')->with('error', 'Username atau password salah!');
         }
 
-        $user = Auth::user();
-
-        if ($user->two_factor_secret) {
-            session([
-                'show_otp_modal' => true,
-                'id' => $user->id
-            ]);
-
-            return redirect()->route('login')->with('showOtpModal', true);
-        }
-
+        Auth::user();
         return app(LoginResponse::class);
     }
 }

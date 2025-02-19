@@ -10,17 +10,36 @@ class ScanController extends Controller
 {
     public function qrScan(Request $request)
     {
-        $data = $request->input('qrcode_data');
+        $scan = $request->input('qrcode_data');
 
-        $qrCodeScan = HydrantQR::create([
-            'content' => $data,
+        $data = [
+            'content' => $scan,
             'scanned_by' => Auth::check() ? Auth::user()->name : 'guest',
             'scanned_at' => now()
-        ]);
+        ];
+
+        $qrCodeScan = HydrantQR::create($data);
 
         return response()->json([
             'message' => 'QR Code berhasil dipindai',
             'data' => $qrCodeScan
         ]);
+    }
+
+    public function scan()
+    {
+        $session = Auth::check();
+        if ($session) {
+            $user = Auth::user();
+            $data = [
+                'user' => $user,
+                'session' => $session,
+            ];
+
+            return view('scan', $data);
+        }
+        if (!$session) {
+            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        }
     }
 }

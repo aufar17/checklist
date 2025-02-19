@@ -56,43 +56,5 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function ($request) {
             return (new AuthenticateUser())->handle($request);
         });
-
-        // Fortify::authenticateUsing(function (Request $request) {
-        //     $request->validate([
-        //         'npk' => ['required', 'string'],
-        //         'password' => ['required', 'string'],
-        //         'captcha' => ['required', 'captcha', 'digits:5'],
-        //     ]);
-
-        //     // Periksa apakah captcha yang diinput user sesuai dengan yang ada di session
-        //     if ($request->captcha != session('captcha')) {
-        //         throw ValidationException::withMessages([
-        //             'captcha' => ['Captcha yang dimasukkan salah.'],
-        //         ]);
-        //     }
-
-        //     $user = User::where('npk', $request->npk)->first();
-
-        //     if ($user && Hash::check($request->password, $user->password)) {
-        //         if ($user->two_factor_secret) {
-        //             session(['show_otp_modal' => true, 'user_id' => $user->id]);
-        //         }
-
-        //         return $user;
-        //     }
-
-        //     throw ValidationException::withMessages([
-        //         'npk' => ['NPK atau password salah.'],
-        //     ]);
-        // });
-
-
-
-
-        // Override tampilan OTP agar muncul modal
-        Fortify::twoFactorChallengeView(function () {
-            session(['show_otp_modal' => true]);
-            return view('two-factor');
-        });
     }
 }

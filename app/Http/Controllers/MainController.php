@@ -48,4 +48,9 @@ class MainController extends Controller
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
     }
+
+    public function about()
+    {
+        return view('about');
+    }
 }

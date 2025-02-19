@@ -68,18 +68,18 @@
         <div class="container-fluid py-4">
             <x-kpi></x-kpi>
             <div class="img-container">
-                <img src="{{ asset('img/dashboard.png') }}" alt="Dashboard Image">
+                <img src="{{ asset('img/bg-dashboard.gif') }}" alt="Dashboard Image">
             </div>
             <div class="row">
                 <div class="col-12 text-center d-flex justify-content-center align-items-center">
-                    <button class="btn btn-success mt-0 shadow-lg" id="startScanner"><i
+                    <button class="btn btn-success mt-0 shadow-lg" id="startScanner"> <i
                             class="fa-solid fa-qrcode"></i></button>
                 </div>
                 <div class="col-12 text-center d-flex justify-content-center align-items-center mb-5">
                     <span class="fw-bold">SCAN HERE!</span>
                 </div>
             </div>
-            <video id="preview" style="width: 100%; height: auto; display: none;"></video>
+
 
             <form id="scan-form" method="POST" action="{{ route('qr-code') }}">
                 @csrf
@@ -122,6 +122,12 @@
 
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script>
+        document.getElementById("startScanner").addEventListener("click", function () {
+            localStorage.setItem("startScanner", "true"); 
+            window.location.href = "{{ route('scan') }}"; 
+        });
+    </script>
+    {{-- <script>
         let scanner;
     document.getElementById("startScanner").addEventListener("click", function () {
     document.getElementById("preview").style.display = "block"; // Tampilkan video
@@ -150,7 +156,7 @@
     console.error(e);
     });
     }
-    </script>
+    </script> --}}
 </body>
 
 </html>

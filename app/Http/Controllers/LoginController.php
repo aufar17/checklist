@@ -12,14 +12,14 @@ class LoginController extends Controller
 {
     protected $authService;
 
-    public function twoFactor(Request $request)
-    {
-        $user = $request->user();
+    // public function twoFactor(Request $request)
+    // {
+    //     $user = $request->user();
 
-        if ($user->two_factor_secret) {
-            $user->disableTwoFactorAuthentication();
-        } else {
-            $user->enableTwoFactorAuthentication();
-        }
-    }
+    //     if ($user->two_factor_secret) {
+    //         $user->disableTwoFactorAuthentication();
+    //     } else {
+    //         $user->enableTwoFactorAuthentication();
+    //     }
+    // }
 }

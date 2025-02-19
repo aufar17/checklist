@@ -1,11 +1,13 @@
-src = "https://rawgit.com/schmich/instascan-builds/master/instascan.min.js";
 let scanner;
-document.getElementById("startScanner").addEventListener("click", function () {
-    document.getElementById("preview").style.display = "block"; // Tampilkan video
-    startScanner();
+document.addEventListener("DOMContentLoaded", function () {
+    if (localStorage.getItem("startScanner") === "true") {
+        localStorage.removeItem("startScanner"); // Hapus status setelah digunakan
+        startScanner(); // Mulai scanner
+    }
 });
 
 function startScanner() {
+    document.getElementById("preview").style.display = "block"; // Tampilkan video
     scanner = new Instascan.Scanner({
         video: document.getElementById("preview"),
     });
@@ -18,7 +20,7 @@ function startScanner() {
     Instascan.Camera.getCameras()
         .then(function (cameras) {
             if (cameras.length > 0) {
-                scanner.start(cameras[0]); // Gunakan kamera pertama
+                scanner.start(cameras[0]);
             } else {
                 alert("Kamera tidak ditemukan!");
             }
