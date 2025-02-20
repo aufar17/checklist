@@ -13,7 +13,8 @@
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <x-navlink href="{{ route('home') }}" :active="request()->is('home') " icon="fa-house">Dashboard
+            <x-navlink href="{{ route('admin') }}" :active="request()->is('admin') " icon="fa-house">
+                Dashboard
             </x-navlink>
             <x-navlink href="{{ route('hydrant') }}" :active="request()->is('hydrant') " icon="fa-list">Hydrant
             </x-navlink>

@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OtpVerification extends Model
 {
     protected $table = 'otp_verification';
     protected $fillable = [
         'id_user',
-        'phone_number',
         'otp',
         'expiry_date',
         'send',
@@ -17,4 +17,9 @@ class OtpVerification extends Model
         'use',
         'use_date',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
 }

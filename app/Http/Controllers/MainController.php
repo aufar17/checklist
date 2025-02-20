@@ -12,23 +12,30 @@ class MainController extends Controller
     {
         return view('index');
     }
-    public function home()
+
+    public function admin()
     {
 
         $session = Auth::check();
-        if ($session) {
-            $user = Auth::user();
-            $data = [
-                'user' => $user,
-                'session' => $session,
-            ];
-            return view('home', $data);
+        if (!$session) {
+            return redirect()->route('login')->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
 
-        if (!$session) {
-            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        $user = Auth::user();
+        $otp = session()->has('otp_verified');
+
+        if (!$otp || $otp !== true) {
+            return redirect()->route('otp-verif')->withErrors(['error' => 'Silakan verifikasi OTP terlebih dahulu.']);
         }
+
+        $data = [
+            'session' => $session,
+            'user' => $user,
+        ];
+
+        return view('dashboard', $data);
     }
+
 
     public function hydrant()
     {
@@ -46,10 +53,5 @@ class MainController extends Controller
         if (!$session) {
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
-    }
-
-    public function about()
-    {
-        return view('about');
     }
 }

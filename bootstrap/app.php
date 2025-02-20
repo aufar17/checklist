@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->appendToGroup('web', [
-            CheckOtp::class,
+            // CheckOtp::class,
             CheckSession::class,
         ]);
     })

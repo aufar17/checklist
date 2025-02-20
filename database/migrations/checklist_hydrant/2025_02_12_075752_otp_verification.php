@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::connection('mysql')->create('otp_verification', function (Blueprint $table) {
             $table->id()->primary();
-            $table->string('id_user')->unique();
-            $table->string('phone_number');
+            $table->string('id_user');
             $table->string('otp');
-            $table->string('expiry_date');
+            $table->dateTime('expiry_date');
             $table->string('send');
-            $table->string('send_date')->nullable();
+            $table->dateTime('send_date')->nullable();
             $table->string('use');
-            $table->string('use_date');
+            $table->dateTime('use_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

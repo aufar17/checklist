@@ -14,13 +14,19 @@ class CheckOtp
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        // if (Auth::check() && !session()->has('otp_verified')) {
-        //     session(['show_otp_modal' => true]); // Paksa modal OTP muncul
-        //     return redirect()->route('login'); // Kembali ke login (dengan modal OTP)
-        // }
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
 
+        if (!session()->has('otp_verified') || session('otp_verified') !== true) {
+            return redirect()->route('otp-verif')->withErrors(['error' => 'Silakan verifikasi OTP terlebih dahulu.']);
+        }
+
+        if ($request->route()->getName() === 'otp-verif') {
+            return redirect()->route('admin');
+        }
 
         return $next($request);
     }
