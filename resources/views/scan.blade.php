@@ -2,6 +2,7 @@
 <html lang="en">
 <x-head></x-head>
 
+
 <body class="g-sidenav-show bg-gray-100">
     <x-sidebar></x-sidebar>
 
@@ -27,6 +28,7 @@
             </form>
 
             <button onclick="window.history.back()" class="btn btn-primary mt-3">Kembali</button>
+
         </div>
 
         <x-footer></x-footer>

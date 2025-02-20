@@ -107,8 +107,8 @@
                                         </button>
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" class="form-control" id="exampleInputCaptcha1"
-                                            placeholder="" name="captcha" />
+                                        <input type="text" class="form-control" id="exampleInputCaptcha1" placeholder=""
+                                            name="captcha" />
 
                                         <label for="exampleInputCaptcha1" class="form-label">Captcha</label>
                                     </div>

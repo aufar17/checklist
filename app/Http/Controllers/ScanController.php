@@ -20,10 +20,7 @@ class ScanController extends Controller
 
         $qrCodeScan = HydrantQR::create($data);
 
-        return response()->json([
-            'message' => 'QR Code berhasil dipindai',
-            'data' => $qrCodeScan
-        ]);
+        return response()->json($qrCodeScan);
     }
 
     public function scan()

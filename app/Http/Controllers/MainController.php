@@ -22,7 +22,6 @@ class MainController extends Controller
                 'user' => $user,
                 'session' => $session,
             ];
-
             return view('home', $data);
         }
 

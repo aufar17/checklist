@@ -15,7 +15,6 @@ Route::get('hydrant', [MainController::class, 'hydrant'])->name('hydrant');
 Route::get('about', [MainController::class, 'about'])->name('about');
 
 //Login Features
-// Route::get('two-factor', [LoginController::class, 'twoFactor'])->name('two-factor');
 Route::get('captcha', [CaptchaController::class, 'captcha'])->name('captcha');
 
 // Home Features
