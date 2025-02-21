@@ -73,8 +73,13 @@
                     </ul>
                 </div>
                 @endif
+
                 @if (session('error'))
                 <p class="text-danger">{{ session('error') }}</p>
+                @endif
+
+                @if(session('message'))
+                <div class="alert alert-success">{{ session('message') }}</div>
                 @endif
 
                 <div class="wrapper">
@@ -96,9 +101,13 @@
                             <input type="hidden" name="otp" id="otp_combined">
                             <button type="submit" class="btn btn-danger w-100 mt-3">Verifikasi</button>
                         </form>
-                        <p class="mt-3 text-dark">Tidak menerima kode? <a href="#" class="text-primary">Kirim ulang</a>
-
-                        </p>
+                        <div class="d-flex align-items-center justify-content-center gap-2 mt-3 mb-3">
+                            <p class="text-dark mb-0">Tidak menerima kode?</p>
+                            <form action="{{ route('resend-otp') }}" method="post">
+                                @csrf
+                                <button class="badge bg-success border-0">Resend OTP</button>
+                            </form>
+                        </div>
                         <span class="badge bg-danger fs-6" id="countdown"
                             data-expiry="{{ session('otp_expiry') }}"></span>
                     </div>

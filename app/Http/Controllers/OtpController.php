@@ -17,27 +17,24 @@ class OtpController extends Controller
 
         $user = Auth::user();
         $otp = OtpVerification::where('id_user', $user->id)
-            ->where('expiry_date', '>=', now()) // Cek apakah OTP masih berlaku
-            ->latest('created_at') // Ambil OTP terbaru
+            ->where('expiry_date', '>=', now())
+            ->latest('created_at')
             ->first();
 
-        // Jika OTP tidak ditemukan, hapus sesi expiry agar tidak error
         if (!$otp) {
             session()->forget('otp_expiry');
             return redirect()->route('login')->withErrors(['error' => 'Tidak ada OTP valid. Silakan coba lagi.']);
         }
 
-        // Jika OTP sudah diverifikasi, redirect ke admin
         if (session('otp_verified', false)) {
             return redirect()->route('admin');
         }
 
-        // Simpan expiry timestamp di session agar tetap konsisten meskipun direfresh
         session(['otp_expiry' => $otp->expiry_date]);
 
         $data = [
             'otp' => $otp,
-            'expiryTimestamp' => strtotime($otp->expiry_date), // Konversi ke timestamp UNIX
+            'expiryTimestamp' => strtotime($otp->expiry_date),
         ];
 
         return view('otp-verification', $data);
@@ -55,19 +52,10 @@ class OtpController extends Controller
             return redirect()->route('login')->withErrors(['error' => 'Session expired. Silakan login kembali.']);
         }
 
-        // Ambil OTP terbaru yang masih valid untuk user yang login
         $otp = OtpVerification::where('id_user', $user->id)
             ->where('expiry_date', '>=', Carbon::now())
-            ->latest('created_at') // Ambil OTP terbaru
+            ->latest('created_at')
             ->first();
-
-        // Debugging untuk memastikan OTP yang ditemukan
-        // dd([
-        //     'User ID' => $user->id,
-        //     'Input OTP' => $request->otp,
-        //     'Stored OTP' => $otp ? $otp->otp : 'Tidak ada OTP valid',
-        //     'Expiry Date' => $otp ? $otp->expiry_date : 'Tidak ada OTP valid',
-        // ]);
 
         if (!$otp || $otp->otp !== $request->otp) {
             return back()->withErrors(['otp' => 'Kode OTP salah atau sudah kedaluwarsa.']);
@@ -77,5 +65,33 @@ class OtpController extends Controller
         session(['otp_verified' => true]);
 
         return redirect()->route('admin')->with('success', 'OTP berhasil diverifikasi!');
+    }
+
+    public function resendOtp()
+    {
+        $user = Auth::user();
+
+        OtpVerification::where('id_user', $user->id)
+            ->where('expiry_date', '>=', Carbon::now())
+            ->orderBy('created_at', 'desc')
+            ->delete();
+
+
+        $newOtp = OtpVerification::create([
+            'id_user'     => $user->id,
+            'otp'         => rand(100000, 999999),
+            'expiry_date' => Carbon::now()->addMinutes(5),
+            'send'        => 'sent',
+            'send_date'   => Carbon::now(),
+            'use'         => false,
+            'use_date'    => null,
+        ]);
+
+        session([
+            'otp_required' => true,
+            'otp_expiry'   => $newOtp->expiry_date,
+        ]);
+
+        return redirect()->route('otp-verif')->with('message', 'OTP berhasil dikirim ulang.');
     }
 }
