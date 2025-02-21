@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CaptchaController;
+use App\Http\Controllers\ChecksheetController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OtpController;
@@ -22,3 +23,6 @@ Route::post('resend-otp', [OtpController::class, 'resendOtp'])->name('resend-otp
 // Home Features
 Route::post('qr-code', [ScanController::class, 'qrScan'])->name('qr-code');
 Route::get('scan', [ScanController::class, 'scan'])->name('scan');
+
+//Checksheet
+Route::get('checksheet', [ChecksheetController::class, 'checksheet'])->name('checksheet');
