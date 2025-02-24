@@ -72,8 +72,9 @@
             </div>
             <div class="row">
                 <div class="col-12 text-center d-flex justify-content-center align-items-center">
-                    <button class="btn btn-danger mt-0 shadow-lg" id="startScanner"> <i
-                            class="fa-solid fa-qrcode"></i></button>
+                    <button class="btn btn-danger mt-0 shadow-lg" id="startScanner">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </button>
                 </div>
                 <div class="col-12 text-center d-flex justify-content-center align-items-center mb-5">
                     <span class="fw-bold">SCAN HERE!</span>
@@ -94,11 +95,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="scanModalLabel">Akses Kamera dan Lokasi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title">Akses Kamera dan Lokasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    Untuk memulai pemindaian, pastikan kamera dan GPS Anda diaktifkan.
+                    Pastikan kamera dan GPS Anda diaktifkan sebelum memulai pemindaian.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -134,17 +135,16 @@
             var scanModal = new bootstrap.Modal(document.getElementById("scanModal"));
             scanModal.show();
         });
-    
+
         document.getElementById("confirmScan").addEventListener("click", function () {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function (position) {
-                        // GPS aktif, lanjutkan ke halaman scan
-                        localStorage.setItem("startScanner", "true");
-                        window.location.href = "{{ route('scan') }}"; 
+                        let lat = position.coords.latitude;
+                        let lon = position.coords.longitude;
+                        window.location.href = "{{ route('scan') }}?lat=" + lat + "&lon=" + lon;
                     },
-                    function (error) {
-                        // GPS tidak aktif, tampilkan peringatan
+                    function () {
                         alert("Harap aktifkan GPS untuk melanjutkan pemindaian.");
                     }
                 );
@@ -153,7 +153,6 @@
             }
         });
     </script>
-
 
 
 </body>

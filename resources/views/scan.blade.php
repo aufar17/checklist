@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<x-head></x-head>
 
+<x-head></x-head>
 
 <body class="g-sidenav-show bg-gray-100">
     <x-sidebar></x-sidebar>
@@ -17,7 +17,7 @@
         <div class="container py-4 text-center">
             <h3 class="mb-3">Scan QR Code</h3>
 
-            <div class="video-container" style="display: flex; justify-content: center;">
+            <div class="video-container">
                 <video id="preview"
                     style="width: 100%; max-width: 500px; border: 2px solid #ccc; border-radius: 10px;"></video>
             </div>
@@ -27,24 +27,38 @@
                 <input type="hidden" name="qrcode_data" id="qrcode_data">
             </form>
 
-            <a href="{{ route('admin') }}" class="btn btn-primary mt-3">Kembali</a>
+            <p>Latitude: {{ $latitude }}</p>
+            <p>Longitude: {{ $longitude }}</p>
 
+            <a href="{{ route('admin') }}" class="btn btn-primary mt-3">Kembali</a>
         </div>
 
         <x-footer></x-footer>
     </main>
 
     <!-- JS Files -->
-    <script src="{{ asset('js/core/popper.min.js') }}"></script>
-    <script src="{{ asset('js/core/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/smooth-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/chartjs.min.js') }}"></script>
-    <script src="{{ asset('js/curve-chart.js') }}"></script>
-    <script src="{{ asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
     <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script>
+        let scanner = new Instascan.Scanner({ video: document.getElementById("preview") });
 
-    <script src="{{ asset('js/scanqr.js') }}"></script>
+        scanner.addListener("scan", function (content) {
+            document.getElementById("qrcode_data").value = content;
+            document.getElementById("scan-form").submit();
+        });
+
+        Instascan.Camera.getCameras()
+            .then(function (cameras) {
+                if (cameras.length > 0) {
+                    scanner.start(cameras[0]);
+                } else {
+                    alert("Kamera tidak ditemukan!");
+                }
+            })
+            .catch(function (e) {
+                console.error("Kesalahan Kamera:", e);
+            });
+    </script>
+
 </body>
 
 </html>

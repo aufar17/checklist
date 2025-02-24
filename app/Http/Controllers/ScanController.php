@@ -23,14 +23,18 @@ class ScanController extends Controller
         return response()->json($qrCodeScan);
     }
 
-    public function scan()
+    public function scan(Request $request)
     {
+        $latitude = $request->query('lat');
+        $longitude = $request->query('lon');
         $session = Auth::check();
         if ($session) {
             $user = Auth::user();
             $data = [
                 'user' => $user,
                 'session' => $session,
+                'longitude' => $longitude,
+                'latitude' => $latitude,
             ];
 
             return view('scan', $data);
