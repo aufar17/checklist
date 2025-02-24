@@ -90,6 +90,25 @@
         </div>
     </main>
 
+    <div class="modal fade" id="scanModal" tabindex="-1" aria-labelledby="scanModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scanModalLabel">Akses Kamera dan Lokasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Untuk memulai pemindaian, pastikan kamera dan GPS Anda diaktifkan.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-info" id="confirmScan">Aktifkan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <!--   Core JS Files   -->
@@ -99,12 +118,8 @@
     <script src="{{ asset('js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('js/plugins/chartjs.min.js') }}"></script>
     <script src="{{ asset('js/curve-chart.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
-    </script>
-
+    <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -114,15 +129,32 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-    <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
-
-    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     <script>
         document.getElementById("startScanner").addEventListener("click", function () {
-            localStorage.setItem("startScanner", "true"); 
-            window.location.href = "{{ route('scan') }}"; 
+            var scanModal = new bootstrap.Modal(document.getElementById("scanModal"));
+            scanModal.show();
+        });
+    
+        document.getElementById("confirmScan").addEventListener("click", function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        // GPS aktif, lanjutkan ke halaman scan
+                        localStorage.setItem("startScanner", "true");
+                        window.location.href = "{{ route('scan') }}"; 
+                    },
+                    function (error) {
+                        // GPS tidak aktif, tampilkan peringatan
+                        alert("Harap aktifkan GPS untuk melanjutkan pemindaian.");
+                    }
+                );
+            } else {
+                alert("Perangkat ini tidak mendukung geolokasi.");
+            }
         });
     </script>
+
+
 
 </body>
 

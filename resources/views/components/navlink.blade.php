@@ -14,19 +14,26 @@
     }
 </style>
 
-@props(['icon', 'active' => false])
+@props(['icon', 'active' => false, 'notifCount' => 0])
 
 @php
 $classes = $active ? 'nav-link active' : 'nav-link';
 $iconColor = $active ? 'text-white' : 'text-dark';
 @endphp
 
-<li class="nav-item">
+<li class="nav-item position-relative">
     <a id="navlink" {{ $attributes->merge(['class' => $classes, 'aria-current' => $active ? 'page' : false]) }}>
         <div id="icon-container"
-            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            class="icon icon-shape icon-sm shadow border rounded bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fa-solid {{ $icon }} fa-lg {{ $iconColor }}"></i>
         </div>
-        <span class="nav-link-text ms-1">{{ $slot }}</span>
+        <span class="nav-link-text ms-1">
+            {{ $slot }}
+            @if($notifCount > 0)
+            <span class="badge text-bg-danger rounded-pill ms-5">
+                {{ $notifCount }}
+            </span>
+            @endif
+        </span>
     </a>
 </li>

@@ -18,28 +18,8 @@
 
 <x-head></x-head>
 <style>
-    .img-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 20px 0;
-    }
-
-    .img-container img {
-        width: 900px;
-        max-width: 100%;
-        height: auto;
-    }
-
-    #startScanner {
-        border-radius: 50%;
-        padding: 20px;
-        width: 75px;
-        height: 75px;
-        font-size: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    #radiocheck {
+        border: 2px solid black
     }
 </style>
 
@@ -66,23 +46,9 @@
             @endslot
         </x-navbar>
         <div class="container-fluid py-4">
-            <div class="alert alert-success text-dark fw-bold">Hydrant H1134 Berhasil di scan!</div>
-            <form>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            {{-- <div class="alert alert-success text-dark fw-bold">Hydrant H1134 Berhasil di scan!</div> --}}
+            <x-hydrant-details></x-hydrant-details>
+            <x-checksheet-form></x-checksheet-form>
             <x-footer></x-footer>
         </div>
     </main>
@@ -97,12 +63,6 @@
     <script src="{{ asset('js/plugins/chartjs.min.js') }}"></script>
     <script src="{{ asset('js/curve-chart.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
-    </script>
-
-    <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
             var options = {
@@ -113,13 +73,6 @@
     </script>
     <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
 
-    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-    <script>
-        document.getElementById("startScanner").addEventListener("click", function () {
-            localStorage.setItem("startScanner", "true"); 
-            window.location.href = "{{ route('scan') }}"; 
-        });
-    </script>
 
 </body>
 

@@ -27,7 +27,7 @@
                 <input type="hidden" name="qrcode_data" id="qrcode_data">
             </form>
 
-            <button onclick="window.history.back()" class="btn btn-primary mt-3">Kembali</button>
+            <a href="{{ route('admin') }}" class="btn btn-primary mt-3">Kembali</a>
 
         </div>
 

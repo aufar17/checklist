@@ -18,39 +18,12 @@
             </x-navlink>
             <x-navlink href="{{ route('hydrant') }}" :active="request()->is('hydrant') " icon="fa-list">Hydrant
             </x-navlink>
+            <x-navlink href="{{ route('hydrant') }}" :active="request()->is('hydrant')" icon="fa-bell" :notifCount="10">
+                Reminder
+            </x-navlink>
 
 
 
-
-
-
-            <li class="nav-item">
-                <a class="nav-link  " href="../pages/billing.html">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa-solid fa-globe fa-lg text-dark"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Billing</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  " href="../pages/virtual-reality.html">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa-solid fa-lock fa-lg text-dark"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">Virtual Reality</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  " href="../pages/rtl.html">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="fa-solid fa-ticket fa-lg text-dark"></i>
-                    </div>
-                    <span class="nav-link-text ms-1">RTL</span>
-                </a>
-            </li>
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
             </li>
