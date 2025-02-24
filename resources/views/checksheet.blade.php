@@ -47,8 +47,25 @@
         </x-navbar>
         <div class="container-fluid py-4">
             {{-- <div class="alert alert-success text-dark fw-bold">Hydrant H1134 Berhasil di scan!</div> --}}
-            <x-hydrant-details></x-hydrant-details>
-            <x-checksheet-form></x-checksheet-form>
+            <x-hydrant-details>
+                @slot('location')
+                {{ $checksheet->location }}
+                @endslot
+                @slot('type')
+                {{ $checksheet->type }}
+                @endslot
+                @slot('latitude')
+                {{ $checksheet->latitude }}
+                @endslot
+                @slot('longitude')
+                {{ $checksheet->longitude }}
+                @endslot
+            </x-hydrant-details>
+            <x-checksheet-form>
+                @slot('name')
+                {{ $user->name }}
+                @endslot
+            </x-checksheet-form>
             <x-footer></x-footer>
         </div>
     </main>

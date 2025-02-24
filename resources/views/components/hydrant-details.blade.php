@@ -3,7 +3,7 @@
         <div class="card shadow-sm rounded">
             <div class="card-header py-3 bg-danger border-bottom">
                 <div class="d-flex flex-column align-items-start">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center">{{ $slot }}
                         <i class="fa fa-fire-extinguisher text-white fs-4 me-3"></i>
                         <h5 class="mb-0 fw-bold text-white">Hydrant Details</h5>
                     </div>
@@ -17,7 +17,7 @@
                         </span>
                         <div>
                             <h6 class="text-start text-dark fs-6 fw-bold mb-1">Lokasi</h6>
-                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">MIS</p>
+                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">{{ $location }}</p>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
                         </span>
                         <div>
                             <h6 class="text-start text-dark fs-6 fw-bold mb-1">Tipe</h6>
-                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">Indoor</p>
+                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">{{ $type }}</p>
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@
                         </span>
                         <div>
                             <h6 class="text-start text-dark fs-6 fw-bold mb-1">Latitude</h6>
-                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">0.67</p>
+                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">{{ $latitude }}</p>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
                         </span>
                         <div>
                             <h6 class="text-start text-dark fs-6 fw-bold mb-1">Longitude</h6>
-                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">0.89</p>
+                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">{{ $longitude }}</p>
                         </div>
                     </div>
                 </div>

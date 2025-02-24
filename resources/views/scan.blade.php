@@ -16,7 +16,6 @@
 
         <div class="container py-4 text-center">
             <h3 class="mb-3">Scan QR Code</h3>
-
             <div class="video-container">
                 <video id="preview"
                     style="width: 100%; max-width: 500px; border: 2px solid #ccc; border-radius: 10px;"></video>

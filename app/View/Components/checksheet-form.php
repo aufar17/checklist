@@ -11,9 +11,10 @@ class checksheet extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $user;
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -21,6 +22,6 @@ class checksheet extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.checksheet');
+        return view('components.checksheet-form');
     }
 }

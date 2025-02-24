@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('no_hydrant');
             $table->string('location');
             $table->string('type');
-            $table->bigInteger('longitude');
-            $table->bigInteger('latitude');
+            $table->double('longitude');
+            $table->double('latitude');
             $table->timestamps();
         });
     }

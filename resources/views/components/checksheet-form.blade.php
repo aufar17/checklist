@@ -3,7 +3,7 @@
         <div class="card shadow-sm rounded">
             <div class="card-header py-3 bg-danger border-bottom">
                 <div class="d-flex flex-column align-items-start">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center"> {{ $slot }}
                         <i class="fa-solid fa-file-invoice fs-4 me-2 text-white me-3"></i>
                         <h5 class="mb-0 fw-bold text-white">{{ now()->translatedFormat('F') }} Checksheet
                         </h5>
@@ -35,13 +35,8 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="selectPemeriksa" class="form-label">PEMERIKSA</label>
-                                <select class="form-select" id="selectPemeriksa" name="pemeriksa">
-                                    <option selected disabled>Pilih Pemeriksa</option>
-                                    <option value="1">Budi Santoso</option>
-                                    <option value="2">Siti Aisyah</option>
-                                    <option value="3">Ahmad Fauzan</option>
-                                    <option value="4">Dewi Lestari</option>
-                                </select>
+                                <input type="text" class="form-control" aria-describedby="emailHelp" value="{{ $name }}"
+                                    name="pemeriksa" readonly>
                             </div>
 
                         </div>
@@ -49,7 +44,15 @@
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="mb-3">
-                                <label for="dokumentasi" class="form-label">BUKTI PEMERIKSAAN</label>
+                                <label for="" class="form-label">
+                                    BUKTI PEMERIKSAAN
+                                    <span class="mx-1" data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Kamera wajib timestamp">
+                                        <i class="fa-solid fa-circle-info text-danger"></i>
+                                    </span>
+
+                                </label>
+
                                 <input type="file" class="form-control" name="dokumentasi" id="dokumentasi"
                                     accept="image/*" capture="user">
                             </div>

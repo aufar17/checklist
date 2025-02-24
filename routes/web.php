@@ -25,4 +25,4 @@ Route::post('qr-code', [ScanController::class, 'qrScan'])->name('qr-code');
 Route::get('scan', [ScanController::class, 'scan'])->name('scan');
 
 //Checksheet
-Route::get('checksheet', [ChecksheetController::class, 'checksheet'])->name('checksheet');
+Route::get('checksheet/{id}', [ChecksheetController::class, 'checksheet'])->name('checksheet');

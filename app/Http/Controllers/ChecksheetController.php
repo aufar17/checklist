@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hydrant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ChecksheetController extends Controller
 {
-    public function checksheet()
+    public function checksheet($id)
     {
         $session = Auth::check();
         if (!$session) {
@@ -16,6 +17,7 @@ class ChecksheetController extends Controller
 
         $user = Auth::user();
         $otp = session()->has('otp_verified');
+        $checksheet = Hydrant::where('id', $id)->first();
 
         if (!$otp || $otp !== true) {
             return redirect()->route('otp-verif')->withErrors(['error' => 'Silakan verifikasi OTP terlebih dahulu.']);
@@ -24,6 +26,7 @@ class ChecksheetController extends Controller
         $data = [
             'session' => $session,
             'user' => $user,
+            'checksheet' => $checksheet,
         ];
 
         return view('checksheet', $data);

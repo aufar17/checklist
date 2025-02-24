@@ -67,6 +67,9 @@
         </x-navbar>
         <div class="container-fluid py-4">
             <x-kpi></x-kpi>
+            @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <div class="img-container">
                 <img src="{{ asset('img/bg-dashboard.gif') }}" alt="Dashboard Image">
             </div>
