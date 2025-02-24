@@ -67,36 +67,34 @@
         <section class="flex-grow-1">
             <div class="page-header min-vh-75">
                 <div class="wrapper">
-                    <div class="container-main shadow-lg">
-                        @if (session('error'))
-                        <div class="alert alert-danger text-dark text-center">
-                            {{ session('error') }}
-                        </div>
-                        @endif
+                    <div class="title text-center mb-4">
+                        <img src="{{ asset('img/logo.png') }}" alt="">
+                    </div>
+                    @if (session('error'))
+                    <div class="alert alert-danger text-dark text-center">
+                        {{ session('error') }}
+                    </div>
+                    @endif
 
-                        @if ($errors->has('captcha'))
-                        <div class="alert alert-danger text-dark text-center">{{ $errors->first('captcha')
-                            }}</div>
-                        @endif
-                        <div class="row no-gutters">
+                    @if ($errors->has('captcha'))
+                    <div class="alert alert-danger text-dark text-center">{{ $errors->first('captcha')
+                        }}</div>
+                    @endif
+                    <div class="row no-gutters d-flex flex-column align-items-center">
+                        <div class="container-main shadow-lg">
 
-                            <div class="col-lg-6 left">
-                                <div class="title text-center">
-                                    <img src="{{ asset('img/logo.png') }}" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 right">
-                                <header>SIGN IN</header>
+                            <div class="bottom w-100">
+                                <header class="mb-4">SIGN IN</header>
                                 <form action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <div class="form-group mb-4">
-                                        <input type="etxt" class="form-control" id="exampleInputUsername1"
+                                        <input type="text" class="form-control" id="exampleInputUsername1"
                                             placeholder="" name="npk" />
-                                        <label for="exampleInputPassword1" class="form-label">Username</label>
+                                        <label for="exampleInputUsername1" class="form-label">Username</label>
                                     </div>
                                     <div class="form-group mb-4">
                                         <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="" name="password" />
+                                            name="password" placeholder="" />
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
                                     </div>
                                     <div class="captcha-container text-center mb-4">
@@ -107,15 +105,15 @@
                                         </button>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="exampleInputCaptcha1" placeholder=""
-                                            name="captcha" />
-
+                                        <input type="text" class="form-control" id="exampleInputCaptcha1" name="captcha"
+                                            placeholder="" />
                                         <label for="exampleInputCaptcha1" class="form-label">Captcha</label>
                                     </div>
                                     <button type="submit" class="btn btn-login w-100 mt-3">Submit</button>
                                 </form>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
