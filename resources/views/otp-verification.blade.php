@@ -83,7 +83,7 @@
                 @endif
 
                 <div class="wrapper">
-                    <div class="container-main shadow-lg p-5 text-center">
+                    <div class="container-main shadow-lg p-5 text-center w-100 col-lg-6 col-md-8 col-sm-10 mx-auto">
                         <header class="mb-4">
                             <h3>Verifikasi OTP</h3>
                             <p>Masukkan kode OTP yang telah dikirim ke nomor Anda</p>
