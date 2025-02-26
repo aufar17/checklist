@@ -66,7 +66,11 @@
             @endslot
         </x-navbar>
         <div class="container-fluid py-4">
-            <x-kpi></x-kpi>
+            <x-kpi>
+                @slot('amount')
+                {{ $hydrant->count() }}
+                @endslot
+            </x-kpi>
             @if (session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>
             @endif

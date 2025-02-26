@@ -66,26 +66,57 @@
             @endslot
         </x-navbar>
         <div class="container-fluid py-4">
-            <x-kpi></x-kpi>
-            <div class="img-container">
-                <img src="{{ asset('img/dashboard.png') }}" alt="Dashboard Image">
-            </div>
-            <div class="row">
-                <div class="col-12 text-center d-flex justify-content-center align-items-center">
-                    <button class="btn btn-success mt-0 shadow-lg" id="startScanner"><i
-                            class="fa-solid fa-qrcode"></i></button>
-                </div>
-                <div class="col-12 text-center d-flex justify-content-center align-items-center mb-5">
-                    <span class="text-bold ">Scan Here!</span>
-                </div>
-            </div>
-            <video id="preview" style="width: 100%; height: auto; display: none;"></video>
+            <div class="container mt-3 p-0 table-responsive">
+                <a href="" class="btn btn-success"><i class="fa-solid fa-plus me-2"></i>New</a>
+                <table id="example" class="table table-striped table-bordered text-center table-hover"
+                    style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Hydrant Code</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($hydrants as $hydrant)
+                        <tr>
+                            <td>{{$no++ }}</td>
+                            <td>{{$hydrant->no_hydrant }}</td>
+                            <td>{{$hydrant->location }}</td>
+                            <td>{{$hydrant->type }}</td>
+                            <td><button
+                                    class="badge text-bg-warning rounded-pill p-1 px-2 border-0 rounded fw-bold fs-7"><span
+                                        class="text-white">
+                                        Uncheck</span></button>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-info btn-sm p-2 border-0 rounded d-inline-flex align-items-center
+                                    justify-content-center">
+                                    <i class="fa-solid fa-circle-info fs-6"></i>
+                                </a>
+                                <a
+                                    class="btn btn-warning btn-sm p-2 border-0 rounded d-inline-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-pen-to-square fs-6"></i>
+                                </a>
+                                <a
+                                    class="btn btn-danger btn-sm p-2 border-0 rounded d-inline-flex align-items-center justify-content-center">
+                                    <i class="fa-solid fa-trash fs-6"></i> </a>
 
-            <form id="scan-form" method="POST" action="{{ route('qr-code') }}">
-                @csrf
-                <input type="hidden" name="qrcode_data" id="qrcode_data">
-            </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>Empty Hydrant Data</tr>
+                        @endforelse
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-center mt-3 ">
+                    {{ $hydrants->links('pagination::bootstrap-5') }}
+                </div>
 
+            </div>
             <x-footer></x-footer>
         </div>
     </main>
@@ -99,17 +130,23 @@
     <script src="{{ asset('js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('js/plugins/chartjs.min.js') }}"></script>
     <script src="{{ asset('js/curve-chart.js') }}"></script>
+    <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
     <script src="js/data-table.js"></script>
     <script src="js/jquery.dataTables.js"></script>
     <script src="js/dataTables.bootstrap4.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
+            $('#example').DataTable({
+            "paging": false, 
+            "info": false,   
+            "searching": true,
+            });
         });
+        $("#example_filter").appendTo("#tableHeader").addClass("ms-auto");
     </script>
 
     <script>
@@ -121,14 +158,7 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-    <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
 
-    <script>
-        {{ asset('js/scanqr.js') }}
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
 </body>
 

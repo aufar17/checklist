@@ -18,7 +18,7 @@
             </x-navlink>
             <x-navlink href="{{ route('hydrant') }}" :active="request()->is('hydrant') " icon="fa-list">Hydrant
             </x-navlink>
-            <x-navlink href="{{ route('hydrant') }}" :active="request()->is('hydrant')" icon="fa-bell" :notifCount="10">
+            <x-navlink href="" :active="request()->is()" icon="fa-bell" :notifCount="10">
                 Reminder
             </x-navlink>
 

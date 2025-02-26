@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hydrant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,7 @@ class MainController extends Controller
     {
 
         $session = Auth::check();
+        $hydrant = Hydrant::all();
         if (!$session) {
             return redirect()->route('login')->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
@@ -31,6 +33,7 @@ class MainController extends Controller
         $data = [
             'session' => $session,
             'user' => $user,
+            'hydrant' => $hydrant,
         ];
 
         return view('dashboard', $data);
@@ -40,18 +43,21 @@ class MainController extends Controller
     public function hydrant()
     {
         $session = Auth::check();
-        if ($session) {
-            $user = Auth::user();
-            $data = [
-                'user' => $user,
-                'session' => $session,
-            ];
-
-            return view('hydrant', $data);
-        }
+        $hydrants = Hydrant::paginate(10);
+        $user = Auth::user();
+        $no = ($hydrants->currentPage() - 1) * $hydrants->perPage() + 1;
 
         if (!$session) {
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
+
+        $data = [
+            'user' => $user,
+            'session' => $session,
+            'hydrants' => $hydrants,
+            'no' => $no,
+        ];
+
+        return view('hydrant', $data);
     }
 }
