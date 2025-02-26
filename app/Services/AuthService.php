@@ -11,21 +11,6 @@ class AuthService
 {
     public function authenticate(Request $request)
     {
-        // $request->validate([
-        //     'npk' => ['required', 'string'],
-        //     'password' => ['required', 'string'],
-        // ]);
-
-        // $user = User::where('npk', $request->npk)->first();
-
-        // if ($user && Hash::check($request->password, $user->password)) {
-        //     session(['show_otp_modal' => true]);
-        //     session(['_user' => $user]);
-        //     // return $user;
-        // }
-
-        // throw ValidationException::withMessages([
-        //     'npk' => ['NPK atau password salah.'],
-        // ]);
+        
     }
 }

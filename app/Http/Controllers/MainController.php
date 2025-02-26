@@ -11,7 +11,7 @@ class MainController extends Controller
 
     public function index()
     {
-        return view('login');
+        return view('authentication.login');
     }
 
     public function admin()
@@ -58,6 +58,6 @@ class MainController extends Controller
             'no' => $no,
         ];
 
-        return view('hydrant', $data);
+        return view('hydrant.hydrant', $data);
     }
 }

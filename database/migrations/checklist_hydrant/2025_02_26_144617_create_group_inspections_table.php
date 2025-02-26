@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql')->create('hydrants', function (Blueprint $table) {
+        Schema::connection('mysql')->create('group_inspections', function (Blueprint $table) {
             $table->id();
-            $table->string('no_hydrant');
-            $table->string('location');
-            $table->string('type');
-            $table->double('longitude');
-            $table->double('latitude');
+            $table->integer('group_id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hydrants');
+        Schema::dropIfExists('group_inspections');
     }
 };

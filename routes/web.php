@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\ChecksheetController;
+use App\Http\Controllers\HydrantController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OtpController;
 use App\Http\Controllers\ScanController;
+use App\Models\Hydrant;
 use Illuminate\Support\Facades\Route;
 use Mews\Captcha\Facades\Captcha;
 
@@ -26,3 +28,8 @@ Route::get('scan', [ScanController::class, 'scan'])->name('scan');
 
 //Checksheet
 Route::get('checksheet/{id}', [ChecksheetController::class, 'checksheet'])->name('checksheet');
+
+// Hydrant Features
+Route::get('new-hydrant', [HydrantController::class, 'newHydrant'])->name('new-hydrant');
+Route::post('hydrant-post', [HydrantController::class, 'hydrantPost'])->name('hydrant-post');
+Route::get('detail-hydrant/{id}', [HydrantController::class, 'detailHydrant'])->name('detail-hydrant');

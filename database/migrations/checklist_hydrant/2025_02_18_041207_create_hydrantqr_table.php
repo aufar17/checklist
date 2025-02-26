@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::connection('mysql')->create('hydrantqr', function (Blueprint $table) {
             $table->id();
-            $table->string('content'); // Menyimpan isi QR Code
-            $table->string('scanned_by')->nullable(); // Opsional: Menyimpan user yang melakukan scan
+            $table->string('content');
+            $table->string('scanned_by')->nullable();
             $table->timestamp('scanned_at')->useCurrent();
             $table->timestamps();
         });

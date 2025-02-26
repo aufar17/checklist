@@ -37,7 +37,7 @@ class OtpController extends Controller
             'expiryTimestamp' => strtotime($otp->expiry_date),
         ];
 
-        return view('otp-verification', $data);
+        return view('authentication.otp-verification', $data);
     }
 
 

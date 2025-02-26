@@ -47,7 +47,10 @@
         </x-navbar>
         <div class="container-fluid py-4">
             {{-- <div class="alert alert-success text-dark fw-bold">Hydrant H1134 Berhasil di scan!</div> --}}
-            <x-hydrant-details>
+            <x-hydrant-details-card>
+                @slot('code')
+                {{ $checksheet->no_hydrant }}
+                @endslot
                 @slot('location')
                 {{ $checksheet->location }}
                 @endslot
@@ -60,7 +63,7 @@
                 @slot('longitude')
                 {{ $checksheet->longitude }}
                 @endslot
-            </x-hydrant-details>
+            </x-hydrant-details-card>
             <x-checksheet-form>
                 @slot('name')
                 {{ $user->name }}
