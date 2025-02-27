@@ -46,22 +46,29 @@
             @endslot
         </x-navbar>
         <div class="container-fluid py-4">
-            {{-- <div class="alert alert-success text-dark fw-bold">Hydrant H1134 Berhasil di scan!</div> --}}
+            @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+
             <x-hydrant-details-card>
                 @slot('code')
-                {{ $checksheet->no_hydrant }}
+                {{ $hydrantData['code'] }}
                 @endslot
                 @slot('location')
-                {{ $checksheet->location }}
+                {{ $hydrantData['location'] }}
                 @endslot
                 @slot('type')
-                {{ $checksheet->type }}
+                {{ $hydrantData['type'] }}
                 @endslot
                 @slot('latitude')
-                {{ $checksheet->latitude }}
+                {{ $hydrantData['latitude'] }}
                 @endslot
                 @slot('longitude')
-                {{ $checksheet->longitude }}
+                {{ $hydrantData['longitude'] }}
                 @endslot
             </x-hydrant-details-card>
             <x-checksheet-form>

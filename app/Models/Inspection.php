@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Inspection extends Model
 {
@@ -12,4 +13,9 @@ class Inspection extends Model
         'group_id',
         'item',
     ];
+
+    public function inspection__hydrants(): HasMany
+    {
+        return $this->hasMany(Inspection_Hydrant::class, 'id', 'inspection_id');
+    }
 }

@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql')->create('inspections', function (Blueprint $table) {
+        Schema::create('inspections', function (Blueprint $table) {
             $table->id();
+            $table->integer('group_id');
             $table->string('item');
             $table->timestamps();
         });

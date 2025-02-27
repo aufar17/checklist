@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::connection('mysql')->create('group_inspections', function (Blueprint $table) {
             $table->id();
-            $table->integer('group_id');
             $table->string('name');
             $table->timestamps();
         });

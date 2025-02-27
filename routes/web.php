@@ -3,7 +3,6 @@
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\ChecksheetController;
 use App\Http\Controllers\HydrantController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OtpController;
 use App\Http\Controllers\ScanController;
@@ -23,7 +22,7 @@ Route::post('verify-otp', [OtpController::class, 'verify'])->name('verify-otp');
 Route::post('resend-otp', [OtpController::class, 'resendOtp'])->name('resend-otp');
 
 // Home Features
-Route::post('qr-code', [ScanController::class, 'qrScan'])->name('qr-code');
+Route::post('scan-process', [ScanController::class, 'scanProcess'])->name('scan-process');
 Route::get('scan', [ScanController::class, 'scan'])->name('scan');
 
 //Checksheet

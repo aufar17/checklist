@@ -16,6 +16,6 @@ class GroupInspection extends Model
 
     public function inspection(): HasMany
     {
-        return $this->hasMany(Inspection::class);
+        return $this->hasMany(Inspection::class, 'id', 'group_id');
     }
 }

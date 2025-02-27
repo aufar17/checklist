@@ -89,7 +89,7 @@
             </div>
 
 
-            <form id="scan-form" method="POST" action="{{ route('qr-code') }}">
+            <form id="scan-form" method="POST" action="{{ route('scan-process') }}">
                 @csrf
                 <input type="hidden" name="qrcode_data" id="qrcode_data">
             </form>
