@@ -72,7 +72,10 @@
                 @endslot
             </x-kpi>
             @if (session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
             @endif
             <div class="img-container">
                 <img src="{{ asset('img/bg-dashboard.gif') }}" alt="Dashboard Image">

@@ -21,7 +21,12 @@ class ChecksheetController extends Controller
         $checksheet = HydrantQR::where('id', $id)->first();
 
         if (!$otp || $otp !== true) {
-            return redirect()->route('otp-verif')->withErrors(['error' => 'Silakan verifikasi OTP terlebih dahulu.']);
+            return redirect()->route('admin')->with('error', 'Anda harus mengakses melalui scan QR Code.');
+        }
+
+        $scanned = session('scanned');
+        if (!$scanned || (int) $scanned !== (int) $id) {
+            return redirect()->route('admin')->withErrors(['error' => 'Anda harus mengakses melalui scan QR Code.']);
         }
 
         $hydrantData = json_decode($checksheet->content, true);
@@ -32,10 +37,14 @@ class ChecksheetController extends Controller
 
         $data = [
             'session' => $session,
+            'scanned' => $scanned,
             'user' => $user,
             'checksheet' => $checksheet,
             'hydrantData' => $hydrantData,
         ];
+
+
+        session()->remove('scanned');
 
         return view('checksheet', $data);
     }

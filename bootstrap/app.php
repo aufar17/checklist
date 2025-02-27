@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckHydrantScan;
 use App\Http\Middleware\CheckOtp;
 use App\Http\Middleware\CheckSession;
 use Illuminate\Foundation\Application;
@@ -14,7 +15,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->appendToGroup('web', [
-            // CheckOtp::class,
             CheckSession::class,
         ]);
     })

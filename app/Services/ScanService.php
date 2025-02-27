@@ -70,6 +70,8 @@ class ScanService
             'scanned_at' => now()
         ]);
 
+        session()->put('scanned', $qrCodeScan->id);
+
         return [
             'message' => 'Scan berhasil!',
             'data' => $qrCodeScan,
