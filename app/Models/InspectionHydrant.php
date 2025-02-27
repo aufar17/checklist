@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Inspection_Hydrant extends Model
+class InspectionHydrant extends Model
 {
     protected $connection = 'mysql';
     protected $table = 'inspection__hydrants';

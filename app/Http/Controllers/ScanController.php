@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Hydrant;
 use App\Models\HydrantQR;
 use App\Services\ScanService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,9 @@ class ScanController extends Controller
         $result = new ScanService();
         $result = $result->scanProcess($latitude, $longitude, $code);
 
+        if ($result instanceof JsonResponse) {
+            return $result;
+        }
         return redirect()->route('checksheet', ['id' => $result['data']->id])
             ->with('success', 'Scan berhasil!');;
     }

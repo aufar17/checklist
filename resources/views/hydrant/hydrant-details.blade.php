@@ -69,40 +69,42 @@
                 Inspection History
                 @endslot
                 @slot('body')
-                <table id="example" class="table table-striped table-bordered text-center table-hover"
-                    style="width:100%">
-                    <thead>
-                        <tr>
-                            <th class="text-center">No</th>
-                            <th class="text-center">Tanggal</th>
-                            <th class="text-center">Waktu</th>
-                            <th class="text-center">Pemeriksa</th>
-                            <th class="text-center">Bukti</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">{{$no++ }}</td>
-                            <td class="text-center">{{ now()->format('d M Y') }}</td>
-                            <td class="text-center">{{ now()->format('H:m') }}</td>
-                            <td class="text-center">{{$hydrant->location }}</td>
-                            <td class="text-center">{{$hydrant->type }}</td>
-                            <td class="text-center"><button
-                                    class="badge text-bg-warning rounded-pill p-1 px-2 border-0 rounded fw-bold fs-7"><span
-                                        class="text-white">
-                                        Uncheck</span></button>
-                            </td>
-                            <td>
-                                <a
-                                    class="btn btn-primary btn-sm p-2 border-0 rounded d-inline-flex align-items-center justify-content-center">
-                                    <i class="fa-solid fa-print fs-6"></i> </a>
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered text-center table-hover"
+                        style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Tanggal</th>
+                                <th class="text-center">Waktu</th>
+                                <th class="text-center">Pemeriksa</th>
+                                <th class="text-center">Bukti</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">{{$no++ }}</td>
+                                <td class="text-center">{{ now()->format('d M Y') }}</td>
+                                <td class="text-center">{{ now()->format('H:m') }}</td>
+                                <td class="text-center">{{$hydrant->location }}</td>
+                                <td class="text-center">{{$hydrant->type }}</td>
+                                <td class="text-center"><button
+                                        class="badge text-bg-warning rounded-pill p-1 px-2 border-0 rounded fw-bold fs-7"><span
+                                            class="text-white">
+                                            Uncheck</span></button>
+                                </td>
+                                <td>
+                                    <a
+                                        class="btn btn-primary btn-sm p-2 border-0 rounded d-inline-flex align-items-center justify-content-center">
+                                        <i class="fa-solid fa-print fs-6"></i> </a>
 
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 @endslot
             </x-card>
             <x-footer></x-footer>

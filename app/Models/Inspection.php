@@ -11,11 +11,17 @@ class Inspection extends Model
     protected $table = 'inspections';
     protected $fillable = [
         'group_id',
+        'slug',
         'item',
     ];
 
     public function inspection__hydrants(): HasMany
     {
-        return $this->hasMany(Inspection_Hydrant::class, 'id', 'inspection_id');
+        return $this->hasMany(InspectionHydrant::class, 'id', 'inspection_id');
+    }
+
+    public static function getIdBySlug($slug)
+    {
+        return self::where('slug', $slug)->value('id');
     }
 }

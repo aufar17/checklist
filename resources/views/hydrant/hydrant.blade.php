@@ -70,7 +70,7 @@
             <div class="alert alert-success">{{ session('success') }}</div>
             @endif
             <div class="row mt-4">
-                <div class="col-12">
+                <div class="col-md-12">
                     <x-card>
                         @slot('title')
                         Hydrant Table
@@ -78,49 +78,50 @@
                         @slot('body')
                         <a href="{{ route('new-hydrant') }}" class="btn btn-success"><i
                                 class="fa-solid fa-plus me-2"></i>New</a>
-                        <table id="example" class="table table-striped table-bordered text-center table-hover"
-                            style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">No</th>
-                                    <th class="text-center">Kode Hydrant</th>
-                                    <th class="text-center">Lokasi</th>
-                                    <th class="text-center">Tipe</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($hydrants as $hydrant)
-                                <tr>
-                                    <td class="text-center">{{$no++ }}</td>
-                                    <td class="text-center">{{$hydrant->no_hydrant }}</td>
-                                    <td class="text-center">{{$hydrant->location }}</td>
-                                    <td class="text-center">{{$hydrant->type }}</td>
-                                    <td class="text-center"><button
-                                            class="badge text-bg-warning rounded-pill p-1 px-2 border-0 rounded fw-bold fs-7"><span
-                                                class="text-white">
-                                                Uncheck</span></button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('detail-hydrant',['id'=>$hydrant->id]) }}" class="btn btn-info btn-sm p-2 border-0 rounded d-inline-flex align-items-center
-                        justify-content-center">
-                                            <i class="fa-solid fa-circle-info fs-6"></i>
-                                        </a>
-                                        <a
-                                            class="btn btn-warning btn-sm p-2 border-0 rounded d-inline-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-pen-to-square fs-6"></i>
-                                        </a>
-                                        <a
-                                            class="btn btn-danger btn-sm p-2 border-0 rounded d-inline-flex align-items-center justify-content-center">
-                                            <i class="fa-solid fa-trash fs-6"></i> </a>
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped table-bordered text-center table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Kode Hydrant</th>
+                                        <th class="text-center">Lokasi</th>
+                                        <th class="text-center">Tipe</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($hydrants as $hydrant)
+                                    <tr>
+                                        <td class="text-center">{{$no++ }}</td>
+                                        <td class="text-center">{{$hydrant->no_hydrant }}</td>
+                                        <td class="text-center">{{$hydrant->location }}</td>
+                                        <td class="text-center">{{$hydrant->type }}</td>
+                                        <td class="text-center">
+                                            <button
+                                                class="badge text-bg-warning rounded-pill p-1 px-2 border-0 fw-bold fs-7">
+                                                <span class="text-white">Uncheck</span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('detail-hydrant',['id'=>$hydrant->id]) }}"
+                                                class="btn btn-info btn-sm p-2 border-0 rounded">
+                                                <i class="fa-solid fa-circle-info fs-6"></i>
+                                            </a>
+                                            <a class="btn btn-warning btn-sm p-2 border-0 rounded">
+                                                <i class="fa-solid fa-pen-to-square fs-6"></i>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm p-2 border-0 rounded">
+                                                <i class="fa-solid fa-trash fs-6"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
 
-                                    </td>
-                                </tr>
-                                @empty
-                                @endforelse
-                            </tbody>
-                        </table>
                         @endslot
                     </x-card>
                 </div>

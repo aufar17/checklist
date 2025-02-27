@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Hydrant;
 use App\Models\HydrantQR;
+use App\Models\Inspection;
+use App\Models\InspectionHydrant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,5 +49,28 @@ class ChecksheetController extends Controller
         session()->remove('scanned');
 
         return view('checksheet', $data);
+    }
+
+    public function checksheetPost(Request $request)
+    {
+        foreach ($request->input('values', []) as $slug => $value) {
+            $user = Auth::user();
+
+            $inspectionId = Inspection::getIdBySlug($slug);
+
+            if (!empty($inspectionId)) {
+                InspectionHydrant::create([
+                    'hydrant_id'      => $request->hydrant_id,
+                    'inspection_id'   => $inspectionId,
+                    'inspection_date' => now(),
+                    'notes'           => $request->notes,
+                    'values'          => $value,
+                    'created_by'      => $user->name,
+                    'created_date'    => now(),
+                ]);
+            }
+        }
+
+        return redirect()->route('hydrant')->with('success', 'Data berhasil disimpan!');
     }
 }

@@ -75,6 +75,9 @@
                 @slot('name')
                 {{ $user->name }}
                 @endslot
+                @slot('hydrantid')
+                <input hidden type="text" name="hydrant_id" value="{{ $hydrantData['id'] }}">
+                @endslot
             </x-checksheet-form>
             <x-footer></x-footer>
         </div>

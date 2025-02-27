@@ -27,6 +27,7 @@ Route::get('scan', [ScanController::class, 'scan'])->name('scan');
 
 //Checksheet
 Route::get('checksheet/{id}', [ChecksheetController::class, 'checksheet'])->name('checksheet');
+Route::post('checksheet-post', [ChecksheetController::class, 'checksheetPost'])->name('checksheet-post');
 
 // Hydrant Features
 Route::get('new-hydrant', [HydrantController::class, 'newHydrant'])->name('new-hydrant');

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('inspections', function (Blueprint $table) {
             $table->id();
             $table->integer('group_id');
+            $table->string('slug')->unique();
             $table->string('item');
             $table->timestamps();
         });

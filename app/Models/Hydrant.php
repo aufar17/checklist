@@ -19,6 +19,6 @@ class Hydrant extends Model
 
     public function inspection__hydrants(): HasMany
     {
-        return $this->hasMany(Inspection_Hydrant::class, 'id', 'id_hydrant');
+        return $this->hasMany(InspectionHydrant::class, 'id', 'id_hydrant');
     }
 }

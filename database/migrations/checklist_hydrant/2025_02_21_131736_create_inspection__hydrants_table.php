@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('hydrant_id');
             $table->string('inspection_id');
             $table->date('inspection_date');
-            $table->integer('values');
+            $table->string('values');
             $table->text('notes');
-            $table->string('known_by');
-            $table->string('checked_by');
+            $table->string('known_by')->nullable();
+            $table->string('checked_by')->nullable();
             $table->string('created_by');
-            $table->date('known_date');
-            $table->date('checked_date');
+            $table->date('known_date')->nullable();
+            $table->date('checked_date')->nullable();
             $table->date('created_date');
             $table->timestamps();
         });

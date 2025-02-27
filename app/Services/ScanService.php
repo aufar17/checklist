@@ -57,6 +57,7 @@ class ScanService
         }
 
         $hydrantData = [
+            'id' => $hydrant->id,
             'code' => $hydrant->no_hydrant,
             'location' => $hydrant->location,
             'type' => $hydrant->type,
