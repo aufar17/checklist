@@ -44,7 +44,14 @@
 </style>
 
 <body class="g-sidenav-show  bg-gray-100">
-    <x-sidebar></x-sidebar>
+    <x-sidebar>
+        @slot('name')
+        {{ $user->name }}
+        @endslot
+        @slot('dept')
+        {{ $user->dept }}
+        @endslot
+    </x-sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
         <x-navbar>
             @slot('title')
