@@ -51,13 +51,13 @@ class InspectionSeeder extends Seeder
             ],
             [
                 'group_id' => 3,
-                'slug' => 'jumlah-nozle',
-                'item' => 'Jumlah Nozle',
+                'slug' => 'jenis-nozle',
+                'item' => 'jenis Nozle',
             ],
             [
                 'group_id' => 3,
-                'slug' => 'panjang-nozle',
-                'item' => 'Panjang Nozle',
+                'slug' => 'jumlah-nozle',
+                'item' => 'Jumlah Nozle',
             ],
             [
                 'group_id' => 3,

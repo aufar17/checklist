@@ -11,7 +11,8 @@
                 </div>
             </div>
             <div class="card-body p-2">
-                <form class="px-4 py-3" action="{{ route('checksheet-post') }}" method="POST">
+                <form class="px-4 py-3" action="{{ route('checksheet-post') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-6">
@@ -44,28 +45,23 @@
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="mb-3">
-                                <label for="" class="form-label">
-                                    BUKTI PEMERIKSAAN
-                                    <span class="mx-1" data-bs-toggle="tooltip" data-bs-placement="right"
-                                        title="Kamera wajib timestamp">
-                                        <i class="fa-solid fa-circle-info text-danger"></i>
-                                    </span>
-
-                                </label>
-
-                                <input type="file" class="form-control" name="dokumentasi" id="dokumentasi"
-                                    accept="image/*" capture="user">
+                                <label for="dokumentasi" class="form-label">Bukti Pemeriksaan</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control d-none" name="documentation" id="dokumentasi"
+                                        accept="image/*" required onchange="previewImage(event)">
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="document.getElementById('dokumentasi').click()">
+                                        <i class="fa fa-camera"></i> Ambil Gambar
+                                    </button>
+                                </div>
+                                <div class="mt-3">
+                                    <img id="preview" src="" class="img-thumbnail d-none" style="max-width: 200px;">
+                                </div>
                             </div>
+
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label for="" class="form-label">CATATAN</label>
-                                <textarea class="form-control" name="notes" cols="30" rows="5"></textarea>
-                            </div>
-                        </div>
-                    </div>
+
 
 
                     <div class="bg-secondary px-3 py-2 mt-4 mb-3 rounded">
@@ -145,15 +141,14 @@
                                 <label class="form-label">PANJANG</label>
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiopanjang-selang1"
-                                        name="values[panjang-selang]" value="Ada">
-                                    <label class="form-check-label" for="radiopanjang-selang1">Ada</label>
+                                        name="values[panjang-selang]" value="1.5">
+                                    <label class="form-check-label" for="radiopanjang-selang1">1.5 inch</label>
                                 </div>
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiopanjang-selang2"
-                                        name="values[panjang-selang]" value="Tidak Ada">
-                                    <label class="form-check-label" for="radiopanjang-selang2">Tidak
-                                        Ada</label>
+                                        name="values[panjang-selang]" value="2.5">
+                                    <label class="form-check-label" for="radiopanjang-selang2">2.5 inch</label>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +193,7 @@
                         <h5 class="text-white">Nozle</h5>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">JUMLAH</label>
                                 <input type="number" class="form-control" aria-describedby="emailHelp"
@@ -207,22 +202,20 @@
                         </div>
                         <div class="col-md-2">
                             <div class="mb-3">
-                                <label class="form-label">PANJANG</label>
+                                <label for="exampleInputEmail1" class="form-label">Jenis</label>
                                 <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiopanjangnozle1"
-                                        name="values[panjang-nozle]" value="Ada">
-                                    <label class="form-check-label" for="radiopanjangnozle1">Ada</label>
+                                    <input type="radio" class="form-check-input border-dark" id="radiojenisnozle1"
+                                        name="values[jenis-nozle]" value="Jet">
+                                    <label class="form-check-label" for="radiojenisnozle1">Jet</label>
                                 </div>
 
                                 <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiopanjangnozle2"
-                                        name="values[panjang-nozle]" value="Tidak Ada">
-                                    <label class="form-check-label" for="radiopanjangnozle2">Tidak
-                                        Ada</label>
+                                    <input type="radio" class="form-check-input border-dark" id="radiojenisnozle2"
+                                        name="values[jenis-nozle]" value="Spray">
+                                    <label class="form-check-label" for="radiojenisnozle2">Spray</label>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">SEAL</label>
@@ -333,7 +326,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="bg-secondary px-3 py-2 mt-4 mb-3 rounded">
@@ -385,6 +377,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="" class="form-label">CATATAN</label>
+                                <textarea class="form-control" name="notes" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
                     {{ $hydrantid }}
                     <button type="submit" class="btn btn-danger mt-2">Submit</button>
                 </form>
@@ -393,3 +393,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('preview');
+            output.src = reader.result;
+            output.classList.remove('d-none');
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

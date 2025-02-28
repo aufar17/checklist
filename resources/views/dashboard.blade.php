@@ -64,7 +64,7 @@
             @endif
             @endslot
 
-            @slot('name')
+            @slot('name')   
             {{ $user->name }}
             @endslot
 

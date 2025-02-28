@@ -113,16 +113,12 @@
                                 </form>
                             </div>
                         </div>
-                        @if (Auth::check())
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit">Logout</button>
-                        </form>
 
-                        @endif
                     </div>
                 </div>
             </div>
+
+
         </section>
     </main>
 

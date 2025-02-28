@@ -12,6 +12,7 @@ class InspectionHydrant extends Model
         'hydrant_id',
         'inspection_id',
         'inspection_date',
+        'documentation',
         'values',
         'notes',
         'known_by',

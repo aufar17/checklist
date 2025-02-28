@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('hydrant_id');
             $table->string('inspection_id');
             $table->date('inspection_date');
+            $table->string('documentation')->nullable();
             $table->string('values');
             $table->text('notes');
             $table->string('known_by')->nullable();

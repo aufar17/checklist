@@ -53,9 +53,17 @@ class ChecksheetController extends Controller
 
     public function checksheetPost(Request $request)
     {
+
+        if ($request->hasFile('documentation')) {
+            $file = $request->file('documentation');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('documentation', $filename, 'public');
+        } else {
+            $filename = null;
+        }
+
         foreach ($request->input('values', []) as $slug => $value) {
             $user = Auth::user();
-
             $inspectionId = Inspection::getIdBySlug($slug);
 
             if (!empty($inspectionId)) {
@@ -63,6 +71,7 @@ class ChecksheetController extends Controller
                     'hydrant_id'      => $request->hydrant_id,
                     'inspection_id'   => $inspectionId,
                     'inspection_date' => now(),
+                    'documentation'   => $filename,
                     'notes'           => $request->notes,
                     'values'          => $value,
                     'created_by'      => $user->name,
