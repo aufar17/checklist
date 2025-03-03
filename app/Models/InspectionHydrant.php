@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class InspectionHydrant extends Model
 {
@@ -23,4 +24,9 @@ class InspectionHydrant extends Model
         'created_date',
 
     ];
+
+    public function hydrant(): BelongsTo
+    {
+        return $this->belongsTo(Hydrant::class, 'hydrant_id', 'id');
+    }
 }

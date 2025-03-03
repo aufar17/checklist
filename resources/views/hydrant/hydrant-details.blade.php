@@ -46,7 +46,6 @@
             @endslot
         </x-navbar>
         <div class="container-fluid py-4">
-            {{-- <div class="alert alert-success text-dark fw-bold">Hydrant H1134 Berhasil di scan!</div> --}}
             <x-hydrant-details-card>
                 @slot('code')
                 {{ $hydrant->no_hydrant }}
@@ -69,42 +68,25 @@
                 Inspection History
                 @endslot
                 @slot('body')
-                <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered text-center table-hover"
-                        style="width:100%">
-                        <thead>
-                            <tr>
-                                <th class="text-center">No</th>
-                                <th class="text-center">Tanggal</th>
-                                <th class="text-center">Waktu</th>
-                                <th class="text-center">Pemeriksa</th>
-                                <th class="text-center">Bukti</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center">{{$no++ }}</td>
-                                <td class="text-center">{{ now()->format('d M Y') }}</td>
-                                <td class="text-center">{{ now()->format('H:m') }}</td>
-                                <td class="text-center">{{$hydrant->location }}</td>
-                                <td class="text-center">{{$hydrant->type }}</td>
-                                <td class="text-center"><button
-                                        class="badge text-bg-warning rounded-pill p-1 px-2 border-0 rounded fw-bold fs-7"><span
-                                            class="text-white">
-                                            Uncheck</span></button>
-                                </td>
-                                <td>
-                                    <a
-                                        class="btn btn-primary btn-sm p-2 border-0 rounded d-inline-flex align-items-center justify-content-center">
-                                        <i class="fa-solid fa-print fs-6"></i> </a>
+                <x-checksheet-table>
+                    @slot('code')
+                    {{ $hydrant->no_hydrant }}
+                    @endslot
+                    @slot('location')
+                    {{ $hydrant->location }}
+                    @endslot
+                    @slot('year')
+                    {{ now()->format('Y') }}
+                    @endslot
+                    @slot('type')
+                    <span>Indoor</span>
+                    <input disabled type="radio" class="custom-radio" @checked($hydrant->type == 'Indoor')>
 
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <span>Outdoor</span>
+                    <input disabled type="radio" class="custom-radio" @checked($hydrant->type == 'Outdoor')>
+
+                    @endslot
+                </x-checksheet-table>
                 @endslot
             </x-card>
             <x-footer></x-footer>
@@ -127,16 +109,6 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-            "paging": false, 
-            "info": false,   
-            "searching": true,
-            });
-        });
-        $("#example_filter").appendTo("#tableHeader").addClass("ms-auto");
-    </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {

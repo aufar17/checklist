@@ -78,6 +78,57 @@
                         @slot('body')
                         <a href="{{ route('new-hydrant') }}" class="btn btn-success"><i
                                 class="fa-solid fa-plus me-2"></i>New</a>
+                        <div class="row mb-3 align-items-end">
+                            <div class="col-sm-2">
+                                <label for="filterYear" class="form-label">Year</label>
+                                <select id="filterYear" class="form-select form-control-sm" style="height: 38px;">
+                                    <option value="">All</option>
+                                    @for ($y = date('Y'); $y >= date('Y') - 5; $y--)
+                                    <option value="{{ $y }}">{{ $y }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label for="filterMonth" class="form-label">Month</label>
+                                <select id="filterMonth" class="form-select form-control-sm" style="height: 38px;">
+                                    <option value="">All</option>
+                                    @for ($m = 1; $m <= 12; $m++) <option value="{{ $m }}">{{ date('F', mktime(0, 0, 0,
+                                        $m, 1)) }}</option>
+                                        @endfor
+                                </select>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label class="form-label d-block my-2">Export</label>
+                                <div class="dropdown mt-2">
+                                    <button class="btn btn-primary btn-sm dropdown-toggle w-100" type="button"
+                                        data-bs-toggle="dropdown">
+                                        Export
+                                    </button>
+                                    <ul class="dropdown-menu w-100">
+                                        <li>
+                                            <button class="dropdown-item" id="btn-pdf">
+                                                <i class="fa-solid fa-file-pdf text-danger"></i> PDF
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item" id="btn-excel">
+                                                <i class="fa-solid fa-file-excel text-success"></i> Excel
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div id="tableHeader" class="w-100"></div>
+                            </div>
+                        </div>
+
+
+
+
                         <div class="table-responsive">
                             <table id="example" class="table table-striped table-bordered text-center table-hover">
                                 <thead>
@@ -92,17 +143,90 @@
                                 </thead>
                                 <tbody>
                                     @forelse ($hydrants as $hydrant)
+                                    <div class="modal fade" id="trackingModal-{{ $hydrant->id }}" tabindex="-1"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-danger">
+                                                    <h5 class="modal-title fw-bold text-white">Validasi Inspeksi</h5>
+                                                    <button type="button" class="btn-close btn-close-light"
+                                                        data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="list-group">
+                                                        @php
+                                                        $inspection = $hydrant->InspectionThisMonth->first();
+                                                        $createdBy = ($inspection &&
+                                                        $hydrant->InspectionThisMonth->count() > 0) ?
+                                                        $inspection->created_by : 'Belum dibuat';
+                                                        $createdDate = ($inspection &&
+                                                        $hydrant->InspectionThisMonth->count() > 0) ?
+                                                        $inspection->created_date : '';
+                                                        @endphp
+
+                                                        <li
+                                                            class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="badge bg-danger me-3"><i
+                                                                        class="fas fa-file-alt"></i></span>
+                                                                <div>
+                                                                    <h6 class="mb-0">DIBUAT</h6>
+                                                                    <small class="text-muted">{{ $createdBy }}</small>
+                                                                </div>
+                                                            </div>
+                                                            <small class="text-muted">{{ $createdDate }}</small>
+                                                        </li>
+
+
+                                                        <li class="list-group-item d-flex align-items-center">
+                                                            <span class="badge bg-warning text-dark me-3"><i
+                                                                    class="fas fa-eye"></i></span>
+                                                            <div>
+                                                                <h6 class="mb-0">DIKETAHUI</h6>
+                                                                <small class="text-muted">Inspeksi telah diketahui oleh
+                                                                    pihak terkait.</small>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-group-item d-flex align-items-center">
+                                                            <span class="badge bg-success me-3"><i
+                                                                    class="fas fa-check-circle"></i></span>
+                                                            <div>
+                                                                <h6 class="mb-0">DIPERIKSA</h6>
+                                                                <small class="text-muted">Inspeksi telah
+                                                                    diperiksa.</small>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <tr>
                                         <td class="text-center">{{$no++ }}</td>
                                         <td class="text-center">{{$hydrant->no_hydrant }}</td>
                                         <td class="text-center">{{$hydrant->location }}</td>
                                         <td class="text-center">{{$hydrant->type }}</td>
                                         <td class="text-center">
+                                            @if ($hydrant->InspectionThisMonth->count() > 1)
                                             <button
-                                                class="badge text-bg-warning rounded-pill p-1 px-2 border-0 fw-bold fs-7">
-                                                <span class="text-white">Uncheck</span>
+                                                class="badge text-bg-success p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#trackingModal-{{ $hydrant->id }}">
+                                                <span class="text-white fw-bold">Checked</span>
                                             </button>
+
+                                            @endif
+                                            @if ($hydrant->InspectionThisMonth->count() < 1) <button
+                                                class="badge text-bg-warning p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#trackingModal-{{ $hydrant->id }}">
+                                                <span class="text-white fw-bold">Uncheck</span>
+                                                </button>
+
+                                                @endif
                                         </td>
+
                                         <td>
                                             <a href="{{ route('detail-hydrant',['id'=>$hydrant->id]) }}"
                                                 class="btn btn-info btn-sm p-2 border-0 rounded">
@@ -121,12 +245,10 @@
                                 </tbody>
                             </table>
                         </div>
-
                         @endslot
                     </x-card>
                 </div>
             </div>
-
             <x-footer></x-footer>
         </div>
     </main>
@@ -148,17 +270,14 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="{{ asset('js/datatables.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#example').DataTable({
-            "paging": false, 
-            "info": false,   
-            "searching": true,
-            });
+        $('.tracking-btn').click(function() {
+            $('#trackingModal').modal('show');
         });
-        $("#example_filter").appendTo("#tableHeader").addClass("ms-auto");
+    });
     </script>
-
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -168,8 +287,6 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-
-
 </body>
 
 </html>

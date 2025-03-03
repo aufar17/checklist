@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hydrant;
+use App\Models\InspectionHydrant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,7 +44,15 @@ class MainController extends Controller
     public function hydrant()
     {
         $session = Auth::check();
-        $hydrants = Hydrant::paginate(10);
+        $hydrants = Hydrant::with('inspectionHydrants')->paginate(10);
+        $collect = InspectionHydrant::selectRaw('
+        hydrant_id, 
+        MAX(created_by) as created_by, 
+        MAX(created_date) as created_date
+    ')
+            ->groupBy('hydrant_id')
+            ->get();
+
         $user = Auth::user();
         $no = ($hydrants->currentPage() - 1) * $hydrants->perPage() + 1;
 
@@ -56,6 +65,7 @@ class MainController extends Controller
             'session' => $session,
             'hydrants' => $hydrants,
             'no' => $no,
+            'collect' => $collect,
         ];
 
         return view('hydrant.hydrant', $data);

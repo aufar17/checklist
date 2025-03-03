@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -17,8 +18,14 @@ class Hydrant extends Model
         'latitude',
     ];
 
-    public function inspection__hydrants(): HasMany
+    public function inspectionHydrants(): HasMany
     {
-        return $this->hasMany(InspectionHydrant::class, 'id', 'id_hydrant');
+        return $this->hasMany(InspectionHydrant::class, 'hydrant_id', 'id');
+    }
+    public function InspectionThisMonth(): HasMany
+    {
+        return $this->hasMany(InspectionHydrant::class, 'hydrant_id', 'id')
+            ->whereMonth('inspection_date', Carbon::now()->month)
+            ->whereYear('inspection_date', Carbon::now()->year);
     }
 }

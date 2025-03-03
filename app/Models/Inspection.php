@@ -15,7 +15,7 @@ class Inspection extends Model
         'item',
     ];
 
-    public function inspection__hydrants(): HasMany
+    public function inspectionHydrants(): HasMany
     {
         return $this->hasMany(InspectionHydrant::class, 'id', 'inspection_id');
     }

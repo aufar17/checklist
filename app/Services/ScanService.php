@@ -40,6 +40,7 @@ class   ScanService
             (float) $hydrant->longitude
         );
 
+
         $response = [
             'latitude sekarang' => number_format($latitude, 6),
             'longitude sekarang' => number_format($longitude, 6),

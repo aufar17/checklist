@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Hydrant;
 use App\Models\Inspection;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             GroupInspectionSeeder::class,
-            InspectionSeeder::class,
+            InspectionSeeder::class
         ]);
     }
 }

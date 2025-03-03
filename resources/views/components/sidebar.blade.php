@@ -40,7 +40,7 @@
                 Dashboard
             </x-navlink>
             <x-navlink href="{{ route('hydrant') }}"
-                :active="request()->is(['hydrant','new-hydrant','detail-hydrant/{id}']) " icon="fa-list">
+                :active="request()->is(['hydrant','new-hydrant','detail-hydrant']) " icon="fa-list">
                 Hydrant
             </x-navlink>
             <x-navlink href="" :active="request()->is()" icon="fa-bell" :notifCount="10">
