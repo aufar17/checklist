@@ -57,20 +57,10 @@
             @slot('title')
             Dashboard
             @endslot
-
             @slot('role')
-            @if ($user->golongan == 4 && $user->acting == 1)
-            Manager
-            @endif
-            @endslot
-
-            @slot('name')   
             {{ $user->name }}
             @endslot
 
-            @slot('dept')
-            {{ $user->dept }}
-            @endslot
         </x-navbar>
         <div class="container-fluid py-4">
             <x-kpi>

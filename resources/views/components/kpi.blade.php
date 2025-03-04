@@ -16,11 +16,11 @@
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
 </style>
-
+{{ $slot }}
 <div class="row">
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-        <div class="card">
-            <div class="card-body p-3"> {{ $slot }}
+        <a href="{{ route('hydrant') }}" class="card">
+            <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">

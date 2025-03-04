@@ -39,7 +39,11 @@
                     </a>
                 </li>
                 </li>
-                <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                <li class="nav-item">
+                    <span class="d-sm-inline d-none fw-bold mx-2">SELAMAT DATANG, <strong>{{ strtoupper($role)
+                            }}</strong></span>
+                </li>
+                {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell text-lg mx-3 cursor-pointer"></i>
@@ -121,8 +125,8 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item dropdown pe-2 d-flex align-items-center ">
+                </li> --}}
+                {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center ">
                     <a href="javascript:;" class="nav-link text-body font-weight-bold px-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-user text-lg me-sm-1"></i>
@@ -148,7 +152,7 @@
                             </form>
                         </div>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>

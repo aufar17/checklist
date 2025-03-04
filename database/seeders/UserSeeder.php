@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'npk' => '121212',
-                'name' => 'Aufar Chill Guy',
-                'dept' => 'MIS',
+                'name' => 'Aryo Obeng',
+                'dept' => 'EHS',
                 'sect' => 'Non BaaN',
                 'golongan' => '4',
                 'acting' => '1',
@@ -26,10 +26,20 @@ class UserSeeder extends Seeder
             ],
             [
                 'npk' => '131313',
-                'name' => 'Aufar Crud',
-                'dept' => 'HRD',
+                'name' => 'Ujang Kenok',
+                'dept' => 'EHS',
                 'sect' => 'TES',
                 'golongan' => '4',
+                'acting' => '2',
+                'approval' => '1',
+                'password' => '123',
+            ],
+            [
+                'npk' => '141414',
+                'name' => 'Rudi Tambun',
+                'dept' => 'EHS',
+                'sect' => 'TES',
+                'golongan' => '3',
                 'acting' => '1',
                 'approval' => '1',
                 'password' => '123',
