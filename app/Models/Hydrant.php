@@ -22,6 +22,7 @@ class Hydrant extends Model
     {
         return $this->hasMany(InspectionHydrant::class, 'hydrant_id', 'id');
     }
+
     public function InspectionThisMonth(): HasMany
     {
         return $this->hasMany(InspectionHydrant::class, 'hydrant_id', 'id')

@@ -29,7 +29,6 @@
         border-bottom: 2px solid black !important;
     }
 
-
     .custom-radio {
         width: 18px;
         height: 18px;
@@ -101,36 +100,16 @@
                 <th colspan="12" class="border border-dark">BULAN</th>
             </tr>
             <tr>
-                <th class="border border-dark">JAN</th>
-                <th class="border border-dark">FEB</th>
-                <th class="border border-dark">MAR</th>
-                <th class="border border-dark">APR</th>
-                <th class="border border-dark">MEI</th>
-                <th class="border border-dark">JUN</th>
-                <th class="border border-dark">JUL</th>
-                <th class="border border-dark">AGU</th>
-                <th class="border border-dark">SEP</th>
-                <th class="border border-dark">OKT</th>
-                <th class="border border-dark">NOV</th>
-                <th class="border border-dark">DES</th>
+                @foreach (range(1, 12) as $month)
+                <th>{{ DateTime::createFromFormat('!m', $month)->format('M') }}</th>
+                @endforeach
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td class="border border-dark">1</td>
                 <td class="border border-dark">Tanggal Pemeriksaan</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $tanggal_pemeriksaan }}
             </tr>
             <tr>
                 <td rowspan="4" class="border border-dark">2</td>
@@ -139,173 +118,63 @@
             </tr>
             <tr>
                 <td class="border border-dark">- Tidak terhalang</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $posisi }}
             </tr>
             <tr>
                 <td class="border border-dark">- Pintu tidak rusak</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $pintu }}
             </tr>
             <tr>
                 <td class="border border-dark">- Terdapat identitas hidran</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $identitas }}
             </tr>
             <tr>
+            <tr>
                 <td rowspan="4" class="border border-dark">3</td>
-                <td class="border border-dark">
-                    <span class="me-2">
-                        <strong>Selang</strong>
-                    </span>
-                    <input disabled type="checkbox"> 1.5 inch
-                    <input disabled type="checkbox"> 2.5 inch
-                </td>
-                <td colspan="12" class="bg-dark"></td>
+                <td class="border border-dark"><strong>Selang</strong></td>
+                {{ $panjang_selang }}
+
+            </tr>
+
             </tr>
             <tr>
                 <td class="border border-dark">- Jumlah selang</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $jumlah_selang }}
+
             </tr>
             <tr>
                 <td class="border border-dark">- Tidak ada yang bocor</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $kondisi_selang }}
+
             </tr>
             <tr>
                 <td class="border border-dark">- Coupling tidak rusak</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $coupling_selang }}
             </tr>
             <tr>
                 <td rowspan="5" class="border border-dark">4</td>
-                <td class="border border-dark">
-                    <span class="me-2"><strong>Nozle</strong></span>
-                    <input disabled type="checkbox"> Jet
-                    <input disabled type="checkbox"> Spray
-                </td>
-                <td colspan="12" class="bg-dark"></td>
+                <td class="border border-dark"><strong>Jenis Nozle</strong></td>
+                {{ $jenis_nozle }}
             </tr>
             <tr>
                 <td class="border border-dark">- Jumlah</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $jumlah_nozle }}
+
             </tr>
             <tr>
                 <td class="border border-dark">- Seal tidak rusak</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $seal_nozle }}
+
             </tr>
             <tr>
                 <td class="border border-dark">- Body tidak rusak</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $body_nozle }}
+
             </tr>
             <tr>
                 <td class="border border-dark">- Coupling tidak rusak</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $coupling_nozle }}
+
             </tr>
 
             <tr>
@@ -315,33 +184,13 @@
             </tr>
             <tr>
                 <td class="border border-dark">- Jumlah</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $jumlah_kran }}
+
             </tr>
             <tr>
                 <td class="border border-dark">- Kondisi tidak bocor/rembes</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $kondisi_kran }}
+
             </tr>
             <tr>
                 <td rowspan="3" class="border border-dark">6</td>
@@ -350,65 +199,25 @@
             </tr>
             <tr>
                 <td class="border border-dark">- Jumlah</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $jumlah_kunci }}
+
             </tr>
             <tr>
                 <td class="border border-dark">- Kondisi tidak bocor/rembes</td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $kondisi_kunci }}
+
             </tr>
             <tr>
                 <td rowspan="1" class="border border-dark">7</td>
                 <td class="border border-dark"><strong>Manipold bocor/rusak</strong></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $kondisi_manipold }}
+
             </tr>
             <tr>
                 <td rowspan="1" class="border border-dark">8</td>
                 <td class="border border-dark"><strong>Segel Pemeriksaan</strong></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{ $kondisi_segel }}
+
             </tr>
             <tr>
                 <td rowspan="2" class="border border-dark">9</td>
@@ -428,18 +237,7 @@
             </tr>
             <tr>
                 <td class="border border-dark"><strong>Nama Pemeriksa</strong></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
+                {{$pemeriksa}}
             </tr>
         </tbody>
     </table>
@@ -458,8 +256,7 @@
         </thead>
         <tbody>
             <tr>
-                <td colspan="3" class="p-5 border-end border-dark"><strong>NOTE:</strong> * Untuk ditempatkan di dalam
-                    Box</td>
+                <td colspan="3" class="p-5 border-end border-dark">{{ $notes }}</td>
                 <td class="p-4 border-end border-dark">Dept Head</td>
                 <td class="p-4 border-end border-dark">Supervisor</td>
                 <td class="p-4">Safety Officer</td>

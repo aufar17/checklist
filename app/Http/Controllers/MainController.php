@@ -45,13 +45,6 @@ class MainController extends Controller
     {
         $session = Auth::check();
         $hydrants = Hydrant::with('inspectionHydrants')->paginate(10);
-        $collect = InspectionHydrant::selectRaw('
-        hydrant_id, 
-        MAX(created_by) as created_by, 
-        MAX(created_date) as created_date
-    ')
-            ->groupBy('hydrant_id')
-            ->get();
 
         $user = Auth::user();
         $no = ($hydrants->currentPage() - 1) * $hydrants->perPage() + 1;
@@ -65,7 +58,6 @@ class MainController extends Controller
             'session' => $session,
             'hydrants' => $hydrants,
             'no' => $no,
-            'collect' => $collect,
         ];
 
         return view('hydrant.hydrant', $data);

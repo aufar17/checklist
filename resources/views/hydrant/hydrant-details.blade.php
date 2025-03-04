@@ -72,20 +72,364 @@
                     @slot('code')
                     {{ $hydrant->no_hydrant }}
                     @endslot
+
                     @slot('location')
                     {{ $hydrant->location }}
                     @endslot
+
                     @slot('year')
                     {{ now()->format('Y') }}
                     @endslot
+
                     @slot('type')
                     <span>Indoor</span>
                     <input disabled type="radio" class="custom-radio" @checked($hydrant->type == 'Indoor')>
-
                     <span>Outdoor</span>
                     <input disabled type="radio" class="custom-radio" @checked($hydrant->type == 'Outdoor')>
-
                     @endslot
+
+                    @slot('tanggal_pemeriksaan')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        {{ $allMonths[$month]->first()->inspection_date ?? '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+
+                    @slot('posisi')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 1)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('pintu')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 2)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+
+                    @slot('identitas')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 3)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('panjang_selang')
+                    {{-- @foreach (range(1, 12) as $month)
+                    <td class="border border-dark">
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 5)->pluck('values')->toArray();
+                        @endphp
+                        <input disabled type="checkbox" class="custom-radio" @checked(in_array('1.5', $filtered))> 1.5
+                        inch
+                        <input disabled type="checkbox" class="custom-radio" style="margin-left: 10px"
+                            @checked(in_array('2.5', $filtered))> 2.5
+                        inch
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach --}}
+
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 5)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+
+                    @slot('jumlah_selang')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 4)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+
+
+                    @slot('kondisi_selang')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id',6 )->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('coupling_selang')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 7)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('jenis_nozle')
+                    {{-- @foreach (range(1, 12) as $month)
+                    <td class="border border-dark">
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 8)->pluck('values')->toArray();
+                        @endphp
+                        <input disabled type="checkbox" class="custom-radio" @checked(in_array('Jet', $filtered))> Jet
+                        <input disabled type="checkbox" class="custom-radio" style="margin-left: 10px"
+                            @checked(in_array('Spray', $filtered))>
+                        Spray
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach --}}
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 8)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('jumlah_nozle')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 9)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('seal_nozle')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 10)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('body_nozle')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 11)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('coupling_nozle')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 12)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('jumlah_kran')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 13)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('kondisi_kran')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 14)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('jumlah_kunci')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 15)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('kondisi_kunci')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 16)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('kondisi_manipold')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 17)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('kondisi_segel')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        @php
+                        $filtered = $allMonths[$month]->where('inspection_id', 18)->pluck('values');
+                        @endphp
+                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('pemeriksa')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty())
+                        {{ $allMonths[$month]->first()->created_by ?? '-' }}
+                        @else
+
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
+
+                    @slot('notes')
+                    @foreach (range(1, 12) as $month)
+                    @if ($allMonths[$month]->isNotEmpty())
+                    {{ $allMonths[$month]->first()->notes ?? '-' }}
+                    @else
+                    @endif
+                    @endforeach
+                    @endslot
+
+
+
                 </x-checksheet-table>
                 @endslot
             </x-card>
