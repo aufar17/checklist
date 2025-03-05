@@ -222,13 +222,13 @@
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radioseal1"
-                                        name="values[seal_nozle]" value="Rusak">
+                                        name="values[seal-nozle]" value="Rusak">
                                     <label class="form-check-label" for="radioseal1">Rusak</label>
                                 </div>
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radioseal2"
-                                        name="values[seal_nozle]" value="Tidak Rusak">
+                                        name="values[seal-nozle]" value="Tidak Rusak">
                                     <label class="form-check-label" for="radioseal2">Tidak</label>
                                 </div>
                             </div>
@@ -239,13 +239,13 @@
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiobody1"
-                                        name="values[body_nozle]" value="Rusak">
+                                        name="values[body-nozle]" value="Rusak">
                                     <label class="form-check-label" for="radiobody1">Rusak</label>
                                 </div>
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiobody2"
-                                        name="values[body_nozle]" value="Tidak Rusak">
+                                        name="values[body-nozle]" value="Tidak Rusak">
                                     <label class="form-check-label" for="radiobody2">Tidak</label>
                                 </div>
                             </div>
@@ -291,8 +291,8 @@
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiokondisikran2"
-                                        name="values[kondisi-kran]" value="Tidak">
-                                    <label class="form-check-label" for="radiokondisikran2">Tidak</label>
+                                        name="values[kondisi-kran]" value="Tidak Bocor/Rembes">
+                                    <label class="form-check-label" for="radiokondisikran2">Tidak Bocor/Rembes</label>
                                 </div>
                             </div>
                         </div>
@@ -321,7 +321,7 @@
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiokondisikunci2"
                                         name="values[kondisi-kunci]" value="Tidak Rusak">
-                                    <label class="form-check-label" for="radiokondisikunci2">Tidak</label>
+                                    <label class="form-check-label" for="radiokondisikunci2">Tidak Rusak</label>
                                 </div>
                             </div>
                         </div>
@@ -346,8 +346,9 @@
                                         <div class="form-check mx-1">
                                             <input type="radio" class="form-check-input border-dark"
                                                 id="radiokondisimanipold2" name="values[kondisi-manipold]"
-                                                value="Tidak">
-                                            <label class="form-check-label" for="radiokondisimanipold2">Tidak</label>
+                                                value="Tidak Bocor/Rusak">
+                                            <label class="form-check-label" for="radiokondisimanipold2">Tidak
+                                                Bocor/Rusak</label>
                                         </div>
                                     </div>
                                 </div>

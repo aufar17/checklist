@@ -220,7 +220,7 @@
 
             </tr>
             <tr>
-                <td rowspan="2" class="border border-dark">9</td>
+                <td rowspan="3" class="border border-dark">9</td>
                 <td class="border border-dark"><strong>Tanda tangan pemeriksa</strong></td>
                 <td class="border border-dark"></td>
                 <td class="border border-dark"></td>
@@ -238,6 +238,10 @@
             <tr>
                 <td class="border border-dark"><strong>Nama Pemeriksa</strong></td>
                 {{$pemeriksa}}
+            </tr>
+            <tr>
+                <td class="border border-dark"><strong>Bukti Pemeriksaan</strong></td>
+                {{$bukti}}
             </tr>
         </tbody>
     </table>

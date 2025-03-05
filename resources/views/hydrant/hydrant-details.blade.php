@@ -32,18 +32,9 @@
             @endslot
 
             @slot('role')
-            @if ($user->golongan == 4 && $user->acting == 1)
-            Manager
-            @endif
-            @endslot
-
-            @slot('name')
             {{ $user->name }}
             @endslot
 
-            @slot('dept')
-            {{ $user->dept }}
-            @endslot
         </x-navbar>
         <div class="container-fluid py-4">
             <x-hydrant-details-card>
@@ -428,8 +419,38 @@
                     @endforeach
                     @endslot
 
+                    @slot('bukti')
+                    @foreach (range(1, 12) as $month)
+                    <td>
+                        @if ($allMonths[$month]->isNotEmpty() && $allMonths[$month]->first()->documentation)
 
+                        <button class="badge bg-success border-0" data-bs-toggle="modal"
+                            data-bs-target="#modalBukti{{ $month }}">
+                            Dokumentasi
+                        </button>
 
+                        <div class="modal fade" id="modalBukti{{ $month }}" tabindex="-1"
+                            aria-labelledby="modalLabel{{ $month }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title text-white" id="modalLabel{{ $month }}">Bukti Dokumentasi
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <img src="{{ asset('storage/documentation/' . $allMonths[$month]->first()->documentation) }}"
+                                            class="img-fluid w-75" alt="Bukti Dokumentasi"
+                                            style="max-height: 800px; object-fit: contain;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    </td>
+                    @endforeach
+                    @endslot
                 </x-checksheet-table>
                 @endslot
             </x-card>

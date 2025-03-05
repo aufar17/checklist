@@ -203,7 +203,7 @@
                                                 class="badge text-bg-success p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#trackingModal-{{ $hydrant->id }}">
-                                                <span class="text-white fw-bold">Checked</span>
+                                                <span class="text-white fw-bold">DIBUAT</span>
                                             </button>
 
                                             @endif
@@ -211,7 +211,7 @@
                                                 class="badge text-bg-warning p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#trackingModal-{{ $hydrant->id }}">
-                                                <span class="text-white fw-bold">Uncheck</span>
+                                                <span class="text-white fw-bold">Tersedia</span>
                                                 </button>
 
                                                 @endif

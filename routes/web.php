@@ -33,3 +33,4 @@ Route::post('checksheet-post', [ChecksheetController::class, 'checksheetPost'])-
 Route::get('new-hydrant', [HydrantController::class, 'newHydrant'])->name('new-hydrant');
 Route::post('hydrant-post', [HydrantController::class, 'hydrantPost'])->name('hydrant-post');
 Route::get('detail-hydrant/{id}', [HydrantController::class, 'detailHydrant'])->name('detail-hydrant');
+Route::get('hydrant-pdf/{id}', [HydrantController::class, 'hydrantPdf'])->name('hydrant-pdf');
