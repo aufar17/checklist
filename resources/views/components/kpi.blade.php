@@ -1,10 +1,10 @@
 <style>
-    .card {
+    .card.kpi {
         transition: all 0.3s ease;
     }
 
     /* Efek hover */
-    .card:hover {
+    .card.kpi:hover {
         box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
         background-color: #f8f9fa;
         cursor: pointer;
@@ -12,14 +12,14 @@
         transition: all 0.5s ease;
     }
 
-    .card:hover .icon-shape {
+    .card.kpi:hover .icon-shape {
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
 </style>
 {{ $slot }}
 <div class="row">
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-        <a href="{{ route('hydrant') }}" class="card">
+        <a href="{{ route('hydrant') }}" class="card kpi">
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
@@ -41,7 +41,7 @@
         </a>
     </div>
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-        <div class="card">
+        <div class="card kpi">
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
@@ -63,7 +63,7 @@
         </div>
     </div>
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-        <div class="card">
+        <div class="card kpi">
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
@@ -85,7 +85,7 @@
         </div>
     </div>
     <div class="col-xl-3 col-sm-6">
-        <div class="card">
+        <div class="card kpi">
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">

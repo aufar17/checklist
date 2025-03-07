@@ -451,6 +451,73 @@
                     </td>
                     @endforeach
                     @endslot
+
+                    @slot('approve')
+
+                    @php
+                    $isManager = $user->golongan == 4 && $user->acting == 1;
+                    $isSPV = $user->golongan == 4 && $user->acting == 2;
+                    $canValidate = ($isManager && $hydrant->status == 2) || ($isSPV && $hydrant->status == 1);
+                    @endphp
+
+                    @if ($canValidate)
+                    <!-- Modal Validasi -->
+                    <div class="modal fade" id="validasiModal" tabindex="-1" aria-labelledby="validasiModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="validasiModalLabel">Form Validasi Hydrant</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+
+                                <form action="{{ route($isManager ? 'manager-validation' : 'spv-validation') }}"
+                                    method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <input type="hidden" name="hydrant_id" value="{{ $hydrant->id }}">
+
+                                        <div class="mb-3">
+                                            <label for="status" class="form-label">STATUS</label>
+                                            <select name="status" id="status" class="form-control" required>
+                                                <option disabled selected>-- Pilih Status --</option>
+                                                @if ($isManager)
+                                                <option value="3">Approve</option>
+                                                <option value="5">Reject</option>
+                                                @elseif ($isSPV)
+                                                <option value="2">Approve</option>
+                                                <option value="4">Reject</option>
+                                                @endif
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3" id="notesField" style="display: none;">
+                                            <label for="notes" class="form-label">CATATAN <strong
+                                                    class="text-danger">*</strong></label>
+                                            <textarea name="notes" id="notes" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Validasi -->
+                    <div class="d-flex justify-content-end mt-3">
+                        <button class="btn btn-warning text-dark" data-bs-toggle="modal"
+                            data-bs-target="#validasiModal">
+                            Validasi
+                        </button>
+                    </div>
+                    @endif
+                    @endslot
                 </x-checksheet-table>
                 @endslot
             </x-card>
@@ -474,6 +541,8 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
+
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -483,7 +552,23 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
-    <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const statusSelect = document.getElementById("status");
+            const notesField = document.getElementById("notesField");
+    
+            statusSelect.addEventListener("change", function () {
+                if (this.value === "4") {
+                    notesField.style.display = "block";
+                    document.getElementById("notes").setAttribute("required", "true");
+                } else {
+                    notesField.style.display = "none";
+                    document.getElementById("notes").removeAttribute("required");
+                }
+            });
+        });
+    </script>
+
 
 
 </body>

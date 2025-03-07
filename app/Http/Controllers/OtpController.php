@@ -64,7 +64,7 @@ class OtpController extends Controller
         $otp->delete();
         session(['otp_verified' => true]);
 
-        return redirect()->route('admin')->with('success', 'OTP berhasil diverifikasi!');
+        return redirect()->route('admin')->with('success', 'Selamat Datang!');
     }
 
     public function resendOtp()

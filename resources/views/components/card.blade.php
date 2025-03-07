@@ -1,4 +1,6 @@
-<div class="card shadow-sm rounded">{{ $slot }}
+@props(['class' => ''])
+
+<div class="card shadow-sm rounded {{ $class }}">{{ $slot }}
     <div class="card-header py-3 bg-danger border-bottom">
         <div class="d-flex flex-column align-items-start">
             <div class="d-flex align-items-center">

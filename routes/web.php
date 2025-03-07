@@ -5,7 +5,9 @@ use App\Http\Controllers\ChecksheetController;
 use App\Http\Controllers\HydrantController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OtpController;
+use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\ScanController;
+use App\Http\Controllers\ValidationController;
 use App\Models\Hydrant;
 use Illuminate\Support\Facades\Route;
 use Mews\Captcha\Facades\Captcha;
@@ -34,3 +36,8 @@ Route::get('new-hydrant', [HydrantController::class, 'newHydrant'])->name('new-h
 Route::post('hydrant-post', [HydrantController::class, 'hydrantPost'])->name('hydrant-post');
 Route::get('detail-hydrant/{id}', [HydrantController::class, 'detailHydrant'])->name('detail-hydrant');
 Route::get('hydrant-pdf/{id}', [HydrantController::class, 'hydrantPdf'])->name('hydrant-pdf');
+
+
+//Validation Features
+Route::post('spv-validation', [ValidationController::class, 'spvValidation'])->name('spv-validation');
+Route::post('manager-validation', [ValidationController::class, 'managerValidation'])->name('manager-validation');

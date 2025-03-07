@@ -24,6 +24,7 @@ class HydrantService
             'no_hydrant' => 'required',
             'location' => 'required',
             'type' => 'required',
+            'status' => 'required',
             'longitude' => 'required',
             'latitude' => 'required',
         ])->validate();

@@ -19,7 +19,7 @@ class MainController extends Controller
     {
 
         $session = Auth::check();
-        $hydrant = Hydrant::all();
+        $hydrants = Hydrant::all();
         if (!$session) {
             return redirect()->route('login')->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
@@ -34,7 +34,7 @@ class MainController extends Controller
         $data = [
             'session' => $session,
             'user' => $user,
-            'hydrant' => $hydrant,
+            'hydrants' => $hydrants,
         ];
 
         return view('dashboard', $data);

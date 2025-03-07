@@ -387,6 +387,7 @@
                         </div>
                     </div>
                     {{ $hydrantid }}
+                    <input hidden type="number" name="status" value=1>
                     <button type="submit" class="btn btn-danger mt-2">Submit</button>
                 </form>
             </div>

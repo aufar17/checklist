@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql')->create('hydrants', function (Blueprint $table) {
+        Schema::create('validation_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('no_hydrant');
-            $table->string('location');
-            $table->string('type');
-            $table->integer('status');
-            $table->double('longitude');
-            $table->double('latitude');
+            $table->id('inspection_hydrant_id');
+            $table->id('hydrant_id');
+            $table->string('action');
+            $table->string('user');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hydrants');
+        Schema::dropIfExists('validation_logs');
     }
 };

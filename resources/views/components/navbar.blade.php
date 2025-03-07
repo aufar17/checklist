@@ -40,8 +40,14 @@
                 </li>
                 </li>
                 <li class="nav-item">
-                    <span class="d-sm-inline d-none fw-bold mx-2">SELAMAT DATANG, <strong>{{ strtoupper($role)
-                            }}</strong></span>
+                    <div class="row">
+                        <div class="col-sm-">
+                            <span class="badge bg-danger d-sm-inline d-none fs-7 fw-bold mx-2">SELAMAT DATANG,
+                                <strong>{{
+                                    strtoupper($role)
+                                    }}</strong></span>
+                        </div>
+                    </div>
                 </li>
                 {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"

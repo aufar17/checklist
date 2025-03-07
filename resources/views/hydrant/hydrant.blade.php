@@ -43,8 +43,20 @@
     }
 </style>
 
+@php
+$notifBadge = 0;
+
+if ($user->golongan == 4) {
+if ($user->acting == 1) {
+$notifBadge = $hydrants->where('status', 2)->count();
+} elseif ($user->acting == 2) {
+$notifBadge = $hydrants->where('status', 1)->count();
+}
+}
+@endphp
+
 <body class="g-sidenav-show  bg-gray-100">
-    <x-sidebar></x-sidebar>
+    <x-sidebar :notifBadge="$notifBadge"></x-sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
         <x-navbar>
             @slot('title')
@@ -145,13 +157,23 @@
                                                 <div class="modal-body">
                                                     <ul class="list-group">
                                                         @php
-                                                        $inspection = $hydrant->InspectionThisMonth->first();
-                                                        $createdBy = ($inspection &&
-                                                        $hydrant->InspectionThisMonth->count() > 0) ?
-                                                        $inspection->created_by : 'Belum dibuat';
-                                                        $createdDate = ($inspection &&
-                                                        $hydrant->InspectionThisMonth->count() > 0) ?
+                                                        $inspection = $hydrant->inspectionHydrants->first();
+                                                        $createdBy = ($hydrant->status > 0 && $inspection) ?
+                                                        $inspection->created_by
+                                                        : 'Belum dibuat';
+                                                        $createdDate = ($hydrant->status > 0 && $inspection) ?
                                                         $inspection->created_date : '';
+                                                        $knownBy = ($hydrant->status > 0 && $inspection) ?
+                                                        $inspection->known_by
+                                                        : 'Belum diketahui';
+                                                        $knownDate = ($hydrant->status > 0 && $inspection) ?
+                                                        $inspection->known_date : '';
+                                                        $checkedBy = (!empty($inspection) &&
+                                                        !empty($inspection->checked_by)) ? $inspection->checked_by :
+                                                        'Belum diperiksa';
+                                                        $checkedDate = (!empty($inspection) &&
+                                                        !empty($inspection->checked_date)) ? $inspection->checked_date :
+                                                        '';
                                                         @endphp
 
                                                         <li
@@ -167,25 +189,33 @@
                                                             <small class="text-muted">{{ $createdDate }}</small>
                                                         </li>
 
+                                                        <li
+                                                            class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="badge bg-warning me-3"><i
+                                                                        class="fas fa-eye"></i></span>
+                                                                <div>
+                                                                    <h6 class="mb-0">DIKETAHUI</h6>
+                                                                    <small class="text-muted">{{ $knownBy }}</small>
+                                                                </div>
+                                                            </div>
+                                                            <small class="text-muted">{{ $knownDate }}</small>
+                                                        </li>
 
-                                                        <li class="list-group-item d-flex align-items-center">
-                                                            <span class="badge bg-warning text-dark me-3"><i
-                                                                    class="fas fa-eye"></i></span>
-                                                            <div>
-                                                                <h6 class="mb-0">DIKETAHUI</h6>
-                                                                <small class="text-muted">Inspeksi telah diketahui oleh
-                                                                    pihak terkait.</small>
+
+                                                        <li
+                                                            class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="badge bg-success me-3"><i
+                                                                        class="fas fa-check-circle"></i></span>
+                                                                <div>
+                                                                    <h6 class="mb-0">DIKETAHUI</h6>
+                                                                    <small class="text-muted">{{ $checkedBy }}</small>
+                                                                </div>
                                                             </div>
+                                                            <small class="text-muted">{{ $checkedDate }}</small>
                                                         </li>
-                                                        <li class="list-group-item d-flex align-items-center">
-                                                            <span class="badge bg-success me-3"><i
-                                                                    class="fas fa-check-circle"></i></span>
-                                                            <div>
-                                                                <h6 class="mb-0">DIPERIKSA</h6>
-                                                                <small class="text-muted">Inspeksi telah
-                                                                    diperiksa.</small>
-                                                            </div>
-                                                        </li>
+
                                                     </ul>
                                                 </div>
                                             </div>
@@ -198,23 +228,54 @@
                                         <td class="text-center">{{$hydrant->location }}</td>
                                         <td class="text-center">{{$hydrant->type }}</td>
                                         <td class="text-center">
-                                            @if ($hydrant->InspectionThisMonth->count() > 1)
+                                            @if ($hydrant->status == 0) <button
+                                                class="badge text-bg-warning p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#trackingModal-{{ $hydrant->id }}">
+                                                <span class="text-white fw-bold">Belum Inspeksi</span>
+                                            </button>
+
+                                            @endif
+                                            @if ($hydrant->status == 1)
                                             <button
                                                 class="badge text-bg-success p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#trackingModal-{{ $hydrant->id }}">
-                                                <span class="text-white fw-bold">DIBUAT</span>
+                                                <span class="text-white fw-bold">Dibuat</span>
                                             </button>
-
                                             @endif
-                                            @if ($hydrant->InspectionThisMonth->count() < 1) <button
-                                                class="badge text-bg-warning p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
+                                            @if ($hydrant->status == 2)
+                                            <button
+                                                class="badge text-bg-success p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#trackingModal-{{ $hydrant->id }}">
-                                                <span class="text-white fw-bold">Tersedia</span>
-                                                </button>
-
-                                                @endif
+                                                <span class="text-white fw-bold">Approve by SPV</span>
+                                            </button>
+                                            @endif
+                                            @if ($hydrant->status == 3)
+                                            <button
+                                                class="badge text-bg-success p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#trackingModal-{{ $hydrant->id }}">
+                                                <span class="text-white fw-bold">Approve by Manager</span>
+                                            </button>
+                                            @endif
+                                            @if ($hydrant->status == 4)
+                                            <button
+                                                class="badge text-bg-success p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#trackingModal-{{ $hydrant->id }}">
+                                                <span class="text-white fw-bold">Rejected by SPV</span>
+                                            </button>
+                                            @endif
+                                            @if ($hydrant->status == 5)
+                                            <button
+                                                class="badge text-bg-success p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#trackingModal-{{ $hydrant->id }}">
+                                                <span class="text-white fw-bold">Rejected by Manager</span>
+                                            </button>
+                                            @endif
                                         </td>
 
                                         <td>

@@ -14,7 +14,12 @@
     }
 </style>
 
-@props(['icon', 'active' => false, 'notifCount' => 0])
+@props(
+[
+'icon',
+'active' => false,
+'notifBadge' => 0
+])
 
 @php
 $classes = $active ? 'nav-link active' : 'nav-link';
@@ -27,11 +32,11 @@ $iconColor = $active ? 'text-white' : 'text-dark';
             class="icon icon-shape icon-sm shadow border rounded bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fa-solid {{ $icon }} fa-lg {{ $iconColor }}"></i>
         </div>
-        <span class="nav-link-text ms-1">
+        <span class="nav-link-text ms-1 text-center">
             {{ $slot }}
-            @if($notifCount > 0)
-            <span class="badge text-bg-danger rounded-pill ms-5">
-                {{ $notifCount }}
+            @if($notifBadge > 0)
+            <span class="badge bg-danger rounded-pill ms-3 px-2">
+                {{ $notifBadge }}
             </span>
             @endif
         </span>

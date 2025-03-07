@@ -21,6 +21,10 @@
     }
 </style>
 
+@props([
+'notifBadge' => 0
+])
+
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
     id="sidenav-main">
     <div class="sidenav-header">
@@ -36,19 +40,14 @@
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <x-navlink href="{{ route('admin') }}" :active="request()->is('admin') " icon="fa-house">
+            <x-navlink href="{{ route('admin') }}" :active="request()->is('admin') " :notifBadge="$notifBadge"
+                icon="fa-house">
                 Dashboard
             </x-navlink>
             <x-navlink href="{{ route('hydrant') }}"
                 :active="request()->is(['hydrant','new-hydrant','detail-hydrant']) " icon="fa-list">
                 Hydrant
             </x-navlink>
-            <x-navlink href="" :active="request()->is()" icon="fa-bell" :notifCount="10">
-                Reminder
-            </x-navlink>
-
-
-
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
             </li>

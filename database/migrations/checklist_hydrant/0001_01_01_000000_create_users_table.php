@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('sect', 20);
             $table->integer('golongan');
             $table->integer('acting');
-            $table->string('approval');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

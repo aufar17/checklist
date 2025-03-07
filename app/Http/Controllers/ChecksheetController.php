@@ -62,7 +62,9 @@ class ChecksheetController extends Controller
             $filename = null;
         }
 
-        foreach ($request->input('values', []) as $slug => $value) {
+        $values = $request->input('values', []);
+
+        foreach ($values as $slug => $value) {
             $user = Auth::user();
             $inspectionId = Inspection::getIdBySlug($slug);
 
@@ -78,6 +80,11 @@ class ChecksheetController extends Controller
                     'created_date'    => now(),
                 ]);
             }
+        }
+
+        $hydrant = Hydrant::find($request->hydrant_id);
+        if ($hydrant) {
+            $hydrant->update(['status' => $request->status]);
         }
 
         return redirect()->route('hydrant')->with('success', 'Data berhasil disimpan!');
