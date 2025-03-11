@@ -41,6 +41,20 @@
         justify-content: center;
         align-items: center;
     }
+
+    #map {
+        height: 80vh;
+        width: 100%;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+    }
+
+    .map-title {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
 </style>
 
 @php
@@ -414,6 +428,16 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                 @endslot
             </x-card>
             @endif
+            <x-card icon="fa-solid fa-map-pin" title="Sebaran Hydrant">
+                @slot('body')
+                <div class="row">
+                    <div class="col-12">
+                        <div id="map" style="height: 500px; width: 100%;"></div>
+                    </div>
+                </div>
+                @endslot
+            </x-card>
+
 
             <x-footer></x-footer>
         </div>
@@ -456,6 +480,7 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="{{ asset('js/datatables.js') }}"></script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
@@ -489,8 +514,35 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
             }
         });
     </script>
+    <script>
+        // Inisialisasi Peta
+        var map = L.map('map').setView([-6.311572, 107.099577], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
+        // Custom Icon Hydrant
+        var hydrantIcon = L.icon({
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Gambar pin lokasi
+            iconSize: [25, 35], 
+            iconAnchor: [12, 35], 
+            popupAnchor: [0, -30] 
+        });
 
+        // Ambil Data Hydrant dari Blade Laravel
+        var hydrants = @json($hydrants);
+
+        // Tambahkan Marker ke Map
+        hydrants.forEach(hydrant => {
+            L.marker([hydrant.latitude, hydrant.longitude], { icon: hydrantIcon })
+                .addTo(map)
+                .bindPopup(`<b>${hydrant.name}</b><br>Status: ${hydrant.latest_status}`);
+        });
+
+        // Auto zoom agar semua marker terlihat
+        var bounds = L.latLngBounds(hydrants.map(h => [h.latitude, h.longitude]));
+        map.fitBounds(bounds);
+    </script>
 </body>
 
 </html>

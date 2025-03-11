@@ -19,31 +19,29 @@ class MainController extends Controller
 
     public function admin()
     {
-
-        $session = Auth::check();
-        $hydrants = Hydrant::all();
-
-        if (!$session) {
+        if (!Auth::check()) {
             return redirect()->route('login')->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
 
         $user = Auth::user();
-        $otp = session()->has('otp_verified');
+        $hydrants = Hydrant::all();
 
-        foreach ($hydrants as $hydrant) {
-            $statusHistory = $hydrant->status ?? []; // Langsung gunakan tanpa json_decode
-            $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
-        }
-
-        if (!$otp || $otp !== true) {
+        $otpVerified = session('otp_verified', false);
+        if (!$otpVerified) {
             return redirect()->route('otp-verif')->withErrors(['error' => 'Silakan verifikasi OTP terlebih dahulu.']);
         }
 
-        return view('dashboard', [
-            'session' => $session,
+        foreach ($hydrants as $hydrant) {
+            $statusHistory = is_array($hydrant->status) ? $hydrant->status : [];
+            $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
+        }
+
+        $data = [
             'user' => $user,
             'hydrants' => $hydrants,
-        ]);
+        ];
+
+        return view('dashboard', $data);
     }
 
 
