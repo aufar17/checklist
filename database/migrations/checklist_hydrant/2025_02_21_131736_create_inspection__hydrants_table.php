@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql')->create('inspection__hydrants', function (Blueprint $table) {
+        Schema::connection('mysql')->create('inspection_hydrants', function (Blueprint $table) {
             $table->id();
             $table->string('hydrant_id');
             $table->string('inspection_id');
             $table->date('inspection_date');
             $table->string('documentation')->nullable();
-            $table->string('values');
-            $table->text('notes');
+            $table->integer('values');
+            $table->text('notes')->nullable();
             $table->string('known_by')->nullable();
             $table->string('checked_by')->nullable();
             $table->string('created_by');

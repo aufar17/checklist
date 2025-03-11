@@ -56,18 +56,16 @@ class ChecksheetController extends Controller
 
     public function checksheetPost(Request $request)
     {
-        DB::beginTransaction();
-
-        try {
+        return DB::transaction(function () use ($request) {
+            $filename = null;
             if ($request->hasFile('documentation')) {
                 $file = $request->file('documentation');
                 $filename = time() . '_' . $file->getClientOriginalName();
-                $filePath = $file->storeAs('documentation', $filename, 'public');
-            } else {
-                $filename = null;
+                $file->storeAs('documentation', $filename, 'public');
             }
 
             $values = $request->input('values', []);
+            $notes = $request->input('notes', []);
             $user = Auth::user();
 
             foreach ($values as $slug => $value) {
@@ -79,7 +77,7 @@ class ChecksheetController extends Controller
                         'inspection_id'   => $inspectionId,
                         'inspection_date' => now(),
                         'documentation'   => $filename,
-                        'notes'           => $request->notes,
+                        'notes'           => isset($notes[$slug]) && $value == "0" ? $notes[$slug] : null,
                         'values'          => $value,
                         'created_by'      => $user->name,
                         'created_date'    => now(),
@@ -87,41 +85,29 @@ class ChecksheetController extends Controller
                 }
             }
 
-            $hydrant = Hydrant::find($request->hydrant_id);
+            // Update status hydrant
+            $hydrant = Hydrant::findOrFail($request->hydrant_id);
 
-            if ($hydrant) {
-                ActionLog::create([
-                    'hydrant_id' => $hydrant->id,
-                    'user'       => $user->id,
-                    'action'     => $request->status,
-                    'created_at' => now(),
-                ]);
+            ActionLog::create([
+                'hydrant_id' => $hydrant->id,
+                'user'       => $user->id,
+                'action'     => $request->status,
+                'created_at' => now(),
+            ]);
 
-                $statusHistory = $hydrant->status ?? [];
+            $statusHistory = $hydrant->status ?? [];
 
-                if (!is_array($statusHistory)) {
-                    $statusHistory = [];
-                }
+            $statusHistory[] = [
+                'status'    => $request->status,
+                'timestamp' => now()->format('Y-m-d H:i:s'),
+            ];
 
-                $statusHistory[] = [
-                    'status'    => $request->status,
-                    'timestamp' => now()->format('Y-m-d H:i:s'),
-                ];
-
-                $hydrant->update([
-                    'status' => $statusHistory
-                ]);
-            }
-
-            DB::commit();
+            $hydrant->update([
+                'status' => $statusHistory
+            ]);
 
             return redirect()->route('detail-hydrant', ['id' => $hydrant->id])
                 ->with('success', 'Data berhasil disimpan!');
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return redirect()->route('admin')
-                ->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
-        }
+        });
     }
 }

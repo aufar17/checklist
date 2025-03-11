@@ -165,7 +165,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id',6 )->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id',5 )->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -180,7 +180,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 7)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 6)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -199,7 +199,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 9)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 7)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -214,7 +214,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 10)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 8)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -229,7 +229,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 11)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 9)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -244,7 +244,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 12)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 10)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -259,7 +259,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 13)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 11)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -274,7 +274,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 14)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 12)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -289,7 +289,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 15)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 13)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -304,7 +304,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 16)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 14)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -319,7 +319,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 17)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 15)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else
@@ -334,7 +334,7 @@
                     <td>
                         @if ($allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 18)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 16)->pluck('values');
                         @endphp
                         {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
                         @else

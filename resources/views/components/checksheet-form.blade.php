@@ -19,16 +19,16 @@
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">TANGGAL
                                     PEMERIKSAAN</label>
-                                <input type="date" class="form-control" id="exampleInputDate"
-                                    value="{{ now()->format('Y-m-d') }}" name="tanggal-pemeriksaan" readonly>
+                                <input type="date" class="form-control" id="exampleInputDate" value="{{
+                                    now()->format('Y-m-d') }}" name="tanggal-pemeriksaan" readonly>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">WAKTU
                                     PEMERIKSAAN</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp"
-                                    value="{{ now()->format('H:i') }}" name="waktu-pemeriksaan" readonly>
+                                <input type="text" class="form-control" aria-describedby="emailHelp" value="{{
+                                    now()->format('H:i') }}" name="waktu-pemeriksaan" readonly>
                             </div>
                         </div>
                     </div>
@@ -73,18 +73,21 @@
                             <div class="mb-3">
                                 <label class="form-label">POSISI</label>
 
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radioposisi1"
-                                        name="values[posisi]" value="Terhalang">
-                                    <label class="form-check-label" for="radioposisi1">Terhalang</label>
-                                </div>
+
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radioposisi2"
-                                        name="values[posisi]" value="TIdak Terhalang">
+                                        name="values[posisi]" value=1 onchange="toggleNotes(this)">
                                     <label class="form-check-label" for="radioposisi2">Tidak
                                         Terhalang</label>
                                 </div>
+                                <div class="form-check mx-1">
+                                    <input type="radio" class="form-check-input border-dark" id="radioposisi1"
+                                        name="values[posisi]" value=0 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radioposisi1">Terhalang</label>
+                                </div>
+                                <textarea name="notes[posisi]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
                             </div>
                         </div>
 
@@ -93,16 +96,18 @@
                                 <label class="form-label">PINTU</label>
 
                                 <div class="form-check mx-1">
+                                    <input type="radio" class="form-check-input border-dark" id="radiopintu2"
+                                        name="values[pintu]" value=1 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiopintu2">Bagus</label>
+                                </div>
+                                <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiopintu1"
-                                        name="values[pintu]" value="Rusak">
+                                        name="values[pintu]" value=0 onchange="toggleNotes(this)">
                                     <label class="form-check-label" for="radiopintu1">Rusak</label>
                                 </div>
+                                <textarea name="notes[pintu]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
 
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiopintu2"
-                                        name="values[pintu]" value="Tidak Rusak">
-                                    <label class="form-check-label" for="radiopintu2">Tidak Rusak</label>
-                                </div>
                             </div>
                         </div>
 
@@ -112,15 +117,17 @@
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radioidentitas1"
-                                        name="values[identitas]" value="Ada">
+                                        name="values[identitas]" value=1 onchange="toggleNotes(this)">
                                     <label class="form-check-label" for="radioidentitas1">Ada</label>
                                 </div>
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radioidentitas2"
-                                        name="values[identitas]" value="Tidak Ada">
+                                        name="values[identitas]" value=0 onchange="toggleNotes(this)">
                                     <label class="form-check-label" for="radioidentitas2">Tidak Ada</label>
                                 </div>
+                                <textarea name="notes[identitas]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -141,16 +148,19 @@
                                 <label class="form-label">KONDISI</label>
 
                                 <div class="form-check mx-1">
+                                    <input type="radio" class="form-check-input border-dark" id="radiokondisiselang2"
+                                        name="values[kondisi-selang]" value=1 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiokondisiselang2">Bagus</label>
+                                </div>
+                                <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiokondisiselang1"
-                                        name="values[kondisi-selang]" value="Bocor">
+                                        name="values[kondisi-selang]" value=0 onchange="toggleNotes(this)">
                                     <label class="form-check-label" for="radiokondisiselang1">Bocor</label>
                                 </div>
+                                <textarea name="notes[kondisi-selang]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
 
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiokondisiselang2"
-                                        name="values[kondisi-selang]" value="Tidak Bocor">
-                                    <label class="form-check-label" for="radiokondisiselang2">Tidak</label>
-                                </div>
+
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -159,15 +169,17 @@
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiocouplingselang1"
-                                        name="values[coupling-selang]" value="Rusak">
-                                    <label class="form-check-label" for="radiocouplingselang1">Rusak</label>
+                                        name="values[coupling-selang]" value=1 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiocouplingselang1">Bagus</label>
                                 </div>
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiocouplingselang2"
-                                        name="values[coupling-selang]" value="Tidak Rusak">
-                                    <label class="form-check-label" for="radiocouplingselang2">Tidak</label>
+                                        name="values[coupling-selang]" value=0 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiocouplingselang2">Rusak</label>
                                 </div>
+                                <textarea name="notes[coupling-selang]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -188,16 +200,20 @@
                                 <label class="form-label">SEAL</label>
 
                                 <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radioseal1"
-                                        name="values[seal-nozle]" value="Rusak">
-                                    <label class="form-check-label" for="radioseal1">Rusak</label>
+                                    <input type="radio" class="form-check-input border-dark" id="radioseal2"
+                                        name="values[seal-nozle]" value=1 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radioseal2">Bagus</label>
                                 </div>
 
                                 <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radioseal2"
-                                        name="values[seal-nozle]" value="Tidak Rusak">
-                                    <label class="form-check-label" for="radioseal2">Tidak</label>
+                                    <input type="radio" class="form-check-input border-dark" id="radioseal1"
+                                        name="values[seal-nozle]" value=0 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radioseal1">Rusak</label>
                                 </div>
+                                <textarea name="notes[seal-nozle]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
+
+
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -205,16 +221,18 @@
                                 <label class="form-label">BODY</label>
 
                                 <div class="form-check mx-1">
+                                    <input type="radio" class="form-check-input border-dark" id="radiobody2"
+                                        name="values[body-nozle]" value=1 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiobody2">Bagus</label>
+                                </div>
+                                <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiobody1"
-                                        name="values[body-nozle]" value="Rusak">
+                                        name="values[body-nozle]" value=0 onchange="toggleNotes(this)">
                                     <label class="form-check-label" for="radiobody1">Rusak</label>
                                 </div>
+                                <textarea name="notes[body-nozle]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
 
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiobody2"
-                                        name="values[body-nozle]" value="Tidak Rusak">
-                                    <label class="form-check-label" for="radiobody2">Tidak</label>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -223,15 +241,17 @@
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiocouplingnozle1"
-                                        name="values[coupling-nozle]" value="Rusak">
-                                    <label class="form-check-label" for="radiocouplingnozle1">Rusak</label>
+                                        name="values[coupling-nozle]" value=1 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiocouplingnozle1">Bagus</label>
                                 </div>
 
                                 <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiocouplingnozle2"
-                                        name="values[coupling-nozle]" value="Tidak Rusak">
-                                    <label class="form-check-label" for="radiocouplingnozle2">Tidak</label>
+                                        name="values[coupling-nozle]" value=0 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiocouplingnozle2">Rusak</label>
                                 </div>
+                                <textarea name="notes[coupling-nozle]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -251,16 +271,19 @@
                             <div class="mb-3">
                                 <label class="form-label">KONDISI</label>
                                 <div class="form-check mx-1">
+                                    <input type="radio" class="form-check-input border-dark" id="radiokondisikran2"
+                                        name="values[kondisi-kran]" value=1 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiokondisikran2">Bagus</label>
+                                </div>
+                                <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiokondisikran1"
-                                        name="values[kondisi-kran]" value="Bocor/Rembes">
+                                        name="values[kondisi-kran]" value=0 onchange="toggleNotes(this)">
                                     <label class="form-check-label" for="radiokondisikran1">Bocor/Rembes</label>
                                 </div>
+                                <textarea name="notes[kondisi-kran]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
 
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiokondisikran2"
-                                        name="values[kondisi-kran]" value="Tidak Bocor/Rembes">
-                                    <label class="form-check-label" for="radiokondisikran2">Tidak Bocor/Rembes</label>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -280,16 +303,19 @@
                             <div class="mb-3">
                                 <label class="form-label">KONDISI</label>
                                 <div class="form-check mx-1">
+                                    <input type="radio" class="form-check-input border-dark" id="radiokondisikunci2"
+                                        name="values[kondisi-kunci]" value=1 onchange="toggleNotes(this)">
+                                    <label class="form-check-label" for="radiokondisikunci2">Bagus</label>
+                                </div>
+                                <div class="form-check mx-1">
                                     <input type="radio" class="form-check-input border-dark" id="radiokondisikunci1"
-                                        name="values[kondisi-kunci]" value="Rusak">
+                                        name="values[kondisi-kunci]" value=0 onchange="toggleNotes(this)">
                                     <label class="form-check-label" for="radiokondisikunci1">Rusak</label>
                                 </div>
+                                <textarea name="notes[kondisi-kunci]" class="form-control mt-2 notes-field"
+                                    style="display: none;" placeholder="Tambahkan catatan..."></textarea>
 
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiokondisikunci2"
-                                        name="values[kondisi-kunci]" value="Tidak Rusak">
-                                    <label class="form-check-label" for="radiokondisikunci2">Tidak Rusak</label>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -304,19 +330,21 @@
                                         <label class="form-label">KONDISI</label>
                                         <div class="form-check mx-1">
                                             <input type="radio" class="form-check-input border-dark"
-                                                id="radiokondisimanipold1" name="values[kondisi-manipold]"
-                                                value="Bocor/Rusak">
+                                                id="radiokondisimanipold2" name="values[kondisi-manipold]" value=1
+                                                onchange="toggleNotes(this)">
+                                            <label class="form-check-label" for="radiokondisimanipold2">Bagus</label>
+                                        </div>
+                                        <div class="form-check mx-1">
+                                            <input type="radio" class="form-check-input border-dark"
+                                                id="radiokondisimanipold1" name="values[kondisi-manipold]" value=0
+                                                onchange="toggleNotes(this)">
                                             <label class="form-check-label"
                                                 for="radiokondisimanipold1">Bocor/Rusak</label>
                                         </div>
+                                        <textarea name="notes[kondisi-manipold]" class="form-control mt-2 notes-field"
+                                            style="display: none;" placeholder="Tambahkan catatan..."></textarea>
 
-                                        <div class="form-check mx-1">
-                                            <input type="radio" class="form-check-input border-dark"
-                                                id="radiokondisimanipold2" name="values[kondisi-manipold]"
-                                                value="Tidak Bocor/Rusak">
-                                            <label class="form-check-label" for="radiokondisimanipold2">Tidak
-                                                Bocor/Rusak</label>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -331,25 +359,21 @@
                                         <label class="form-label">KONDISI</label>
                                         <div class="form-check mx-1">
                                             <input type="radio" class="form-check-input border-dark"
-                                                id="radiokondisisegel1" name="values[kondisi-segel]" value="Ada">
+                                                id="radiokondisisegel1" name="values[kondisi-segel]" value=1
+                                                onchange="toggleNotes(this)">
                                             <label class="form-check-label" for="radiokondisisegel1">Ada</label>
                                         </div>
 
                                         <div class="form-check mx-1">
                                             <input type="radio" class="form-check-input border-dark"
-                                                id="radiokondisisegel2" name="values[kondisi-segel]" value="Tidak Ada">
+                                                id="radiokondisisegel2" name="values[kondisi-segel]" value=0
+                                                onchange="toggleNotes(this)">
                                             <label class="form-check-label" for="radiokondisisegel2">Tidak Ada</label>
                                         </div>
+                                        <textarea name="notes[kondisi-segel]" class="form-control mt-2 notes-field"
+                                            style="display: none;" placeholder="Tambahkan catatan..."></textarea>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label for="" class="form-label">CATATAN</label>
-                                <textarea class="form-control" name="notes" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                     </div>
@@ -372,5 +396,20 @@
             output.classList.remove('d-none');
         };
         reader.readAsDataURL(event.target.files[0]);
+    }
+    
+</script>
+
+<script>
+    function toggleNotes(radio) {
+        var parentDiv = radio.closest('.mb-3');  
+        var notesField = parentDiv.querySelector('.notes-field'); 
+
+        if (radio.value === "0") {
+            notesField.style.display = "block"; 
+        } else {
+            notesField.style.display = "none";  
+            notesField.value = ""; 
+        }
     }
 </script>

@@ -428,9 +428,9 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                 @endslot
             </x-card>
             @endif
-            <x-card>
+            <x-card class="mt-5">
                 @slot('title')
-                Sebaran Hydrant
+                Peta Sebaran Hydrant
                 @endslot
                 @slot('body')
                 <div class="row">

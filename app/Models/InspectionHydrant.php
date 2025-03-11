@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class InspectionHydrant extends Model
 {
     protected $connection = 'mysql';
-    protected $table = 'inspection__hydrants';
+    protected $table = 'inspection_hydrants';
     protected $fillable = [
         'hydrant_id',
         'inspection_id',
