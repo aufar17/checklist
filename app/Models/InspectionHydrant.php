@@ -29,4 +29,6 @@ class InspectionHydrant extends Model
     {
         return $this->belongsTo(Hydrant::class, 'hydrant_id', 'id');
     }
+
+    
 }

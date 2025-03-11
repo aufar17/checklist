@@ -140,7 +140,7 @@
 
             </tr>
             <tr>
-                <td class="border border-dark">- Jumlah selang</td>
+                <td class="border border-dark">- Jumlah</td>
                 {{ $jumlah_selang }}
 
             </tr>
@@ -214,6 +214,12 @@
                 <td rowspan="1" class="border border-dark">7</td>
                 <td class="border border-dark"><strong>Manipold bagus</strong></td>
                 {{ $kondisi_manipold }}
+
+            </tr>
+            <tr>
+                <td rowspan="1" class="border border-dark">7</td>
+                <td class="border border-dark"><strong>Kondisi Segel</strong></td>
+                {{ $segel }}
 
             </tr>
             <tr>

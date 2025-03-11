@@ -95,28 +95,50 @@
                     @slot('posisi')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 1)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 1)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
                     @endslot
 
+
+
                     @slot('pintu')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 2)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 2)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -126,13 +148,23 @@
                     @slot('identitas')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 3)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 3)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -163,13 +195,23 @@
                     @slot('kondisi_selang')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id',5 )->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 5)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -178,13 +220,23 @@
                     @slot('coupling_selang')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 6)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 6)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -212,13 +264,23 @@
                     @slot('seal_nozle')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 8)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 8)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -227,13 +289,23 @@
                     @slot('body_nozle')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 9)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 9)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -242,13 +314,23 @@
                     @slot('coupling_nozle')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 10)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 10)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -272,13 +354,23 @@
                     @slot('kondisi_kran')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 12)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 12)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -302,13 +394,23 @@
                     @slot('kondisi_kunci')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 14)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 14)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -317,28 +419,48 @@
                     @slot('kondisi_manipold')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 15)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 5)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
                     @endslot
 
-                    @slot('kondisi_segel')
+                    @slot('segel')
                     @foreach (range(1, 12) as $month)
                     <td>
-                        @if ($allMonths[$month]->isNotEmpty())
+                        @if (!empty($allMonths[$month]) && $allMonths[$month]->isNotEmpty())
                         @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 16)->pluck('values');
+                        $filtered = $allMonths[$month]->where('inspection_id', 16)->first();
+                        $value = $filtered->values ?? null;
+                        $note = $filtered->notes ?? null;
                         @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
 
+                        @if ($value == 1)
+                        ✔
+                        @elseif ($value === 0)
+                        ❌
+                        @if (!empty($note))
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $note }}">
+                            <i class="fa-solid fa-comment text-secondary ms-1"
+                                style="font-size: 0.8rem; cursor: pointer;"></i> </span>
+                        @endif
+                        @endif
                         @endif
                     </td>
                     @endforeach
@@ -518,6 +640,16 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+    </script>
+
+
 
 
 
