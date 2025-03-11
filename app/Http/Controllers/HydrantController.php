@@ -53,6 +53,9 @@ class HydrantController extends Controller
             return back()->withErrors(['error' => 'Data hydrant tidak ditemukan.']);
         }
 
+        $statusHistory = $hydrant->status ?? [];
+        $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
+
         $inspections = $hydrant->inspectionHydrants->groupBy(function ($inspection) {
             return Carbon::parse($inspection->inspection_date)->format('m');
         });
@@ -62,7 +65,6 @@ class HydrantController extends Controller
         });
 
         $inspectionsById = $hydrant->inspectionHydrants->groupBy('inspection_id');
-
 
         $data = [
             'user' => $user,

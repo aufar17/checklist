@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActionLog;
 use App\Models\Hydrant;
 use App\Models\HydrantQR;
 use App\Models\Inspection;
 use App\Models\InspectionHydrant;
+use App\Models\ValidationLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ChecksheetController extends Controller
 {
@@ -53,40 +56,72 @@ class ChecksheetController extends Controller
 
     public function checksheetPost(Request $request)
     {
+        DB::beginTransaction();
 
-        if ($request->hasFile('documentation')) {
-            $file = $request->file('documentation');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('documentation', $filename, 'public');
-        } else {
-            $filename = null;
-        }
+        try {
+            if ($request->hasFile('documentation')) {
+                $file = $request->file('documentation');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('documentation', $filename, 'public');
+            } else {
+                $filename = null;
+            }
 
-        $values = $request->input('values', []);
-
-        foreach ($values as $slug => $value) {
+            $values = $request->input('values', []);
             $user = Auth::user();
-            $inspectionId = Inspection::getIdBySlug($slug);
 
-            if (!empty($inspectionId)) {
-                InspectionHydrant::create([
-                    'hydrant_id'      => $request->hydrant_id,
-                    'inspection_id'   => $inspectionId,
-                    'inspection_date' => now(),
-                    'documentation'   => $filename,
-                    'notes'           => $request->notes,
-                    'values'          => $value,
-                    'created_by'      => $user->name,
-                    'created_date'    => now(),
+            foreach ($values as $slug => $value) {
+                $inspectionId = Inspection::getIdBySlug($slug);
+
+                if (!empty($inspectionId)) {
+                    InspectionHydrant::create([
+                        'hydrant_id'      => $request->hydrant_id,
+                        'inspection_id'   => $inspectionId,
+                        'inspection_date' => now(),
+                        'documentation'   => $filename,
+                        'notes'           => $request->notes,
+                        'values'          => $value,
+                        'created_by'      => $user->name,
+                        'created_date'    => now(),
+                    ]);
+                }
+            }
+
+            $hydrant = Hydrant::find($request->hydrant_id);
+
+            if ($hydrant) {
+                ActionLog::create([
+                    'hydrant_id' => $hydrant->id,
+                    'user'       => $user->id,
+                    'action'     => $request->status,
+                    'created_at' => now(),
+                ]);
+
+                $statusHistory = $hydrant->status ?? [];
+
+                if (!is_array($statusHistory)) {
+                    $statusHistory = [];
+                }
+
+                $statusHistory[] = [
+                    'status'    => $request->status,
+                    'timestamp' => now()->format('Y-m-d H:i:s'),
+                ];
+
+                $hydrant->update([
+                    'status' => $statusHistory
                 ]);
             }
-        }
 
-        $hydrant = Hydrant::find($request->hydrant_id);
-        if ($hydrant) {
-            $hydrant->update(['status' => $request->status]);
-        }
+            DB::commit();
 
-        return redirect()->route('hydrant')->with('success', 'Data berhasil disimpan!');
+            return redirect()->route('detail-hydrant', ['id' => $hydrant->id])
+                ->with('success', 'Data berhasil disimpan!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()->route('admin')
+                ->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+        }
     }
 }

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Hydrant;
 use App\Models\InspectionHydrant;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MainController extends Controller
 {
@@ -20,6 +22,7 @@ class MainController extends Controller
 
         $session = Auth::check();
         $hydrants = Hydrant::all();
+
         if (!$session) {
             return redirect()->route('login')->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
@@ -27,39 +30,41 @@ class MainController extends Controller
         $user = Auth::user();
         $otp = session()->has('otp_verified');
 
+        foreach ($hydrants as $hydrant) {
+            $statusHistory = $hydrant->status ?? []; // Langsung gunakan tanpa json_decode
+            $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
+        }
+
         if (!$otp || $otp !== true) {
             return redirect()->route('otp-verif')->withErrors(['error' => 'Silakan verifikasi OTP terlebih dahulu.']);
         }
 
-        $data = [
+        return view('dashboard', [
             'session' => $session,
             'user' => $user,
             'hydrants' => $hydrants,
-        ];
-
-        return view('dashboard', $data);
+        ]);
     }
 
 
     public function hydrant()
     {
-        $session = Auth::check();
-        $hydrants = Hydrant::with('inspectionHydrants')->paginate(10);
-
-        $user = Auth::user();
-        $no = ($hydrants->currentPage() - 1) * $hydrants->perPage() + 1;
-
-        if (!$session) {
+        if (!Auth::check()) {
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
 
-        $data = [
-            'user' => $user,
-            'session' => $session,
-            'hydrants' => $hydrants,
-            'no' => $no,
-        ];
+        $hydrants = Hydrant::with('inspectionHydrants')
+            ->orderBy('id')
+            ->paginate(10);
 
-        return view('hydrant.hydrant', $data);
+        foreach ($hydrants as $hydrant) {
+            $statusHistory = $hydrant->status ?? []; // Langsung gunakan tanpa json_decode
+            $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
+        }
+
+        return view('hydrant.hydrant', [
+            'user' => Auth::user(),
+            'hydrants' => $hydrants,
+        ]);
     }
 }

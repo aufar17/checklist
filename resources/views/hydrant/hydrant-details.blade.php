@@ -457,7 +457,8 @@
                     @php
                     $isManager = $user->golongan == 4 && $user->acting == 1;
                     $isSPV = $user->golongan == 4 && $user->acting == 2;
-                    $canValidate = ($isManager && $hydrant->status == 2) || ($isSPV && $hydrant->status == 1);
+                    $canValidate = ($isManager && $hydrant->latest_status == 2) || ($isSPV && $hydrant->latest_status ==
+                    1);
                     @endphp
 
                     @if ($canValidate)
@@ -517,9 +518,12 @@
                         </button>
                     </div>
                     @endif
+                    @endif
+
+
                     @endslot
-                </x-checksheet-table>
-                @endslot
+
+
             </x-card>
             <x-footer></x-footer>
         </div>

@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('validation_logs', function (Blueprint $table) {
+        Schema::connection('mysql')->create('action_logs', function (Blueprint $table) {
             $table->id();
-            $table->id('inspection_hydrant_id');
-            $table->id('hydrant_id');
-            $table->string('action');
+            $table->integer('hydrant_id');
+            $table->integer('action');
+            $table->string('notes')->nullable();
             $table->string('user');
-            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('validation_logs');
+        Schema::dropIfExists('action_logs');
     }
 };

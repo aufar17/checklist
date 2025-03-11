@@ -15,6 +15,10 @@ class HydrantService
     {
         $validate = $this->validateData($data);
 
+        $validate['status'] = [
+            ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')]
+        ];
+
         return Hydrant::create($validate);
     }
 

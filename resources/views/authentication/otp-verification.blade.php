@@ -75,11 +75,18 @@
                 @endif
 
                 @if (session('error'))
-                <p class="text-danger">{{ session('error') }}</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    </div>
+                </div>
                 @endif
-
                 @if(session('message'))
-                <div class="alert alert-success">{{ session('message') }}</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">{{ session('message') }}</div>
+                    </div>
+                </div>
                 @endif
 
                 <div class="wrapper">
