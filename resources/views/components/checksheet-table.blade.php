@@ -117,15 +117,15 @@
                 <td colspan="12" class="bg-dark"></td>
             </tr>
             <tr>
-                <td class="border border-dark">- Tidak terhalang</td>
+                <td class="border border-dark">- Posisi sesuai</td>
                 {{ $posisi }}
             </tr>
             <tr>
-                <td class="border border-dark">- Pintu tidak rusak</td>
+                <td class="border border-dark">- Pintu bagus</td>
                 {{ $pintu }}
             </tr>
             <tr>
-                <td class="border border-dark">- Terdapat identitas hidran</td>
+                <td class="border border-dark">- Identitas ada</td>
                 {{ $identitas }}
             </tr>
             <tr>
@@ -145,12 +145,12 @@
 
             </tr>
             <tr>
-                <td class="border border-dark">- Tidak ada yang bocor</td>
+                <td class="border border-dark">- Kondisi bagus</td>
                 {{ $kondisi_selang }}
 
             </tr>
             <tr>
-                <td class="border border-dark">- Coupling tidak rusak</td>
+                <td class="border border-dark">- Coupling bagus</td>
                 {{ $coupling_selang }}
             </tr>
             <tr>
@@ -165,17 +165,17 @@
 
             </tr>
             <tr>
-                <td class="border border-dark">- Seal tidak rusak</td>
+                <td class="border border-dark">- Seal bagus</td>
                 {{ $seal_nozle }}
 
             </tr>
             <tr>
-                <td class="border border-dark">- Body tidak rusak</td>
+                <td class="border border-dark">- Body bagus</td>
                 {{ $body_nozle }}
 
             </tr>
             <tr>
-                <td class="border border-dark">- Coupling tidak rusak</td>
+                <td class="border border-dark">- Coupling bagus</td>
                 {{ $coupling_nozle }}
 
             </tr>
@@ -191,7 +191,7 @@
 
             </tr>
             <tr>
-                <td class="border border-dark">- Kondisi tidak bocor/rembes</td>
+                <td class="border border-dark">- Kondisi bagus</td>
                 {{ $kondisi_kran }}
 
             </tr>
@@ -206,39 +206,18 @@
 
             </tr>
             <tr>
-                <td class="border border-dark">- Kondisi tidak bocor/rembes</td>
+                <td class="border border-dark">- Kondisi bagus</td>
                 {{ $kondisi_kunci }}
 
             </tr>
             <tr>
                 <td rowspan="1" class="border border-dark">7</td>
-                <td class="border border-dark"><strong>Manipold bocor/rusak</strong></td>
+                <td class="border border-dark"><strong>Manipold bagus</strong></td>
                 {{ $kondisi_manipold }}
 
             </tr>
             <tr>
-                <td rowspan="1" class="border border-dark">8</td>
-                <td class="border border-dark"><strong>Segel Pemeriksaan</strong></td>
-                {{ $kondisi_segel }}
-
-            </tr>
-            <tr>
-                <td rowspan="3" class="border border-dark">9</td>
-                <td class="border border-dark"><strong>Tanda tangan pemeriksa</strong></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-                <td class="border border-dark"></td>
-            </tr>
-            <tr>
+                <td rowspan="3" class="border border-dark">8</td>
                 <td class="border border-dark"><strong>Nama Pemeriksa</strong></td>
                 {{$pemeriksa}}
             </tr>
@@ -255,7 +234,6 @@
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
-                <th colspan="3" style="width: 50%;">Notes</th>
                 <th style="width: 16%;">Diketahui</th>
                 <th style="width: 16%;">Diperiksa</th>
                 <th style="width: 16%;">Dibuat</th>
@@ -263,7 +241,6 @@
         </thead>
         <tbody>
             <tr>
-                <td colspan="3" class="p-5 border-end border-dark">{{ $notes }}</td>
                 <td class="p-4 border-end border-dark">Dept Head</td>
                 <td class="p-4 border-end border-dark">Supervisor</td>
                 <td class="p-4">Safety Officer</td>

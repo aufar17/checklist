@@ -428,7 +428,10 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                 @endslot
             </x-card>
             @endif
-            <x-card icon="fa-solid fa-map-pin" title="Sebaran Hydrant">
+            <x-card>
+                @slot('title')
+                Sebaran Hydrant
+                @endslot
                 @slot('body')
                 <div class="row">
                     <div class="col-12">
@@ -515,31 +518,26 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
         });
     </script>
     <script>
-        // Inisialisasi Peta
         var map = L.map('map').setView([-6.311572, 107.099577], 12);
         L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        // Custom Icon Hydrant
         var hydrantIcon = L.icon({
-            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Gambar pin lokasi
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', 
             iconSize: [25, 35], 
             iconAnchor: [12, 35], 
             popupAnchor: [0, -30] 
         });
 
-        // Ambil Data Hydrant dari Blade Laravel
         var hydrants = @json($hydrants);
 
-        // Tambahkan Marker ke Map
         hydrants.forEach(hydrant => {
             L.marker([hydrant.latitude, hydrant.longitude], { icon: hydrantIcon })
                 .addTo(map)
                 .bindPopup(`<b>${hydrant.name}</b><br>Status: ${hydrant.latest_status}`);
         });
 
-        // Auto zoom agar semua marker terlihat
         var bounds = L.latLngBounds(hydrants.map(h => [h.latitude, h.longitude]));
         map.fitBounds(bounds);
     </script>
