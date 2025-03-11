@@ -36,11 +36,6 @@ class InspectionSeeder extends Seeder
             ],
             [
                 'group_id' => 2,
-                'slug' => 'panjang-selang',
-                'item' => 'Panjang Selang',
-            ],
-            [
-                'group_id' => 2,
                 'slug' => 'kondisi-selang',
                 'item' => 'Kondisi Selang',
             ],
@@ -48,11 +43,6 @@ class InspectionSeeder extends Seeder
                 'group_id' => 2,
                 'slug' => 'coupling-selang',
                 'item' => 'Coupling Selang',
-            ],
-            [
-                'group_id' => 3,
-                'slug' => 'jenis-nozle',
-                'item' => 'jenis Nozle',
             ],
             [
                 'group_id' => 3,

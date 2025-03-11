@@ -19,18 +19,22 @@ class HydrantService
             ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')]
         ];
 
+        $validate['panjang_selang'] = str_replace(',', '.', $data['panjang_selang']);
+
         return Hydrant::create($validate);
     }
 
     private function validateData(array $data)
     {
         return validator($data, [
-            'no_hydrant' => 'required',
-            'location' => 'required',
-            'type' => 'required',
-            'status' => 'required',
-            'longitude' => 'required',
-            'latitude' => 'required',
+            'no_hydrant'    => 'required|string',
+            'location'      => 'required|string',
+            'type'          => 'required|string',
+            'status'        => 'required',
+            'panjang_selang' => 'required|numeric',
+            'jenis_nozle'   => 'required|string',
+            'longitude'     => 'required|numeric',
+            'latitude'      => 'required|numeric',
         ])->validate();
     }
 }

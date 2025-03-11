@@ -131,8 +131,10 @@
             <tr>
             <tr>
                 <td rowspan="4" class="border border-dark">3</td>
-                <td class="border border-dark"><strong>Selang</strong></td>
-                {{ $panjang_selang }}
+                <td class="border border-dark"><strong>Selang</strong> | <strong>{{ $panjang_selang }} inch</strong>
+                </td>
+                <td colspan="12" class="bg-dark"></td>
+
 
             </tr>
 
@@ -153,8 +155,9 @@
             </tr>
             <tr>
                 <td rowspan="5" class="border border-dark">4</td>
-                <td class="border border-dark"><strong>Jenis Nozle</strong></td>
-                {{ $jenis_nozle }}
+                <td class="border border-dark"><strong>Nozle</strong> | <strong>{{ $jenis_nozle }}</strong></td>
+                <td colspan="12" class="bg-dark"></td>
+
             </tr>
             <tr>
                 <td class="border border-dark">- Jumlah</td>

@@ -138,23 +138,6 @@
                         </div>
                         <div class="col-md-3">
                             <div class="mb-3">
-                                <label class="form-label">PANJANG</label>
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiopanjang-selang1"
-                                        name="values[panjang-selang]" value="1.5">
-                                    <label class="form-check-label" for="radiopanjang-selang1">1.5 inch</label>
-                                </div>
-
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiopanjang-selang2"
-                                        name="values[panjang-selang]" value="2.5">
-                                    <label class="form-check-label" for="radiopanjang-selang2">2.5 inch</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="mb-3">
                                 <label class="form-label">KONDISI</label>
 
                                 <div class="form-check mx-1">
@@ -198,22 +181,6 @@
                                 <label for="exampleInputEmail1" class="form-label">JUMLAH</label>
                                 <input type="number" class="form-control" aria-describedby="emailHelp"
                                     name="values[jumlah-nozle]">
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Jenis</label>
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiojenisnozle1"
-                                        name="values[jenis-nozle]" value="Jet">
-                                    <label class="form-check-label" for="radiojenisnozle1">Jet</label>
-                                </div>
-
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radiojenisnozle2"
-                                        name="values[jenis-nozle]" value="Spray">
-                                    <label class="form-check-label" for="radiojenisnozle2">Spray</label>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-2">

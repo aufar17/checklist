@@ -50,7 +50,7 @@ class   ScanService
         ];
 
 
-        if ($distance > 50) {
+        if ($distance > 10) {
             return response()->json([
                 'error' => 'Anda terlalu jauh dari lokasi hydrant!',
                 'details' => $response

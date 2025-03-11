@@ -136,6 +136,13 @@
         </x-navbar>
 
         <div class="container py-4 text-center">
+            @if (session('error'))
+            <div class="row">
+                <div id="alert-message" class="col-md-12 alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> {{ session('error') }}
+                </div>
+            </div>
+            @endif
             <h3 class="mb-3">Scan QR Code</h3>
             <div class="video-container">
                 <div id="camera-container" class="position-relative">
@@ -264,5 +271,8 @@
         }
     </script>
 </body>
+
+
+
 
 </html>

@@ -41,6 +41,57 @@
         justify-content: center;
         align-items: center;
     }
+
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        z-index: 9999;
+    }
+
+    /* Animasi Gambar Jarum Location */
+    .loading-icon {
+        width: 60px;
+        height: 60px;
+        animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(-15px);
+        }
+    }
+
+    .btn-location {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: none;
+        color: white;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .btn-location:hover {
+        transform: scale(1.1);
+    }
 </style>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -93,14 +144,45 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-6 mt-2">
+                                    <label class="form-label">PANJANG SELANG</label>
+                                    <select name="panjang_selang" class="form-select">
+                                        <option disabled selected>Pilih</option>
+                                        <option value="2.5">2,5 meter</option>
+                                        <option value="1.5">1,5 meter</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mt-2">
+                                    <label class="form-label">JENIS NOZLE</label>
+                                    <select name="jenis_nozle" class="form-select">
+                                        <option disabled selected>Pilih</option>
+                                        <option value="Jet">Jet</option>
+                                        <option value="Spray">Spray</option>
+                                        <option value="Jet - Spray">Jet - Spray</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="row" id="locationFields" style="visibility: hidden;">
+                                <div class="col-md-6 mt-2">
                                     <label class="form-label">LONGITUDE</label>
-                                    <input type="text" class="form-control" name="longitude">
+                                    <input type="text" class="form-control" id="longitude" name="longitude" readonly>
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <label class="form-label">LATITUDE</label>
-                                    <input type="text" class="form-control" name="latitude">
+                                    <input type="text" class="form-control" id="latitude" name="latitude" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <div class="col-md-2 mt-4 d-flex justify-content-center">
+                                    <button type="button" class="btn-location btn btn-danger" onclick="getLocation()">
+                                        📍
+                                    </button>
                                 </div>
                             </div>
 
@@ -109,6 +191,12 @@
                             <a href="{{ route('hydrant') }}" class="btn btn-secondary mt-5">Cancel</a>
                         </form>
                         @endslot
+
+                        <div id="loadingOverlay" class="loading-overlay">
+                            <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Loading"
+                                class="loading-icon">
+                            <p>Mengambil lokasi...</p>
+                        </div>
 
 
                     </x-card>
@@ -155,6 +243,46 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                document.getElementById("loadingOverlay").style.display = "flex";
+    
+                let timeoutHandler = setTimeout(() => {
+                    document.getElementById("loadingOverlay").style.display = "none";
+                    alert("Gagal mendapatkan lokasi: Timeout, coba lagi.");
+                }, 10000); 
+    
+                navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    clearTimeout(timeoutHandler); 
+                    document.getElementById("longitude").value = position.coords.longitude;
+                    document.getElementById("latitude").value = position.coords.latitude;
+
+                    document.getElementById("locationFields").style.visibility = "visible";
+
+                    setTimeout(() => {
+                        document.getElementById("loadingOverlay").style.display = "none";
+                    }, 2000); 
+                },
+                    function (error) {
+                        clearTimeout(timeoutHandler); 
+                        document.getElementById("loadingOverlay").style.display = "none";
+                        alert("Gagal mendapatkan lokasi: " + error.message);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000, 
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                alert("Geolocation tidak didukung di browser ini.");
+            }
+        }
+    </script>
+
+
 
 
 </body>

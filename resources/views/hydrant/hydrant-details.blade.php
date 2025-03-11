@@ -139,35 +139,7 @@
                     @endslot
 
                     @slot('panjang_selang')
-                    {{-- @foreach (range(1, 12) as $month)
-                    <td class="border border-dark">
-                        @if ($allMonths[$month]->isNotEmpty())
-                        @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 5)->pluck('values')->toArray();
-                        @endphp
-                        <input disabled type="checkbox" class="custom-radio" @checked(in_array('1.5', $filtered))> 1.5
-                        inch
-                        <input disabled type="checkbox" class="custom-radio" style="margin-left: 10px"
-                            @checked(in_array('2.5', $filtered))> 2.5
-                        inch
-                        @else
-
-                        @endif
-                    </td>
-                    @endforeach --}}
-
-                    @foreach (range(1, 12) as $month)
-                    <td>
-                        @if ($allMonths[$month]->isNotEmpty())
-                        @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 5)->pluck('values');
-                        @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
-
-                        @endif
-                    </td>
-                    @endforeach
+                    {{ $hydrant->panjang_selang }}
                     @endslot
 
 
@@ -219,33 +191,7 @@
                     @endslot
 
                     @slot('jenis_nozle')
-                    {{-- @foreach (range(1, 12) as $month)
-                    <td class="border border-dark">
-                        @if ($allMonths[$month]->isNotEmpty())
-                        @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 8)->pluck('values')->toArray();
-                        @endphp
-                        <input disabled type="checkbox" class="custom-radio" @checked(in_array('Jet', $filtered))> Jet
-                        <input disabled type="checkbox" class="custom-radio" style="margin-left: 10px"
-                            @checked(in_array('Spray', $filtered))>
-                        Spray
-                        @else
-
-                        @endif
-                    </td>
-                    @endforeach --}}
-                    @foreach (range(1, 12) as $month)
-                    <td>
-                        @if ($allMonths[$month]->isNotEmpty())
-                        @php
-                        $filtered = $allMonths[$month]->where('inspection_id', 8)->pluck('values');
-                        @endphp
-                        {{ $filtered->isNotEmpty() ? $filtered->implode(', ') : '-' }}
-                        @else
-
-                        @endif
-                    </td>
-                    @endforeach
+                    {{ $hydrant->jenis_nozle }}
                     @endslot
 
                     @slot('jumlah_nozle')

@@ -17,16 +17,18 @@ class ScanController extends Controller
         $longitude = $request->input('longitude');
         $code = $request->input('qrcode_data');
 
-
-        $result = new ScanService();
-        $result = $result->scanProcess($latitude, $longitude, $code);
+        $scanService = new ScanService();
+        $result = $scanService->scanProcess($latitude, $longitude, $code);
 
         if ($result instanceof JsonResponse) {
-            return $result;
+            return redirect()->route('scan')->with('error', $result->getData()->error);
         }
+
         return redirect()->route('checksheet', ['id' => $result['data']->id])
-            ->with('success', 'Scan berhasil!');;
+            ->with('success', 'Scan berhasil!');
     }
+
+
 
     public function scan(Request $request)
     {

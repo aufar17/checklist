@@ -16,6 +16,8 @@ class Hydrant extends Model
         'type',
         'status',
         'notes',
+        'panjang_selang',
+        'jenis_nozle',
         'longitude',
         'latitude',
     ];
