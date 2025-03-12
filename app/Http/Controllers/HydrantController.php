@@ -16,14 +16,21 @@ class HydrantController extends Controller
 
         $session = Auth::check();
         $user = Auth::user();
+        $hydrants = Hydrant::all();
 
         if (!$session) {
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
 
+        foreach ($hydrants as $hydrant) {
+            $statusHistory = $hydrant->status ?? []; // Langsung gunakan tanpa json_decode
+            $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
+        }
+
         $data = [
             'user' => $user,
             'session' => $session,
+            'hydrants' => $hydrants,
         ];
 
         return view('hydrant.new-hydrant', $data);
@@ -75,5 +82,66 @@ class HydrantController extends Controller
         ];
 
         return view('hydrant.hydrant-details', $data);
+    }
+
+    public function editHydrant($id)
+    {
+        $session = Auth::check();
+        $user = Auth::user();
+        $hydrants = Hydrant::all();
+        $hydrant = Hydrant::where('id', $id)->first();
+
+        if (!$session) {
+            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        }
+        foreach ($hydrants as $hydrant) {
+            $statusHistory = $hydrant->status ?? []; // Langsung gunakan tanpa json_decode
+            $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
+        }
+
+        $data = [
+            'user' => $user,
+            'session' => $session,
+            'hydrants' => $hydrants,
+            'hydrant' => $hydrant,
+        ];
+
+        return view('hydrant.edit-hydrant', $data);
+    }
+
+    public function hydrantUpdate(Request $request)
+    {
+        if (!$request->id) {
+            return redirect()->route('hydrant')->with('error', 'ID Hydrant tidak ditemukan!');
+        }
+
+        $hydrantService = new HydrantService();
+
+        $update = $hydrantService->hydrantUpdate($request->id, $request->all());
+
+        if ($update) {
+            return redirect()->route('hydrant')->with('success', 'Hydrant berhasil diperbarui!');
+        } else {
+            return redirect()->route('hydrant')->with('error', 'Hydrant gagal diperbarui!');
+        }
+    }
+
+
+    public function hydrantDelete()
+    {
+        if (!Auth::check()) {
+            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        }
+
+        $id = request()->post('id');
+        $hydrant = Hydrant::find($id);
+
+        if (!$hydrant) {
+            return back()->withErrors(['error' => 'Hydrant tidak ditemukan.']);
+        }
+
+        $hydrant->delete();
+
+        return redirect()->route('hydrant')->with('success', 'Hydrant berhasil dihapus');
     }
 }

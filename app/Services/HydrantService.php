@@ -24,6 +24,27 @@ class HydrantService
         return Hydrant::create($validate);
     }
 
+    public function hydrantUpdate(int $id, array $data)
+    {
+        $validate = $this->validateData($data);
+
+        $hydrant = Hydrant::find($id);
+        if (!$hydrant) {
+            return back()->withErrors(['error' => 'Hydrant tidak ditemukan.']);
+        }
+
+        $validate['status'] = [
+            ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')]
+        ];
+
+        $validate['panjang_selang'] = str_replace(',', '.', $data['panjang_selang']);
+
+        $hydrant->update($validate);
+
+        return redirect()->route('hydrant')->with('success', 'Hydrant berhasil diperbarui');
+    }
+
+
     private function validateData(array $data)
     {
         return validator($data, [

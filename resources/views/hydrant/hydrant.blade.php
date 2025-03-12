@@ -146,6 +146,32 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                 </thead>
                                 <tbody>
                                     @forelse ($hydrants as $hydrant)
+                                    <!-- Modal Konfirmasi Hapus -->
+                                    <div class="modal fade" id="deleteModal" tabindex="-1"
+                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Apakah yakin ingin menghapus hydrant
+                                                    <strong class="text-danger">{{$hydrant->no_hydrant}}</strong>?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form id="deleteForm" action="{{ route('hydrant-delete') }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <input hidden type="text" name="id" id="productId"
+                                                            value="{{ $hydrant->id }}">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Modal Validasi Inspeksi -->
                                     <div class="modal fade" id="trackingModal-{{ $hydrant->id }}" tabindex="-1"
                                         aria-hidden="true">
@@ -271,12 +297,16 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                                 class="btn btn-info btn-sm p-2 border-0 rounded">
                                                 <i class="fa-solid fa-circle-info fs-6"></i>
                                             </a>
-                                            <a class="btn btn-warning btn-sm p-2 border-0 rounded">
+                                            <a href="{{ route('edit-hydrant', ['id' => $hydrant->id]) }}"
+                                                class="btn btn-warning btn-sm p-2 border-0 rounded">
                                                 <i class="fa-solid fa-pen-to-square fs-6"></i>
                                             </a>
-                                            <a class="btn btn-danger btn-sm p-2 border-0 rounded">
+                                            <button type="button" class="btn btn-danger btn-sm p-2 border-0 rounded"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $hydrant->id }}">
                                                 <i class="fa-solid fa-trash fs-6"></i>
-                                            </a>
+                                            </button>
+
                                         </td>
                                     </tr>
                                     @empty
@@ -291,6 +321,9 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
             <x-footer></x-footer>
         </div>
     </main>
+
+
+
 
 
 

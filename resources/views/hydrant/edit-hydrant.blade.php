@@ -126,24 +126,29 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                         Hydrant Forms
                         @endslot
                         @slot('body')
-                        <form class="px-4 py-3" action="{{ route('hydrant-post') }}" method="POST">
+                        <form class="px-4 py-3" action="{{ route('hydrant-update') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-4 mt-2">
                                     <label class="form-label">NO HYDRANT</label>
-                                    <input type="text" class="form-control" name="no_hydrant">
+                                    <input type="text" class="form-control" name="no_hydrant"
+                                        value="{{ $hydrant->no_hydrant }}" readonly>
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label class="form-label">LOCATION</label>
-                                    <input type="text" class="form-control" name="location">
+                                    <input type="text" class="form-control" name="location"
+                                        value="{{ $hydrant->location }}">
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label class="form-label">TYPE</label>
                                     <select name="type" class="form-select">
                                         <option disabled selected>Pilih</option>
-                                        <option value="Indoor">Indoor</option>
-                                        <option value="Outdoor">Outdoor</option>
+                                        <option value="Indoor" {{ $hydrant->type == 'Indoor' ? 'selected' : '' }}>Indoor
+                                        </option>
+                                        <option value="Outdoor" {{ $hydrant->type == 'Outdoor' ? 'selected' : ''
+                                            }}>Outdoor</option>
                                     </select>
+
                                 </div>
                             </div>
 
@@ -152,8 +157,12 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                     <label class="form-label">PANJANG SELANG</label>
                                     <select name="panjang_selang" class="form-select">
                                         <option disabled selected>Pilih</option>
-                                        <option value="2.5">2,5 meter</option>
-                                        <option value="1.5">1,5 meter</option>
+                                        <option value="2.5" {{ $hydrant->panjang_selang == '2.5' ? 'selected' : ''
+                                            }}>2.5 inch
+                                        </option>
+                                        <option value="1.5" {{ $hydrant->panjang_selang == '1.5' ? 'selected' : ''
+                                            }}>1.5 inch
+                                        </option>
                                     </select>
                                 </div>
 
@@ -161,22 +170,31 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                     <label class="form-label">JENIS NOZLE</label>
                                     <select name="jenis_nozle" class="form-select">
                                         <option disabled selected>Pilih</option>
-                                        <option value="Jet">Jet</option>
-                                        <option value="Spray">Spray</option>
-                                        <option value="Jet - Spray">Jet - Spray</option>
+                                        <option value="Jet" {{ $hydrant->jenis_nozle == 'Jet' ? 'selected' : ''
+                                            }}>Jet
+                                        </option>
+                                        <option value="Spray" {{ $hydrant->jenis_nozle == 'Spray' ? 'selected' : ''
+                                            }}>Spray
+                                        </option>
+                                        <option value="Jet - Spray" {{ $hydrant->jenis_nozle == 'Jet - Spray' ?
+                                            'selected' : ''
+                                            }}>Jet - Spray
+                                        </option>
                                     </select>
                                 </div>
 
                             </div>
 
-                            <div class="row" id="locationFields" style="visibility: hidden;">
+                            <div class="row" id="locationFields">
                                 <div class="col-md-6 mt-2">
                                     <label class="form-label">LONGITUDE</label>
-                                    <input type="text" class="form-control" id="longitude" name="longitude" readonly>
+                                    <input type="text" class="form-control" id="longitude" name="longitude"
+                                        value="{{ $hydrant->longitude }}" readonly>
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <label class="form-label">LATITUDE</label>
-                                    <input type="text" class="form-control" id="latitude" name="latitude" readonly>
+                                    <input type="text" class="form-control" id="latitude" name="latitude"
+                                        value="{{ $hydrant->latitude }}" readonly>
                                 </div>
                             </div>
 

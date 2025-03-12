@@ -47,6 +47,7 @@ class MainController extends Controller
 
     public function hydrant()
     {
+        $user = Auth::user();
         if (!Auth::check()) {
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
@@ -61,7 +62,7 @@ class MainController extends Controller
         }
 
         return view('hydrant.hydrant', [
-            'user' => Auth::user(),
+            'user' => $user,
             'hydrants' => $hydrants,
         ]);
     }

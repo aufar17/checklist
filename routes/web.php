@@ -33,7 +33,10 @@ Route::post('checksheet-post', [ChecksheetController::class, 'checksheetPost'])-
 
 // Hydrant Features
 Route::get('new-hydrant', [HydrantController::class, 'newHydrant'])->name('new-hydrant');
+Route::get('edit-hydrant/{id}', [HydrantController::class, 'editHydrant'])->name('edit-hydrant');
 Route::post('hydrant-post', [HydrantController::class, 'hydrantPost'])->name('hydrant-post');
+Route::post('hydrant-update', [HydrantController::class, 'hydrantUpdate'])->name('hydrant-update');
+Route::post('hydrant-delete', [HydrantController::class, 'hydrantDelete'])->name('hydrant-delete');
 Route::get('detail-hydrant/{id}', [HydrantController::class, 'detailHydrant'])->name('detail-hydrant');
 Route::get('hydrant-pdf/{id}', [HydrantController::class, 'hydrantPdf'])->name('hydrant-pdf');
 
