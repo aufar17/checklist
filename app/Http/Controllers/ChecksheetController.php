@@ -67,13 +67,19 @@ class ChecksheetController extends Controller
             $values = $request->input('values', []);
             $notes = $request->input('notes', []);
             $user = Auth::user();
+            $hydrantId = $request->hydrant_id;
+            $isAbnormal = false;
 
             foreach ($values as $slug => $value) {
                 $inspectionId = Inspection::getIdBySlug($slug);
 
                 if (!empty($inspectionId)) {
+                    if ($value == "0") {
+                        $isAbnormal = true;
+                    }
+
                     InspectionHydrant::create([
-                        'hydrant_id'      => $request->hydrant_id,
+                        'hydrant_id'      => $hydrantId,
                         'inspection_id'   => $inspectionId,
                         'inspection_date' => now(),
                         'documentation'   => $filename,
@@ -85,9 +91,9 @@ class ChecksheetController extends Controller
                 }
             }
 
-            // Update status hydrant
-            $hydrant = Hydrant::findOrFail($request->hydrant_id);
+            $hydrant = Hydrant::findOrFail($hydrantId);
 
+            // Buat log aksi
             ActionLog::create([
                 'hydrant_id' => $hydrant->id,
                 'user'       => $user->id,
@@ -96,14 +102,21 @@ class ChecksheetController extends Controller
             ]);
 
             $statusHistory = $hydrant->status ?? [];
+            $statusHydrant = $hydrant->status_hydrant ?? [];
 
             $statusHistory[] = [
                 'status'    => $request->status,
                 'timestamp' => now()->format('Y-m-d H:i:s'),
             ];
 
+            $statusHydrant[] = [
+                'status'    => $isAbnormal ? 1 : 0,
+                'timestamp' => now()->format('Y-m-d H:i:s'),
+            ];
+
             $hydrant->update([
-                'status' => $statusHistory
+                'status'         => $statusHistory,
+                'status_hydrant' => $statusHydrant,
             ]);
 
             return redirect()->route('detail-hydrant', ['id' => $hydrant->id])

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('type');
             $table->json('status');
+            $table->json('status_hydrant');
             $table->float('panjang_selang');
             $table->string('jenis_nozle');
             $table->double('longitude');

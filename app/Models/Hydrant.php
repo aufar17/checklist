@@ -14,6 +14,7 @@ class Hydrant extends Model
         'no_hydrant',
         'location',
         'type',
+        'status_hydrant',
         'status',
         'notes',
         'panjang_selang',
@@ -26,6 +27,7 @@ class Hydrant extends Model
     {
         return $this->hasMany(InspectionHydrant::class, 'hydrant_id', 'id');
     }
+
     public function actionLogs(): HasMany
     {
         return $this->hasMany(ActionLog::class, 'id', 'hydrant_id');
@@ -40,11 +42,12 @@ class Hydrant extends Model
     {
         $this->attributes['status'] = json_encode($value);
     }
-
-    // public function InspectionThisMonth(): HasMany
-    // {
-    //     return $this->hasMany(InspectionHydrant::class, 'hydrant_id', 'id')
-    //         ->whereMonth('inspection_date', Carbon::now()->month)
-    //         ->whereYear('inspection_date', Carbon::now()->year);
-    // }
+    public function setStatusHydrantAttribute($value)
+    {
+        $this->attributes['status_hydrant'] = json_encode($value);
+    }
+    public function getStatusHydrantAttribute($value)
+    {
+        return json_decode($value, true);
+    }
 }

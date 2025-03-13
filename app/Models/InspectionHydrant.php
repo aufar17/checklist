@@ -25,10 +25,9 @@ class InspectionHydrant extends Model
 
     ];
 
+
     public function hydrant(): BelongsTo
     {
         return $this->belongsTo(Hydrant::class, 'hydrant_id', 'id');
     }
-
-    
 }

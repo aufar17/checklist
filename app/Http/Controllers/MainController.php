@@ -52,18 +52,34 @@ class MainController extends Controller
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
 
-        $hydrants = Hydrant::with('inspectionHydrants')
-            ->orderBy('id')
-            ->paginate(10);
+        $hydrants = Hydrant::with('inspectionHydrants')->orderBy('id')->paginate(10);
+
 
         foreach ($hydrants as $hydrant) {
-            $statusHistory = $hydrant->status ?? []; // Langsung gunakan tanpa json_decode
-            $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
+            $statusHistory = $hydrant->status ?? [];
+            $statusHydrant = $hydrant->status_hydrant ?? [];
+
+            $hydrant->latest_status = is_array($statusHistory) && !empty($statusHistory)
+                ? end($statusHistory)['status']
+                : 0;
+
+            $latestInspection = $hydrant->inspectionHydrants->first();
+            $hydrant->latest_inspection_date = $latestInspection ? $latestInspection->inspection_date : 'Belum ada inspeksi';
+
+            $abnormal = $hydrant->inspectionHydrants->contains('values', 0);
+
+            $hydrant->latest_status_hydrant = $abnormal ? 1 : 0;
+
+            // $hydrant->latest_status_hydrant = is_array($statusHydrant) && !empty($statusHydrant)
+            //     ? end($statusHydrant)['status_hydrant']
+            //     : 0;
         }
 
-        return view('hydrant.hydrant', [
-            'user' => $user,
+        $data = [
             'hydrants' => $hydrants,
-        ]);
+            'user' => $user,
+        ];
+
+        return view('hydrant.hydrant', $data);
     }
 }

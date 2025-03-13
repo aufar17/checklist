@@ -16,13 +16,17 @@ class HydrantService
         $validate = $this->validateData($data);
 
         $validate['status'] = [
-            ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')]
+            ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')],
+        ];
+        $validate['status_hydrant'] = [
+            ['status_hydrant' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')],
         ];
 
         $validate['panjang_selang'] = str_replace(',', '.', $data['panjang_selang']);
 
         return Hydrant::create($validate);
     }
+
 
     public function hydrantUpdate(int $id, array $data)
     {
@@ -34,7 +38,8 @@ class HydrantService
         }
 
         $validate['status'] = [
-            ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')]
+            ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')],
+            ['status_hydrant' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')],
         ];
 
         $validate['panjang_selang'] = str_replace(',', '.', $data['panjang_selang']);
@@ -52,6 +57,7 @@ class HydrantService
             'location'      => 'required|string',
             'type'          => 'required|string',
             'status'        => 'required',
+            'status_hydrant'        => 'required',
             'panjang_selang' => 'required|numeric',
             'jenis_nozle'   => 'required|string',
             'longitude'     => 'required|numeric',

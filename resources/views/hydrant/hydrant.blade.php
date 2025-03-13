@@ -141,6 +141,7 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                         <th class="text-center">Lokasi</th>
                                         <th class="text-center">Tipe</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Approval</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -183,59 +184,40 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                                         data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    @php
+                                                    $inspection = $hydrant->inspectionHydrants->first();
+                                                    $statuses = [
+                                                    ['label' => 'DIBUAT', 'user' => $inspection->created_by ?? 'Belum
+                                                    dibuat', 'date' => $inspection->created_date ?? '', 'badge' =>
+                                                    'danger', 'icon' => 'file-alt'],
+                                                    ['label' => 'DIKETAHUI', 'user' => $inspection->known_by ?? 'Belum
+                                                    diketahui', 'date' => $inspection->known_date ?? '', 'badge' =>
+                                                    'warning', 'icon' => 'eye'],
+                                                    ['label' => 'DIPERIKSA', 'user' => $inspection->checked_by ?? 'Belum
+                                                    diperiksa', 'date' => $inspection->checked_date ?? '', 'badge' =>
+                                                    'success', 'icon' => 'check-circle']
+                                                    ];
+                                                    $isRejected = in_array($hydrant->latest_status, [4, 5]);
+                                                    @endphp
+
                                                     <ul class="list-group">
-                                                        @php
-                                                        $inspection = $hydrant->inspectionHydrants->first();
-                                                        $createdBy = $inspection->created_by ?? 'Belum dibuat';
-                                                        $createdDate = $inspection->created_date ?? '';
-                                                        $knownBy = $inspection->known_by ?? 'Belum diketahui';
-                                                        $knownDate = $inspection->known_date ?? '';
-                                                        $checkedBy = $inspection->checked_by ?? 'Belum diperiksa';
-                                                        $checkedDate = $inspection->checked_date ?? '';
-                                                        $rejectionNote = $inspection->rejection_note ?? null;
-                                                        $isRejected = in_array($hydrant->latest_status, [4, 5]);
-                                                        @endphp
-
+                                                        @foreach ($statuses as $status)
                                                         <li
                                                             class="list-group-item d-flex justify-content-between align-items-center">
                                                             <div class="d-flex align-items-center">
-                                                                <span class="badge bg-danger me-3"><i
-                                                                        class="fas fa-file-alt"></i></span>
+                                                                <span class="badge bg-{{ $status['badge'] }} me-3"><i
+                                                                        class="fas fa-{{ $status['icon'] }}"></i></span>
                                                                 <div>
-                                                                    <h6 class="mb-0">DIBUAT</h6>
-                                                                    <small class="text-muted">{{ $createdBy }}</small>
+                                                                    <h6 class="mb-0">{{ $status['label'] }}</h6>
+                                                                    <small class="text-muted">{{ $status['user']
+                                                                        }}</small>
                                                                 </div>
                                                             </div>
-                                                            <small class="text-muted">{{ $createdDate }}</small>
+                                                            <small class="text-muted">{{ $status['date'] }}</small>
                                                         </li>
+                                                        @endforeach
 
-                                                        <li
-                                                            class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <div class="d-flex align-items-center">
-                                                                <span class="badge bg-warning me-3"><i
-                                                                        class="fas fa-eye"></i></span>
-                                                                <div>
-                                                                    <h6 class="mb-0">DIKETAHUI</h6>
-                                                                    <small class="text-muted">{{ $knownBy }}</small>
-                                                                </div>
-                                                            </div>
-                                                            <small class="text-muted">{{ $knownDate }}</small>
-                                                        </li>
-
-                                                        <li
-                                                            class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <div class="d-flex align-items-center">
-                                                                <span class="badge bg-success me-3"><i
-                                                                        class="fas fa-check-circle"></i></span>
-                                                                <div>
-                                                                    <h6 class="mb-0">DIPERIKSA</h6>
-                                                                    <small class="text-muted">{{ $checkedBy }}</small>
-                                                                </div>
-                                                            </div>
-                                                            <small class="text-muted">{{ $checkedDate }}</small>
-                                                        </li>
-
-                                                        @if ($hydrant->status == 4 || $hydrant->status == 5)
+                                                        @if ($isRejected)
                                                         <li
                                                             class="list-group-item d-flex justify-content-between align-items-center bg-danger text-white">
                                                             <div class="d-flex align-items-center">
@@ -244,16 +226,14 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                                                 <div>
                                                                     <h6 class="mb-0">DITOLAK</h6>
                                                                     <small class="text-white">
-                                                                        @if ($hydrant->status == 4)
-                                                                        Ditolak oleh SPV
-                                                                        @else
-                                                                        Ditolak oleh Manager
-                                                                        @endif
+                                                                        {{ $hydrant->latest_status == 4 ? 'Ditolak oleh
+                                                                        SPV' : 'Ditolak oleh Manager' }}
                                                                     </small>
                                                                 </div>
                                                             </div>
-                                                            @if ($rejectionNote)
-                                                            <small class="fw-bold">Alasan: {{ $rejectionNote }}</small>
+                                                            @if ($inspection->rejection_note)
+                                                            <small class="fw-bold">Alasan: {{
+                                                                $inspection->rejection_note }}</small>
                                                             @endif
                                                         </li>
                                                         @endif
@@ -263,12 +243,71 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                         </div>
                                     </div>
 
+
                                     <!-- Data Table Row -->
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{{ $hydrant->no_hydrant }}</td>
                                         <td class="text-center">{{ $hydrant->location }}</td>
                                         <td class="text-center">{{ $hydrant->type }}</td>
+                                        <td class="text-center">
+                                            @php
+                                            $statusList = [
+                                            0 => ['text' => 'Normal', 'class' => 'text-bg-success'],
+                                            1 => ['text' => 'Abnormal', 'class' => 'text-bg-danger'],
+                                            ];
+
+                                            $status = $statusList[$hydrant->latest_status_hydrant] ?? ['text' => 'Tidak
+                                            Diketahui', 'class' => 'text-bg-secondary'];
+                                            @endphp
+
+                                            <button
+                                                class="badge {{ $status['class'] }} p-1 px-2 border-0 fw-bold fs-7 tracking-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#kondisiModal-{{ $hydrant->id }}">
+                                                <span class="text-white fw-bold">{{ $status['text'] }}</span>
+                                            </button>
+                                        </td>
+
+                                        <div class="modal fade" id="kondisiModal-{{ $hydrant->id }}" tabindex="-1"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title fw-bold text-white">Kondisi Hydrant</h5>
+                                                        <button type="button" class="btn-close btn-close-light"
+                                                            data-bs-dismiss="modal"></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <ul class="list-group mb-3">
+                                                            <li class="list-group-item">
+                                                                <strong>No. Hydrant:</strong> {{ $hydrant->no_hydrant }}
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <strong>Inspeksi Terakhir:</strong> {{
+                                                                $hydrant->latest_inspection_date }}
+                                                            </li>
+                                                            <li class="list-group-item">
+                                                                <strong>Status Hydrant:</strong>
+                                                                <span
+                                                                    class="badge {{ $hydrant->latest_status_hydrant ? 'text-bg-danger' : 'text-bg-success' }}">
+                                                                    {{ $hydrant->latest_status_hydrant ? 'Abnormal' :
+                                                                    'Normal' }}
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                        @if ($hydrant->latest_status_hydrant == 1)
+                                                        <div class="text-end">
+                                                            <button class="btn btn-success">PICA</button>
+                                                        </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <td class="text-center">
                                             @php
                                             $statusList = [
@@ -291,6 +330,7 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                                 <span class="text-white fw-bold">{{ $status['text'] }}</span>
                                             </button>
                                         </td>
+
 
                                         <td>
                                             <a href="{{ route('detail-hydrant', ['id' => $hydrant->id]) }}"

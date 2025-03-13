@@ -66,6 +66,7 @@ class   ScanService
             'longitude' => $hydrant->longitude,
         ];
 
+
         $qrCodeScan = HydrantQR::create([
             'content' => json_encode($hydrantData),
             'scanned_by' => Auth::check() ? Auth::user()->name : 'guest',

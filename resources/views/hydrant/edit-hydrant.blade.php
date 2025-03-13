@@ -206,6 +206,7 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                 </div>
                             </div>
 
+                            <input type="text" class="form-control" name="status_hydrant" hidden value=0>
                             <input type="text" class="form-control" name="status" hidden value=0>
                             <button class="btn btn-danger mt-5" type="submit">Submit</button>
                             <a href="{{ route('hydrant') }}" class="btn btn-secondary mt-5">Cancel</a>
