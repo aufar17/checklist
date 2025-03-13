@@ -79,8 +79,35 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                         Hydrant Table
                         @endslot
                         @slot('body')
-                        <a href="{{ route('new-hydrant') }}" class="btn btn-success"><i
-                                class="fa-solid fa-plus me-2"></i>New</a>
+                        <div class="row align-items-center">
+                            <div class="col-md-1 col-sm-6 mb-2">
+                                <a href="{{ route('new-hydrant') }}" class="btn btn-success btn-sm w-100">
+                                    <i class="fa-solid fa-plus me-2"></i>New
+                                </a>
+                            </div>
+                            <div class="col-md-1 col-sm-6 mb-2">
+                                <div class="dropdown w-100">
+                                    <button class="btn btn-primary btn-sm dropdown-toggle w-100" type="button"
+                                        data-bs-toggle="dropdown">
+                                        Export
+                                    </button>
+                                    <ul class="dropdown-menu w-100">
+                                        <li>
+                                            <button class="dropdown-item" id="btn-pdf">
+                                                <i class="fa-solid fa-file-pdf text-danger"></i> PDF
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button class="dropdown-item" id="btn-excel">
+                                                <i class="fa-solid fa-file-excel text-success"></i> Excel
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="row mb-3 align-items-end">
                             <div class="col-sm-2">
                                 <label for="filterYear" class="form-label">Year</label>
@@ -101,37 +128,10 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                         @endfor
                                 </select>
                             </div>
-
-                            <div class="col-sm-2">
-                                <label class="form-label d-block my-2">Export</label>
-                                <div class="dropdown mt-2">
-                                    <button class="btn btn-primary btn-sm dropdown-toggle w-100" type="button"
-                                        data-bs-toggle="dropdown">
-                                        Export
-                                    </button>
-                                    <ul class="dropdown-menu w-100">
-                                        <li>
-                                            <button class="dropdown-item" id="btn-pdf">
-                                                <i class="fa-solid fa-file-pdf text-danger"></i> PDF
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="dropdown-item" id="btn-excel">
-                                                <i class="fa-solid fa-file-excel text-success"></i> Excel
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
                             <div class="col-md-4">
                                 <div id="tableHeader" class="w-100"></div>
                             </div>
                         </div>
-
-
-
-
                         <div class="table-responsive">
                             <table id="example" class="table table-striped table-bordered text-center table-hover">
                                 <thead>
@@ -242,9 +242,6 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                             </div>
                                         </div>
                                     </div>
-
-
-                                    <!-- Data Table Row -->
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{{ $hydrant->no_hydrant }}</td>
@@ -361,12 +358,6 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
             <x-footer></x-footer>
         </div>
     </main>
-
-
-
-
-
-
     <!--   Core JS Files   -->
     <script src="{{ asset('js/core/popper.min.js') }}"></script>
     <script src="{{ asset('js/core/bootstrap.min.js') }}"></script>
