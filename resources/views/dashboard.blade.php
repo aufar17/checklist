@@ -96,11 +96,8 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
-            <x-kpi>
-                @slot('amount')
-                {{ $hydrants->count() }}
-                @endslot
-            </x-kpi>
+            <livewire:kpi />
+
 
 
             @if ($user->golongan == 3 && $user->acting == 1)
@@ -541,6 +538,7 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
         var bounds = L.latLngBounds(hydrants.map(h => [h.latitude, h.longitude]));
         map.fitBounds(bounds);
     </script>
+    @livewireScripts
 </body>
 
 </html>

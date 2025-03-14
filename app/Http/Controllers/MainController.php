@@ -69,10 +69,6 @@ class MainController extends Controller
             $abnormal = $hydrant->inspectionHydrants->contains('values', 0);
 
             $hydrant->latest_status_hydrant = $abnormal ? 1 : 0;
-
-            // $hydrant->latest_status_hydrant = is_array($statusHydrant) && !empty($statusHydrant)
-            //     ? end($statusHydrant)['status_hydrant']
-            //     : 0;
         }
 
         $data = [

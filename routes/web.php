@@ -8,6 +8,7 @@ use App\Http\Controllers\OtpController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\ValidationController;
+use App\Livewire\Kpi;
 use App\Models\Hydrant;
 use Illuminate\Support\Facades\Route;
 use Mews\Captcha\Facades\Captcha;
@@ -44,3 +45,6 @@ Route::get('hydrant-pdf/{id}', [HydrantController::class, 'hydrantPdf'])->name('
 //Validation Features
 Route::post('spv-validation', [ValidationController::class, 'spvValidation'])->name('spv-validation');
 Route::post('manager-validation', [ValidationController::class, 'managerValidation'])->name('manager-validation');
+
+//Livewire
+Route::get('kpi', Kpi::class);
