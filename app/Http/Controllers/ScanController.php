@@ -13,6 +13,7 @@ class ScanController extends Controller
 {
     public function scanProcess(Request $request)
     {
+        $user = Auth::user();
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
         $code = $request->input('qrcode_data');
@@ -24,8 +25,15 @@ class ScanController extends Controller
             return redirect()->route('scan')->with('error', $result->getData()->error);
         }
 
-        return redirect()->route('checksheet', ['id' => $result['data']->id])
-            ->with('success', 'Scan berhasil!');
+        if ($user->dept == 'EHS') {
+            return redirect()->route('checksheet', ['id' => $result['data']->id])
+                ->with('success', 'Scan berhasil!');
+        }
+
+        if ($user->dept == 'PE-2W') {
+            return redirect()->route('checksheet', ['id' => $result['data']->id])
+                ->with('success', 'Scan berhasil!');
+        }
     }
 
 

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Hydrant;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Kpi extends Component
@@ -41,7 +42,6 @@ class Kpi extends Component
             $abnormal = $hydrant->inspectionHydrants->contains('values', 0);
             $latestStatusHydrant = $abnormal ? 1 : 0;
 
-            // Hitung KPI
             if ($latestStatus == 0) {
                 $this->notInspected++;
             } elseif ($latestStatus == 1) {

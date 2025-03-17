@@ -109,7 +109,7 @@ class   ScanService
             ];
 
 
-            if ($distance > 10) {
+            if ($distance > 50) {
                 return response()->json([
                     'error' => 'Anda terlalu jauh dari lokasi machine!',
                     'details' => $response
@@ -119,11 +119,12 @@ class   ScanService
             $machineData = [
                 'id' => $machine->id,
                 'code' => $machine->no_machine,
-                'location' => $machine->location,
-                'type' => $machine->type,
+                'name' => $machine->name,
+                'line' => $machine->line,
                 'latitude' => $machine->latitude,
                 'longitude' => $machine->longitude,
             ];
+
 
 
             $qrCodeScan = MachineQr::create([

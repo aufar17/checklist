@@ -11,11 +11,15 @@ use App\Http\Controllers\ScanController;
 use App\Http\Controllers\ValidationController;
 use App\Livewire\Kpi;
 use App\Models\Hydrant;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mews\Captcha\Facades\Captcha;
 
+// HYDRANT
+
 // Main Features
 Route::get('/', [MainController::class, 'index'])->name('index');
+
 Route::get('admin', [MainController::class, 'admin'])->name('admin');
 Route::get('hydrant', [MainController::class, 'hydrant'])->name('hydrant');
 
@@ -46,10 +50,6 @@ Route::get('hydrant-pdf/{id}', [HydrantController::class, 'hydrantPdf'])->name('
 //Validation Features
 Route::post('spv-validation', [ValidationController::class, 'spvValidation'])->name('spv-validation');
 Route::post('manager-validation', [ValidationController::class, 'managerValidation'])->name('manager-validation');
-
-//Livewire
-Route::get('kpi', Kpi::class);
-
 
 
 

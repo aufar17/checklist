@@ -80,6 +80,7 @@
                     <div class="alert alert-danger text-dark text-center">{{ $errors->first('captcha')
                         }}</div>
                     @endif
+
                     <div class="row no-gutters d-flex flex-column align-items-center">
                         <div class="container-main shadow-lg">
 
