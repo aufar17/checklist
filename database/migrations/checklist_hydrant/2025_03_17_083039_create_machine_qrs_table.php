@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql')->create('inspections', function (Blueprint $table) {
+        Schema::connection('mysql')->create('machine_qrs', function (Blueprint $table) {
             $table->id();
-            $table->integer('group_id');
-            $table->string('slug')->unique();
-            $table->string('item');
+            $table->string('content');
+            $table->string('scanned_by')->nullable();
+            $table->timestamp('scanned_at')->useCurrent();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inspections');
+        Schema::dropIfExists('machine_qrs');
     }
 };

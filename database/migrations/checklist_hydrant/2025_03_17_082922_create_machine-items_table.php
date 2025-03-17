@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql')->create('inspections', function (Blueprint $table) {
+        Schema::connection('mysql')->create('machine_items', function (Blueprint $table) {
             $table->id();
-            $table->integer('group_id');
-            $table->string('slug')->unique();
-            $table->string('item');
+            $table->string('group_id');
+            $table->string('slug');
+            $table->string('instruction');
+            $table->string('standard');
+            $table->integer('time');
+            $table->integer('frequency');
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inspections');
+        Schema::dropIfExists('machine-items');
     }
 };

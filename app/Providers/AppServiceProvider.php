@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Services\HydrantService;
+use Illuminate\Database\Migrations\Migrator;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\File; // ✅ Perbaiki import File
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,8 +25,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (env(key: 'APP_ENV') === 'local' && request()->server(key: 'HTTP_X_FORWARDED_PROTO') === 'https') {
-            URL::forceScheme(scheme: 'https');
+        $migrationFiles = collect(File::allFiles(database_path('migrations')))
+            ->filter(fn($file) => str_ends_with($file->getFilename(), '.php'))
+            ->map(fn($file) => $file->getPathname())
+            ->toArray();
+
+        $this->app->afterResolving(Migrator::class, function ($migrator) use ($migrationFiles) {
+            $migrator->paths($migrationFiles);
+        });
+
+        if (env('APP_ENV') === 'local' && request()->server('HTTP_X_FORWARDED_PROTO') === 'https') {
+            URL::forceScheme('https');
         }
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\ChecksheetController;
 use App\Http\Controllers\HydrantController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\MainMachineController;
 use App\Http\Controllers\OtpController;
 use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\ScanController;
@@ -48,3 +49,11 @@ Route::post('manager-validation', [ValidationController::class, 'managerValidati
 
 //Livewire
 Route::get('kpi', Kpi::class);
+
+
+
+
+// MACHINE
+
+//Main Features
+Route::get('admin-machine', [MainMachineController::class, 'adminMachine'])->name('admin-machine');

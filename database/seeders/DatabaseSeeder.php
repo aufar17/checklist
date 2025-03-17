@@ -19,8 +19,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            GroupInspectionSeeder::class,
-            InspectionSeeder::class
+            HydrantGroupSeeder::class,
+            HydrantItemSeeder::class,
+            MachineItemSeeder::class,
+            MachineGroupSeeder::class,
         ]);
     }
 }

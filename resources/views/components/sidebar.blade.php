@@ -22,8 +22,13 @@
 </style>
 
 @props([
-'notifBadge' => 0
+'notifBadge' => 0,
+'user' => null
 ])
+
+@php
+$dept = $user?->dept ?? 'default';
+@endphp
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
     id="sidenav-main">
@@ -44,10 +49,18 @@
                 icon="fa-house">
                 Dashboard
             </x-navlink>
+            @if($dept === 'EHS')
             <x-navlink href="{{ route('hydrant') }}"
                 :active="request()->is(['hydrant','new-hydrant','detail-hydrant']) " icon="fa-list">
                 Hydrant
             </x-navlink>
+            @endif
+            @if($dept === 'PE-2W')
+            <x-navlink href="{{ route('hydrant') }}"
+                :active="request()->is(['hydrant','new-hydrant','detail-hydrant']) " icon="fa-list">
+                Machine
+            </x-navlink>
+            @endif
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
             </li>

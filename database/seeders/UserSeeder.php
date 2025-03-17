@@ -40,6 +40,33 @@ class UserSeeder extends Seeder
                 'golongan' => '3',
                 'acting' => '1',
                 'password' => '123',
+            ],
+            [
+                'npk' => '020202',
+                'name' => 'Aufar Manager',
+                'dept' => 'PE-2W',
+                'sect' => 'Non BaaN',
+                'golongan' => '4',
+                'acting' => '1',
+                'password' => '123',
+            ],
+            [
+                'npk' => '030303',
+                'name' => 'Aufar SPV',
+                'dept' => 'PE-2W',
+                'sect' => 'TES',
+                'golongan' => '4',
+                'acting' => '2',
+                'password' => '123',
+            ],
+            [
+                'npk' => '040404',
+                'name' => 'Aufar PIC',
+                'dept' => 'PE-2W',
+                'sect' => 'TES',
+                'golongan' => '3',
+                'acting' => '1',
+                'password' => '123',
             ]
         ];
 

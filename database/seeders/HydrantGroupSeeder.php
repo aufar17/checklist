@@ -7,7 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use PHPUnit\Framework\Attributes\Group;
 
-class GroupInspectionSeeder extends Seeder
+class HydrantGroupSeeder extends Seeder
 {
     /**
      * Run the database seeds.

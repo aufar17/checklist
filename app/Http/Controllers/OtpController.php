@@ -64,7 +64,13 @@ class OtpController extends Controller
         $otp->delete();
         session(['otp_verified' => true]);
 
-        return redirect()->route('admin')->with('success', 'Selamat Datang!');
+        if ($user->dept == 'EHS') {
+            return redirect()->route('admin')->with('success', 'Selamat Datang!');
+        }
+
+        if ($user->dept == 'PE-2W') {
+            return redirect()->route('admin-machine')->with('success', 'Selamat Datang!');
+        }
     }
 
     public function resendOtp()

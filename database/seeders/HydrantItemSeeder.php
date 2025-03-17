@@ -6,7 +6,7 @@ use App\Models\Inspection;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class InspectionSeeder extends Seeder
+class HydrantItemSeeder extends Seeder
 {
     /**
      * Run the database seeds.
