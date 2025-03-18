@@ -14,8 +14,8 @@ class MachineGroup extends Model
 
     ];
 
-    public function inspectionMachine(): HasMany
+    public function machineItems(): HasMany
     {
-        return $this->hasMany(MachineItem::class, 'id', 'group_id');
+        return $this->hasMany(MachineItem::class, 'group_id', 'id');
     }
 }

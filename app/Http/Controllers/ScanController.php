@@ -31,7 +31,7 @@ class ScanController extends Controller
         }
 
         if ($user->dept == 'PE-2W') {
-            return redirect()->route('checksheet', ['id' => $result['data']->id])
+            return redirect()->route('checksheet-machine', ['id' => $result['data']->id])
                 ->with('success', 'Scan berhasil!');
         }
     }

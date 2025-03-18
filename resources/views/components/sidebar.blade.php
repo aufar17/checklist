@@ -56,8 +56,7 @@ $dept = $user?->dept ?? 'default';
             </x-navlink>
             @endif
             @if($dept === 'PE-2W')
-            <x-navlink href="{{ route('hydrant') }}"
-                :active="request()->is(['hydrant','new-hydrant','detail-hydrant']) " icon="fa-list">
+            <x-navlink href="{{ route('machine') }}" :active="request()->is(['machine']) " icon="fa-list">
                 Machine
             </x-navlink>
             @endif

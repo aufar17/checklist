@@ -46,13 +46,6 @@
 @php
 $notifBadge = 0;
 
-if ($user->golongan == 4) {
-if ($user->acting == 1) {
-$notifBadge = $hydrants->where('latest_status', 2)->count();
-} elseif ($user->acting == 2) {
-$notifBadge = $hydrants->where('latest_status', 1)->count();
-}
-}
 @endphp
 
 
@@ -76,7 +69,7 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                 <div class="col-md-12">
                     <x-card>
                         @slot('title')
-                        Hydrant Table
+                        Machine Table
                         @endslot
                         @slot('body')
                         <div class="row align-items-center">
@@ -106,8 +99,6 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                 </div>
                             </div>
                         </div>
-                        <livewire:hydrant-filter />
-
                         @endslot
                     </x-card>
                 </div>

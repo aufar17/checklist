@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class checksheet-table extends Component
+class machine-checksheet-form extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class checksheet-table extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.checksheet-table');
+        return view('components.machine-checksheet-form');
     }
 }

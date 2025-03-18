@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\ChecksheetController;
+use App\Http\Controllers\ChecksheetMachineController;
 use App\Http\Controllers\HydrantController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MainMachineController;
@@ -57,3 +58,11 @@ Route::post('manager-validation', [ValidationController::class, 'managerValidati
 
 //Main Features
 Route::get('admin-machine', [MainMachineController::class, 'adminMachine'])->name('admin-machine');
+Route::get('machine', [MainMachineController::class, 'machine'])->name('machine');
+
+
+//Checksheet Machine
+Route::get('checksheet-machine/{id}', [ChecksheetMachineController::class, 'checksheet'])->name('checksheet-machine');
+Route::post('checksheet-machine-post', [ChecksheetMachineController::class, 'checksheetPost'])->name('checksheet-machine-post');
+
+//Machine Features
