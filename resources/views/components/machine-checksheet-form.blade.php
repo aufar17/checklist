@@ -73,7 +73,6 @@
                         </div>
                     </div>
 
-                    {{-- Loop Group & Items --}}
                     @foreach ($groups as $group)
                     <div class="bg-secondary px-3 py-2 mt-4 mb-3 rounded">
                         <h5 class="text-white text-uppercase">{{ $group->desc }}</h5>

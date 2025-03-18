@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Hydrant;
 use App\Models\Inspection;
+use App\Models\Machine\Machine;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             HydrantItemSeeder::class,
             MachineItemSeeder::class,
             MachineGroupSeeder::class,
+            MachineSeeder::class,
         ]);
     }
 }

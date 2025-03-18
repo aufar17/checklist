@@ -56,7 +56,7 @@ class   ScanService
             ];
 
 
-            if ($distance > 10) {
+            if ($distance > 20) {
                 return response()->json([
                     'error' => 'Anda terlalu jauh dari lokasi hydrant!',
                     'details' => $response
@@ -109,12 +109,12 @@ class   ScanService
             ];
 
 
-            if ($distance > 50) {
-                return response()->json([
-                    'error' => 'Anda terlalu jauh dari lokasi machine!',
-                    'details' => $response
-                ], 403);
-            }
+            // if ($distance > 50) {
+            //     return response()->json([
+            //         'error' => 'Anda terlalu jauh dari lokasi machine!',
+            //         'details' => $response
+            //     ], 403);
+            // }
 
             $machineData = [
                 'id' => $machine->id,

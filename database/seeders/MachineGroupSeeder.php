@@ -50,6 +50,42 @@ class MachineGroupSeeder extends Seeder
             [
                 'desc' => 'Bar'
             ],
+            [
+                'desc' => 'Panel Operasi'
+            ],
+            [
+                'desc' => 'Panel Kontrol'
+            ],
+            [
+                'desc' => 'Pendant Robot'
+            ],
+            [
+                'desc' => 'Sliding Robot'
+            ],
+            [
+                'desc' => 'Cyl Clamp'
+            ],
+            [
+                'desc' => 'Robot Arm'
+            ],
+            [
+                'desc' => 'Safety Plug'
+            ],
+            [
+                'desc' => 'Safety Sensor'
+            ],
+            [
+                'desc' => 'Nozzle Cleaning'
+            ],
+            [
+                'desc' => 'Mist Collector'
+            ],
+            [
+                'desc' => 'Pompa'
+            ],
+            [
+                'desc' => 'Tangki Air'
+            ],
         ];
 
         foreach ($groups as $group) {

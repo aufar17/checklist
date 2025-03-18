@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('line');
             $table->string('maker');
             $table->integer('no_fixed_asset');
-            $table->string('status');
+            $table->json('status');
             $table->double('longitude');
             $table->double('latitude');
             $table->timestamps();

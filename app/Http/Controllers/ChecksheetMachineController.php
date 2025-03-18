@@ -21,6 +21,10 @@ class ChecksheetMachineController extends Controller
         $otp = session()->has('otp_verified');
         $checksheet = MachineQr::find($id);
 
+        // if (!$checksheet) {
+        //     return redirect()->route('admin-machine')->with('error', 'Mesin tidak ditemukan.');
+        // }
+
         if (!$otp || $otp !== true) {
             return redirect()->route('admin-machine')->with('error', 'Anda harus mengakses melalui scan QR Code.');
         }
