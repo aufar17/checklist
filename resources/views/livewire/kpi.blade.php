@@ -18,13 +18,14 @@
 </style>
 
 <div class="row">
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+    <!-- Total Mesin -->
+    <div class="col-xl-3 col-sm-6 mb-4">
         <a href="{{ route('hydrant') }}" class="card kpi">
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Hydrants</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Mesin</p>
                             <h5 class="font-weight-bolder mb-0">{{ $jumlahHydrant }}</h5>
                         </div>
                     </div>
@@ -37,32 +38,36 @@
             </div>
         </a>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+
+    <!-- Mesin belum di inspeksi -->
+    <div class="col-xl-3 col-sm-6 mb-4">
         <div class="card kpi">
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Hydrant belum di inspeksi</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Mesin belum di inspeksi</p>
                             <h5 class="font-weight-bolder mb-0">{{ $notInspected }}</h5>
                         </div>
                     </div>
                     <div class="col-4 text-end">
                         <div class="icon icon-shape bg-gradient-danger shadow text-center border-radius-md">
-                            <i class="fa-solid fa-circle-xmark  text-white text-lg opacity-10"></i>
+                            <i class="fa-solid fa-circle-xmark text-white text-lg opacity-10"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+
+    <!-- Mesin telah di inspeksi -->
+    <div class="col-xl-3 col-sm-6 mb-4">
         <div class="card kpi">
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Hydrant telah di inspeksi</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Mesin telah di inspeksi</p>
                             <h5 class="font-weight-bolder mb-0">{{ $inspected }}</h5>
                         </div>
                     </div>
@@ -76,19 +81,58 @@
         </div>
     </div>
 
-    <div class="col-xl-3 col-sm-6">
+    <!-- Mesin Bermasalah (Belum Lapor) -->
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <div class="card kpi">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-9">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Mesin Bermasalah (Belum Lapor)</p>
+                            <h5 class="font-weight-bolder mb-0">{{ $abnormal }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-3 text-end">
+                        <div class="icon icon-shape bg-gradient-danger shadow text-center border-radius-md">
+                            <i class="fa-solid fa-triangle-exclamation text-white text-lg opacity-10"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesin Bermasalah (Sudah Lapor) -->
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <div class="card kpi">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="numbers">
+                        <p class="text-sm mb-1 text-capitalize font-weight-bold">Mesin Bermasalah (Sudah Lapor)</p>
+                        <h5 class="font-weight-bolder mb-0">{{ $abnormal }}</h5>
+                    </div>
+                    <div class="icon icon-shape bg-gradient-danger shadow text-center border-radius-md">
+                        <i class="fa-solid fa-flag text-white text-lg opacity-10"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesin tidak bisa operasi -->
+    <div class="col-xl-3 col-sm-6 mb-4">
         <div class="card kpi">
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Hydrant Abnormal</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Mesin tidak bisa operasi</p>
                             <h5 class="font-weight-bolder mb-0">{{ $abnormal }}</h5>
                         </div>
                     </div>
                     <div class="col-4 text-end">
                         <div class="icon icon-shape bg-gradient-danger shadow text-center border-radius-md">
-                            <i class="fa-solid fa-triangle-exclamation text-white text-lg opacity-10"></i>
+                            <i class="fa-solid fa-ban text-white text-lg opacity-10"></i>
                         </div>
                     </div>
                 </div>

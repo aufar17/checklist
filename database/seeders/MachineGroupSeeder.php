@@ -17,31 +17,38 @@ class MachineGroupSeeder extends Seeder
     {
         $groups = [
             [
-                'desc' => 'Air Service Unit'
+                'desc' => 'Push Button'
             ],
             [
                 'desc' => 'EMG Stop'
             ],
             [
-                'desc' => 'Foot Switch'
-            ],
-            [
-                'desc' => 'Jig'
-            ],
-            [
-                'desc' => 'Hidrolik'
+                'desc' => 'Nagara Switch'
             ],
             [
                 'desc' => 'Motor Hidrolik'
             ],
             [
-                'desc' => 'Pokayoke'
+                'desc' => 'Tangki Hidrolik'
             ],
             [
-                'desc' => 'Area Mesin'
+                'desc' => 'Hidrolik'
             ],
             [
-                'desc' => 'FRL Filter'
+                'desc' => 'Lubrikasi'
+            ],
+            [
+                'desc' => 'Air Service Unit'
+            ],
+            [
+                'desc' => 'Pneumatik'
+            ],
+
+            [
+                'desc' => 'Tangki Coolant'
+            ],
+            [
+                'desc' => 'Bar'
             ],
         ];
 

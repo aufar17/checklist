@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('slug');
             $table->string('instruction');
             $table->string('standard');
-            $table->integer('time');
-            $table->integer('frequency');
             $table->timestamps();
         });
     }
