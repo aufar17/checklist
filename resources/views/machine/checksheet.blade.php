@@ -68,7 +68,7 @@ $notifBadge = 0;
 
 
             <x-machine-checksheet-form :groups="$groups" :user="$user" :machineData="$machineData"
-                :name="$user->name" />
+                :groupedItems="$groupedItems" />
 
 
 

@@ -62,6 +62,7 @@ class   ScanService
                     'details' => $response
                 ], 403);
             }
+            dd($response);
 
             $hydrantData = [
                 'id' => $hydrant->id,

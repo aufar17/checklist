@@ -2,20 +2,19 @@
 'groups' => collect(),
 'user' => null,
 'machineData' => [],
+'groupedItems' => []
 ])
 
 <div class="row mt-4">
     <div class="col-12">
         <div class="card shadow-sm rounded">
             <div class="card-header py-3 bg-danger border-bottom">
-                <div class="d-flex flex-column align-items-start">
-                    <div class="d-flex align-items-center">
-                        {{ $slot }}
-                        <i class="fa-solid fa-file-invoice fs-4 me-2 text-white me-3"></i>
-                        <h5 class="mb-0 fw-bold text-white">
-                            {{ now()->translatedFormat('F') }} Checksheet
-                        </h5>
-                    </div>
+                <div class="d-flex align-items-center">
+                    {{ $slot }}
+                    <i class="fa-solid fa-file-invoice fs-4 me-2 text-white me-3"></i>
+                    <h5 class="mb-0 fw-bold text-white">
+                        {{ now()->translatedFormat('F') }} Checksheet
+                    </h5>
                 </div>
             </div>
 
@@ -24,20 +23,20 @@
                     enctype="multipart/form-data">
                     @csrf
 
-                    {{-- Tanggal dan Waktu Pemeriksaan --}}
+                    {{-- Tanggal & Waktu --}}
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="form-label">TANGGAL PEMERIKSAAN</label>
-                                <input type="date" class="form-control" value="{{ now()->format('Y-m-d') }}"
-                                    name="tanggal-pemeriksaan" readonly>
+                                <input type="date" class="form-control" name="tanggal-pemeriksaan"
+                                    value="{{ now()->format('Y-m-d') }}" readonly>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <label class="form-label">WAKTU PEMERIKSAAN</label>
-                                <input type="text" class="form-control" value="{{ now()->format('H:i') }}"
-                                    name="waktu-pemeriksaan" readonly>
+                                <input type="text" class="form-control" name="waktu-pemeriksaan"
+                                    value="{{ now()->format('H:i') }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -47,8 +46,8 @@
                         <div class="col-12">
                             <div class="mb-3">
                                 <label class="form-label">PEMERIKSA</label>
-                                <input type="text" class="form-control" value="{{ strtoupper($user->name) }}"
-                                    name="pemeriksa" readonly>
+                                <input type="text" class="form-control" name="pemeriksa"
+                                    value="{{ strtoupper($user->name) }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -73,41 +72,76 @@
                         </div>
                     </div>
 
+                    {{-- Grouped Items --}}
                     @foreach ($groups as $group)
                     <div class="bg-secondary px-3 py-2 mt-4 mb-3 rounded">
                         <h5 class="text-white text-uppercase">{{ $group->desc }}</h5>
                     </div>
 
                     <div class="row mt-2">
-                        @foreach ($group->machineItems as $item)
+                        @if (isset($groupedItems[$group->id]))
+                        @foreach ($groupedItems[$group->id] as $item)
+                        @if (!empty($item->instruction))
+                        @php
+                        $slug = $item->slug;
+                        $standard = trim($item->standard);
+                        $isNumeric = preg_match('/\d+(\.\d+)?\s*\w*/', $standard);
+                        $isKebersihan = str_contains(strtolower($standard), 'bersih');
+                        $useRadio = $standard !== '4-6bar(kg/cm2)/0,4-0,6 Mpa';
+
+                        // Define options
+                        $options = $isKebersihan
+                        ? [
+                        '3' => ['symbol' => 'O', 'desc' => 'Bersih / Level Ok'],
+                        '2' => ['symbol' => 'Δ', 'desc' => 'Cukup bersih / kurang dari level sudah diisi'],
+                        '1' => ['symbol' => 'X', 'desc' => 'Kurang bersih / kurang dari level belum diisi'],
+                        ]
+                        : [
+                        '4' => ['symbol' => 'O', 'desc' => 'OK'],
+                        '3' => ['symbol' => 'Δ', 'desc' => 'Ada masalah sudah Lapor Maintenance'],
+                        '2' => ['symbol' => '▲', 'desc' => 'Ada masalah belum Lapor Maintenance'],
+                        '1' => ['symbol' => 'X', 'desc' => 'Ada masalah mesin tidak bisa beroperasi'],
+                        ];
+                        @endphp
+
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label class="form-label">{{ strtoupper($item->instruction) }}</label>
+                                <label class="form-label">
+                                    {{ strtoupper($item->instruction) }}
+                                    <i class="fa-solid fa-circle-question text-info ms-1 fs-6" data-bs-toggle="tooltip"
+                                        data-bs-placement="right" title="Standard: {{ $standard }}"></i>
+                                </label>
 
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radio{{ $item->id }}1"
-                                        name="values[{{ $item->slug ?? $item->id }}]" value="1"
-                                        onchange="toggleNotes(this)">
-                                    <label class="form-check-label" for="radio{{ $item->id }}1">Bagus</label>
+                                @if ($useRadio)
+                                @foreach ($options as $index => $opt)
+                                <div class="form-check d-flex align-items-center mb-1">
+                                    <input type="radio" class="form-check-input border-dark me-2"
+                                        id="radio{{ $item->id }}{{ $index }}" name="values[{{ $slug }}]"
+                                        value="{{ $index }}">
+                                    <label class="form-check-label" for="radio{{ $item->id }}{{ $index }}">
+                                        <strong>{{ $opt['symbol'] }}</strong> — {{ $opt['desc'] }}
+                                    </label>
                                 </div>
+                                @endforeach
+                                @else
+                                @if ($isNumeric)
+                                <input type="number" step="0.01" class="form-control" name="values[{{ $slug }}]"
+                                    placeholder="Tekanan angin">
+                                @else
+                                <input type="text" class="form-control" name="values[{{ $slug }}]"
+                                    placeholder="Tekanan angin">
+                                @endif
+                                @endif
 
-                                <div class="form-check mx-1">
-                                    <input type="radio" class="form-check-input border-dark" id="radio{{ $item->id }}0"
-                                        name="values[{{ $item->slug ?? $item->id }}]" value="0"
-                                        onchange="toggleNotes(this)">
-                                    <label class="form-check-label" for="radio{{ $item->id }}0">Rusak</label>
-                                </div>
-
-                                <textarea name="notes[{{ $item->slug ?? $item->id }}]"
-                                    class="form-control mt-2 notes-field" style="display: none;"
-                                    placeholder="Tambahkan catatan..."></textarea>
+                                <small class="text-muted">Standard: {{ $standard }}</small>
                             </div>
                         </div>
+                        @endif
                         @endforeach
+                        @endif
                     </div>
                     @endforeach
 
-                    {{-- Hidden Fields & Submit --}}
                     <input type="hidden" name="machine_id" value="{{ $machineData['id'] ?? '' }}">
                     <input type="hidden" name="status" value="1">
                     <button type="submit" class="btn btn-danger mt-2">Submit</button>
@@ -117,7 +151,7 @@
     </div>
 </div>
 
-{{-- Script Preview Gambar --}}
+{{-- Preview & Tooltip Script --}}
 <script>
     function previewImage(event) {
         const reader = new FileReader();
@@ -128,19 +162,11 @@
         };
         reader.readAsDataURL(event.target.files[0]);
     }
-</script>
 
-{{-- Script Toggle Catatan --}}
-<script>
-    function toggleNotes(radio) {
-        const parentDiv = radio.closest('.mb-3');
-        const notesField = parentDiv.querySelector('.notes-field');
-
-        if (radio.value === "0") {
-            notesField.style.display = "block";
-        } else {
-            notesField.style.display = "none";
-            notesField.value = "";
-        }
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltips.forEach(function (el) {
+            new bootstrap.Tooltip(el);
+        });
+    });
 </script>

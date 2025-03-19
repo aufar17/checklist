@@ -27,4 +27,29 @@ class MachineItem extends Model
     {
         return $this->belongsTo(MachineGroup::class, 'group_id', 'id');
     }
+
+    public function getRadioOptionsAttribute()
+    {
+        $options = [
+            'kondisi-panel' => [
+                ['label' => 'Bagus', 'value' => 1],
+                ['label' => 'Rusak', 'value' => 0],
+                ['label' => 'Rusak', 'value' => 0],
+            ],
+            'safety-switch' => [
+                ['label' => 'ON', 'value' => 1],
+                ['label' => 'OFF', 'value' => 0],
+            ],
+            'oli-level' => [
+                ['label' => 'Full', 'value' => 'full'],
+                ['label' => 'Setengah', 'value' => 'half'],
+                ['label' => 'Habis', 'value' => 'empty'],
+            ],
+        ];
+
+        return $options[$this->slug] ?? [
+            ['label' => 'Bagus', 'value' => 1],
+            ['label' => 'Rusak', 'value' => 0],
+        ];
+    }
 }
