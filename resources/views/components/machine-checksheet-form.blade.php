@@ -19,7 +19,7 @@
             </div>
 
             <div class="card-body p-2">
-                <form class="px-4 py-3" action="{{ route('checksheet-post') }}" method="POST"
+                <form class="px-4 py-3" action="{{ route('checksheet-machine-post') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
 

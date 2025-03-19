@@ -74,7 +74,7 @@ class ChecksheetMachineController extends Controller
 
     public function checksheetPost(Request $request)
     {
-        $request->validate([
+        $tes =  $request->validate([
             'tanggal-pemeriksaan' => 'required|date',
             'waktu-pemeriksaan' => 'required',
             'pemeriksa' => 'required|string',
@@ -82,6 +82,7 @@ class ChecksheetMachineController extends Controller
             'values' => 'required|array',
             'machine_id' => 'required|integer',
         ]);
+
 
         $imagePath = $request->file('documentation')->store('machine', 'public');
 
@@ -91,7 +92,7 @@ class ChecksheetMachineController extends Controller
             $machineItem = MachineItem::where('slug', $slug)->first();
 
             if ($machineItem) {
-                InspectionMachine::create([
+                $create = InspectionMachine::create([
                     'machine_id' => $request->input('machine_id'),
                     'machine_item_id' => $machineItem->id,
                     'value' => $value,
@@ -106,6 +107,6 @@ class ChecksheetMachineController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Checksheet berhasil disimpan!');
+        return redirect()->route('admin-machine')->with('success', 'Checksheet berhasil disimpan!');
     }
 }

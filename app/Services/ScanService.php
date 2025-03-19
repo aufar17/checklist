@@ -18,6 +18,7 @@ class   ScanService
     public function scanProcess($latitude, $longitude, $code)
     {
 
+        $session = Auth::check();
         $user = Auth::user();
         if (!$latitude || !$longitude || !filter_var($latitude, FILTER_VALIDATE_FLOAT) || !filter_var($longitude, FILTER_VALIDATE_FLOAT)) {
             return response()->json(['error' => 'Koordinat tidak valid!'], 400);
@@ -55,6 +56,7 @@ class   ScanService
                 'distance (meter)' => number_format($distance, 2),
             ];
 
+            dd($response);
 
             if ($distance > 20) {
                 return response()->json([
@@ -62,7 +64,6 @@ class   ScanService
                     'details' => $response
                 ], 403);
             }
-            dd($response);
 
             $hydrantData = [
                 'id' => $hydrant->id,
@@ -76,7 +77,7 @@ class   ScanService
 
             $qrCodeScan = HydrantQR::create([
                 'content' => json_encode($hydrantData),
-                'scanned_by' => Auth::check() ? Auth::user()->name : 'guest',
+                'scanned_by' => $session ? $user->name : 'guest',
                 'scanned_at' => now()
             ]);
         }

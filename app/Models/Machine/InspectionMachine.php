@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class InspectionMachine extends Model
 {
     protected $connection = 'mysql';
-    protected $table = 'inspections_machine';
+    protected $table = 'inspection_machines';
     protected $fillable = [
         'machine_id',
         'machine_item_id',
