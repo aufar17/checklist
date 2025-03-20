@@ -4,6 +4,7 @@ use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\ChecksheetController;
 use App\Http\Controllers\ChecksheetMachineController;
 use App\Http\Controllers\HydrantController;
+use App\Http\Controllers\MachineController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MainMachineController;
 use App\Http\Controllers\OtpController;
@@ -66,3 +67,5 @@ Route::get('checksheet-machine/{id}', [ChecksheetMachineController::class, 'chec
 Route::post('checksheet-machine-post', [ChecksheetMachineController::class, 'checksheetPost'])->name('checksheet-machine-post');
 
 //Machine Features
+Route::get('new-machine', [MachineController::class, 'newMachine'])->name('new-machine');
+Route::get('detail-machine/{id}', [MachineController::class, 'detailMachine'])->name('detail-machine');

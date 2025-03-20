@@ -50,8 +50,9 @@
                             <i class="fa-solid fa-globe text-info fs-5"></i>
                         </span>
                         <div>
-                            <h6 class="text-start text-dark fs-6 fw-bold mb-1">Latitude</h6>
-                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">{{ $latitude ?? 'N/A' }}</p>
+                            <h6 class="text-start text-dark fs-6 fw-bold mb-1">Maker</h6>
+                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">{{ $maker ?? 'N/A' }}</p>
+                            </p>
                         </div>
                     </div>
 
@@ -61,8 +62,8 @@
                             <i class="fa-solid fa-ruler-horizontal text-warning fs-5"></i>
                         </span>
                         <div>
-                            <h6 class="text-start text-dark fs-6 fw-bold mb-1">Longitude</h6>
-                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">{{ $longitude ?? 'N/A' }}</p>
+                            <h6 class="text-start text-dark fs-6 fw-bold mb-1">No Fixed Asset</h6>
+                            <p class="text-start text-secondary fs-6 fw-semibold mb-0">{{ $no_fixed_asset ?? 'N/A' }}
                         </div>
                     </div>
 

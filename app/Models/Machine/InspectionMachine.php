@@ -3,6 +3,7 @@
 namespace App\Models\Machine;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class InspectionMachine extends Model
@@ -21,4 +22,9 @@ class InspectionMachine extends Model
         'foreman_produksi',
         'foreman_produksi_date',
     ];
+
+    public function inspectionMachines(): HasMany
+    {
+        return $this->hasMany(InspectionMachine::class, 'machine_id', 'id');
+    }
 }

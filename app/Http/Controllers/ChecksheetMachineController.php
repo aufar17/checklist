@@ -36,7 +36,6 @@ class ChecksheetMachineController extends Controller
             dd('JSON Error:', json_last_error_msg(), $checksheet->content);
         }
 
-        // ✅ Mapping mesin ke item inspeksi
         $mapping = [
             'OTM102' => [1, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14],
             'OTM101' => [1, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13],

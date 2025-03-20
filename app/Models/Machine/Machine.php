@@ -20,8 +20,8 @@ class Machine extends Model
         'latitude',
     ];
 
-    public function inspectionMachine(): HasMany
+    public function inspectionMachines(): HasMany
     {
-        return $this->hasMany(InspectionMachine::class, 'id', 'machine_id');
+        return $this->hasMany(InspectionMachine::class, 'machine_id', 'id');
     }
 }

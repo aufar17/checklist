@@ -23,7 +23,7 @@ class HydrantController extends Controller
         }
 
         foreach ($hydrants as $hydrant) {
-            $statusHistory = $hydrant->status ?? []; // Langsung gunakan tanpa json_decode
+            $statusHistory = $hydrant->status ?? [];
             $hydrant->latest_status = !empty($statusHistory) ? end($statusHistory)['status'] : 0;
         }
 
