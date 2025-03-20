@@ -68,4 +68,7 @@ Route::post('checksheet-machine-post', [ChecksheetMachineController::class, 'che
 
 //Machine Features
 Route::get('new-machine', [MachineController::class, 'newMachine'])->name('new-machine');
+Route::post('machine-post', [MachineController::class, 'machinePost'])->name('machine-post');
+Route::get('edit-machine', [MachineController::class, 'editMachine'])->name('edit-machine');
+Route::post('delete-machine', [MachineController::class, 'machineDelete'])->name('delete-machine');
 Route::get('detail-machine/{id}', [MachineController::class, 'detailMachine'])->name('detail-machine');

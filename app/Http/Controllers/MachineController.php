@@ -6,6 +6,7 @@ use App\Models\Machine\InspectionMachine;
 use App\Models\Machine\Machine;
 use App\Models\Machine\MachineGroup;
 use App\Models\Machine\MachineItem;
+use App\Services\MachineService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,20 @@ class MachineController extends Controller
             'user' => $user,
         ];
 
-        return view('machine.new-machine');
+        return view('machine.new-machine', $data);
     }
+
+    public function machinePost(Request $request)
+    {
+        $hydrant = new MachineService();
+        $create = $hydrant->machinePost($request->all());
+
+        return $create
+            ? redirect()->route('machine')->with('success', 'machine berhasil ditambahkan!')
+            : redirect()->route('machine')->with('error', 'machine gagal ditambahkan!');
+    }
+
+
     public function detailMachine($id)
     {
         $session = Auth::check();
@@ -71,16 +84,26 @@ class MachineController extends Controller
 
         $inspectionsRaw = InspectionMachine::whereBetween('pic_maintenance_date', [$startDate, $endDate])
             ->whereIn('machine_item_id', $itemIds)
+            ->where('machine_id', $machine->id)
             ->get();
+
 
         $inspections = $inspectionsRaw->mapWithKeys(function ($item) {
             $day = Carbon::parse($item->pic_maintenance_date)->day;
             $key = $item->machine_item_id . '_' . $day;
 
-            return [
-                $key => $item
-            ];
+            return [$key => $item];
         });
+
+        $imagePaths = match ($machine->id) {
+            1 => ['img/1-1.jpg', 'img/1-2.jpg', 'img/1-3.png'],
+            2 => ['img/2-1.png', 'img/2-2.png', 'img/2-3.png', 'img/2-4.png', 'img/2-5.png'],
+            3 => ['img/3-1.png', 'img/3-2.png', 'img/3-3.png', 'img/3-4.png'],
+            4 => ['img/4-1.png', 'img/4-2.png', 'img/4-3.png', 'img/4-4.png', 'img/4-5.png'],
+            5 => ['img/5-1.png', 'img/5-2.png', 'img/5-3.png', 'img/5-4.png', 'img/5-5.png', 'img/5-6.png'],
+            default => ['img/default1.png', 'img/default2.png'],
+        };
+
         $data = [
             'user' => $user,
             'machines' => $machine,
@@ -88,8 +111,30 @@ class MachineController extends Controller
             'groups' => $groups,
             'daysInMonth' => $daysInMonth,
             'inspections' => $inspections,
+            'imagePaths' => $imagePaths,
         ];
 
         return view('machine.machine-details', $data);
+    }
+
+    public function machineDelete()
+    {
+        if (!Auth::check()) {
+            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        }
+
+        $id = request()->post('id');
+        $machine = Machine::find($id);
+
+        if (!$machine) {
+            return back()->withErrors(['error' => 'Machine tidak ditemukan.']);
+        }
+
+        $delete = $machine->delete();
+
+        if (!$delete) {
+            return redirect()->route('machine')->with('error', 'Machine gagal dihapus');
+        }
+        return redirect()->route('machine')->with('success', 'Machine berhasil dihapus');
     }
 }

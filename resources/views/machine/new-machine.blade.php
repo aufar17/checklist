@@ -97,13 +97,7 @@
 @php
 $notifBadge = 0;
 
-if ($user->golongan == 4) {
-if ($user->acting == 1) {
-$notifBadge = $hydrants->where('latest_status', 2)->count();
-} elseif ($user->acting == 2) {
-$notifBadge = $hydrants->where('latest_status', 1)->count();
-}
-}
+
 @endphp
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -123,48 +117,35 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                 <div class="col-12">
                     <x-card>
                         @slot('title')
-                        Hydrant Forms
+                        Machine Forms
                         @endslot
                         @slot('body')
-                        <form class="px-4 py-3" action="{{ route('hydrant-post') }}" method="POST">
+                        <form class="px-4 py-3" action="{{ route('machine-post') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-4 mt-2">
-                                    <label class="form-label">NO HYDRANT</label>
-                                    <input type="text" class="form-control" name="no_hydrant">
+                                    <label class="form-label">NO MACHINE</label>
+                                    <input type="text" class="form-control" name="no_machine">
                                 </div>
                                 <div class="col-md-4 mt-2">
-                                    <label class="form-label">LOCATION</label>
-                                    <input type="text" class="form-control" name="location">
+                                    <label class="form-label">NAMA MESIN</label>
+                                    <input type="text" class="form-control" name="name">
                                 </div>
                                 <div class="col-md-4 mt-2">
-                                    <label class="form-label">TYPE</label>
-                                    <select name="type" class="form-select">
-                                        <option disabled selected>Pilih</option>
-                                        <option value="Indoor">Indoor</option>
-                                        <option value="Outdoor">Outdoor</option>
-                                    </select>
+                                    <label class="form-label">LINE</label>
+                                    <input type="text" class="form-control" name="line">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mt-2">
-                                    <label class="form-label">PANJANG SELANG</label>
-                                    <select name="panjang_selang" class="form-select">
-                                        <option disabled selected>Pilih</option>
-                                        <option value="2.5">2,5 meter</option>
-                                        <option value="1.5">1,5 meter</option>
-                                    </select>
+                                    <label class="form-label">MAKER</label>
+                                    <input type="text" class="form-control" name="maker">
                                 </div>
 
                                 <div class="col-md-6 mt-2">
-                                    <label class="form-label">JENIS NOZLE</label>
-                                    <select name="jenis_nozle" class="form-select">
-                                        <option disabled selected>Pilih</option>
-                                        <option value="Jet">Jet</option>
-                                        <option value="Spray">Spray</option>
-                                        <option value="Jet - Spray">Jet - Spray</option>
-                                    </select>
+                                    <label class="form-label">NO FIXED ASSET</label>
+                                    <input type="number" class="form-control" name="no_fixed_asset">
                                 </div>
 
                             </div>
@@ -188,7 +169,6 @@ $notifBadge = $hydrants->where('latest_status', 1)->count();
                                 </div>
                             </div>
 
-                            <input type="text" class="form-control" name="status_hydrant" hidden value=0>
                             <input type="text" class="form-control" name="status" hidden value=0>
                             <button class="btn btn-danger mt-5" type="submit">Submit</button>
                             <a href="{{ route('machine') }}" class="btn btn-secondary mt-5">Cancel</a>

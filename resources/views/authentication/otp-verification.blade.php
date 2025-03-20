@@ -123,19 +123,23 @@
         </section>
     </main>
     <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-    <footer class="footer mb-5 text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-8 mx-auto text-center mt-1">
-                    <p class="mb-0 text-secondary">
-                        Copyright © <script>
-                            document.write(new Date().getFullYear())
-                        </script> PT Kayaba Indonesia
-                    </p>
+    <div class="row">
+        <div class="col-md-12">
+            <footer class="footer mb-5 text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8 mx-auto text-center mt-1">
+                            <p class="mb-0 text-secondary">
+                                Copyright © <script>
+                                    document.write(new Date().getFullYear())
+                                </script> PT Kayaba Indonesia
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </footer>
         </div>
-    </footer>
+    </div>
 
     <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
     <!--   Core JS Files   -->

@@ -60,7 +60,7 @@
                 @endslot
                 @slot('body')
                 <x-machine-checksheet-table :machines="$machines" :machine_items="$machine_items"
-                    :inspections="$inspections" :daysInMonth="$daysInMonth" />
+                    :inspections="$inspections" :daysInMonth="$daysInMonth" :imagePaths="$imagePaths" />
 
 
                 @endslot

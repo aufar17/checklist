@@ -74,7 +74,7 @@ $notifBadge = 0;
                         @slot('body')
                         <div class="row align-items-center">
                             <div class="col-md-1 col-sm-6 mb-2">
-                                <a href="{{ route('new-hydrant') }}" class="btn btn-success btn-sm w-100">
+                                <a href="{{ route('new-machine') }}" class="btn btn-success btn-sm w-100">
                                     <i class="fa-solid fa-plus me-2"></i>New
                                 </a>
                             </div>
@@ -98,73 +98,79 @@ $notifBadge = 0;
                                     </ul>
                                 </div>
                             </div>
-                            <table id="example" class="table table-striped table-bordered text-center table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">No Mesin</th>
-                                        <th class="text-center">Nama</th>
-                                        <th class="text-center">Line</th>
-                                        <th class="text-center">Maker</th>
-                                        <th class="text-center">No Fixed Asset</th>
-                                        <th class="text-center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($machines as $machine)
-                                    <!-- Modal Konfirmasi Hapus -->
-                                    <div class="modal fade" id="deleteModal" tabindex="-1"
-                                        aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Apakah yakin ingin menghapus mesin
-                                                    <strong class="text-danger">{{$machine['no_machine']}}</strong>?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form id="deleteForm" action="" method="POST">
-                                                        @csrf
-                                                        <input hidden type="text" name="id" id="productId"
-                                                            value="{{ $machine['id'] }}">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Cancel</button>
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                                    </form>
+                            <div class="table-responsive">
+
+                                <table id="example" class="table table-striped table-bordered text-center table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">No Mesin</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Line</th>
+                                            <th class="text-center">Maker</th>
+                                            <th class="text-center">No Fixed Asset</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($machines as $machine)
+                                        <!-- Modal Konfirmasi Hapus -->
+                                        <div class="modal fade" id="deleteModal" tabindex="-1"
+                                            aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah yakin ingin menghapus mesin
+                                                        <strong class="text-danger">{{$machine['no_machine']}}</strong>?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form id="deleteForm" action="{{ route('delete-machine') }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <input hidden type="text" name="id" id="productId"
+                                                                value="{{ $machine['id'] }}">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <tr>
-                                        <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td class="text-center">{{ $machine['no_machine'] }}</td>
-                                        <td class="text-center">{{ $machine['name'] }}</td>
-                                        <td class="text-center">{{ $machine['line'] }}</td>
-                                        <td class="text-center">{{ $machine['maker'] }}</td>
-                                        <td class="text-center">{{ $machine['no_fixed_asset'] }}</td>
-                                        <td>
-                                            <a href="{{ route('detail-machine', ['id' => $machine['id']]) }}"
-                                                class="btn btn-info btn-sm p-2 border-0 rounded">
-                                                <i class="fa-solid fa-circle-info fs-6"></i>
-                                            </a>
-                                            <a href="{{ route('detail-machine', ['id' => $machine['id']]) }}"
-                                                class="btn btn-warning btn-sm p-2 border-0 rounded">
-                                                <i class="fa-solid fa-pen-to-square fs-6"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-danger btn-sm p-2 border-0 rounded"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="{{ $machine['id'] }}">
-                                                <i class="fa-solid fa-trash fs-6"></i>
-                                            </button>
+                                        <tr>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td class="text-center">{{ $machine['no_machine'] }}</td>
+                                            <td class="text-center">{{ $machine['name'] }}</td>
+                                            <td class="text-center">{{ $machine['line'] }}</td>
+                                            <td class="text-center">{{ $machine['maker'] }}</td>
+                                            <td class="text-center">{{ $machine['no_fixed_asset'] }}</td>
+                                            <td>
+                                                <a href="{{ route('detail-machine', ['id' => $machine['id']]) }}"
+                                                    class="btn btn-info btn-sm p-2 border-0 rounded">
+                                                    <i class="fa-solid fa-circle-info fs-6"></i>
+                                                </a>
+                                                <a href="{{ route('detail-machine', ['id' => $machine['id']]) }}"
+                                                    class="btn btn-warning btn-sm p-2 border-0 rounded">
+                                                    <i class="fa-solid fa-pen-to-square fs-6"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-danger btn-sm p-2 border-0 rounded"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-id="{{ $machine['id'] }}">
+                                                    <i class="fa-solid fa-trash fs-6"></i>
+                                                </button>
 
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                         @endslot
                     </x-card>

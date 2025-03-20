@@ -136,7 +136,7 @@ class MachineItemSeeder extends Seeder
             [
                 'group_id' => 18,
                 'slug' => 'safety-plug',
-                'instruction' => 'Periksa kondisi safety plug/alamr jika plug dibuka',
+                'instruction' => 'Periksa kondisi safety plug/alarm jika plug dibuka',
                 'standard' => 'Berfungsi baik',
             ],
             [
