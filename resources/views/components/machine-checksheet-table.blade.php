@@ -10,7 +10,7 @@
 
     th,
     td {
-        font-size: 14px;
+        font-size: 16px;
         padding: 4px;
         text-align: center;
     }
@@ -108,7 +108,7 @@
 
                 @for ($i = 1; $i <= $daysInMonth; $i++) @php $key=$item->id . '_' . $i;
                     $inspection = $inspections->get($key);
-                    $symbol = '-';
+                    $symbol = '';
                     $color = '';
 
                     if ($inspection) {

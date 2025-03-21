@@ -34,6 +34,10 @@ class MachineController extends Controller
 
     public function machinePost(Request $request)
     {
+        $session = Auth::check();
+        if (!$session) {
+            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        }
         $hydrant = new MachineService();
         $create = $hydrant->machinePost($request->all());
 
@@ -42,6 +46,46 @@ class MachineController extends Controller
             : redirect()->route('machine')->with('error', 'machine gagal ditambahkan!');
     }
 
+
+    public function editMachine($id)
+    {
+        $session = Auth::check();
+        if (!$session) {
+            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        }
+
+        $user = Auth::user();
+        $machine = Machine::where('id', $id)->first();
+
+        $data = [
+            'machine' => $machine,
+            'user' => $user
+        ];
+        return view('machine.edit-machine', $data);
+    }
+
+    public function machineUpdate(Request $request)
+    {
+
+        $session = Auth::check();
+        if (!$session) {
+            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
+        }
+
+        if (!$request->id) {
+            return redirect()->route('machine')->with('error', 'ID Machine tidak ditemukan!');
+        }
+
+        $machineService = new MachineService();
+
+        $update = $machineService->machineUpdate($request->id, $request->all());
+
+        if ($update) {
+            return redirect()->route('machine')->with('success', 'Machine berhasil diperbarui!');
+        } else {
+            return redirect()->route('machine')->with('error', 'Machine gagal diperbarui!');
+        }
+    }
 
     public function detailMachine($id)
     {
@@ -124,17 +168,14 @@ class MachineController extends Controller
         }
 
         $id = request()->post('id');
-        $machine = Machine::find($id);
+        $machine = Machine::where('id', $id)->first();
 
         if (!$machine) {
             return back()->withErrors(['error' => 'Machine tidak ditemukan.']);
         }
 
-        $delete = $machine->delete();
+        $machine->delete();
 
-        if (!$delete) {
-            return redirect()->route('machine')->with('error', 'Machine gagal dihapus');
-        }
         return redirect()->route('machine')->with('success', 'Machine berhasil dihapus');
     }
 }

@@ -115,24 +115,22 @@ $notifBadge = 0;
                                     <tbody>
                                         @forelse ($machines as $machine)
                                         <!-- Modal Konfirmasi Hapus -->
-                                        <div class="modal fade" id="deleteModal" tabindex="-1"
-                                            aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="deleteModal{{ $machine->id }}" tabindex="-1"
+                                            aria-labelledby="deleteModalLabel{{ $machine->id }}" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus
-                                                        </h5>
+                                                        <h5 class="modal-title" id="deleteModalLabel{{ $machine->id }}">
+                                                            Konfirmasi Hapus</h5>
                                                     </div>
                                                     <div class="modal-body">
                                                         Apakah yakin ingin menghapus mesin
                                                         <strong class="text-danger">{{$machine['no_machine']}}</strong>?
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <form id="deleteForm" action="{{ route('delete-machine') }}"
-                                                            method="POST">
+                                                        <form action="{{ route('delete-machine') }}" method="POST">
                                                             @csrf
-                                                            <input hidden type="text" name="id" id="productId"
-                                                                value="{{ $machine['id'] }}">
+                                                            <input type="hidden" name="id" value="{{ $machine->id }}">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Cancel</button>
                                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -141,6 +139,7 @@ $notifBadge = 0;
                                                 </div>
                                             </div>
                                         </div>
+
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center">{{ $machine['no_machine'] }}</td>
@@ -153,15 +152,16 @@ $notifBadge = 0;
                                                     class="btn btn-info btn-sm p-2 border-0 rounded">
                                                     <i class="fa-solid fa-circle-info fs-6"></i>
                                                 </a>
-                                                <a href="{{ route('detail-machine', ['id' => $machine['id']]) }}"
+                                                <a href="{{ route('edit-machine', ['id' => $machine['id']]) }}"
                                                     class="btn btn-warning btn-sm p-2 border-0 rounded">
                                                     <i class="fa-solid fa-pen-to-square fs-6"></i>
                                                 </a>
                                                 <button type="button" class="btn btn-danger btn-sm p-2 border-0 rounded"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                    data-id="{{ $machine['id'] }}">
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal{{ $machine->id }}">
                                                     <i class="fa-solid fa-trash fs-6"></i>
                                                 </button>
+
 
                                             </td>
                                         </tr>

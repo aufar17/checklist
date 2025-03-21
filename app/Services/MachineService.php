@@ -15,34 +15,29 @@ class MachineService
     {
         $validate = $this->validateData($data);
 
-            // $validate['status'] = [
-            //     ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')],
-            // ];
+        // $validate['status'] = [
+        //     ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')],
+        // ];
 
         return Machine::create($validate);
     }
 
 
-    // public function hydrantUpdate(int $id, array $data)
-    // {
-    //     $validate = $this->validateData($data);
+    public function machineUpdate(int $id, array $data)
+    {
+        $validate = $this->validateData($data);
 
-    //     $hydrant = Hydrant::find($id);
-    //     if (!$hydrant) {
-    //         return back()->withErrors(['error' => 'Hydrant tidak ditemukan.']);
-    //     }
+        $machine = Machine::find($id);
+        if (!$machine) {
+            return back()->withErrors(['error' => 'Machine tidak ditemukan.']);
+        }
 
-    //     $validate['status'] = [
-    //         ['status' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')],
-    //         ['status_hydrant' => 0, 'timestamp' => now()->format('Y-m-d H:i:s')],
-    //     ];
 
-    //     $validate['panjang_selang'] = str_replace(',', '.', $data['panjang_selang']);
 
-    //     $hydrant->update($validate);
+        $machine->update($validate);
 
-    //     return redirect()->route('hydrant')->with('success', 'Hydrant berhasil diperbarui');
-    // }
+        return redirect()->route('machine')->with('success', 'Machine berhasil diperbarui');
+    }
 
 
     private function validateData(array $data)
