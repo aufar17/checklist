@@ -63,7 +63,7 @@ $notifBadge = 0;
 
 
 <body class="g-sidenav-show  bg-gray-100">
-    <x-sidebar :notifBadge="$notifBadge" :user="auth()->user()" />
+    <x-sidebar :notifBadge="$notifBadge" />
     <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
         <x-navbar>
             @slot('title')

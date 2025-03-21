@@ -58,6 +58,21 @@
         outline: none;
         box-shadow: 0 0 8px var(--primary-color);
     }
+
+    footer.footer {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        z-index: 1000;
+    }
+
+    @media (max-height: 500px) {
+
+        /* Jika keyboard muncul, hide footer */
+        footer.footer {
+            display: none;
+        }
+    }
 </style>
 
 <body class="d-flex flex-column min-vh-100">
@@ -123,23 +138,20 @@
         </section>
     </main>
     <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-    <div class="row">
-        <div class="col-md-12">
-            <footer class="footer mb-5 text-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-8 mx-auto text-center mt-1">
-                            <p class="mb-0 text-secondary">
-                                Copyright © <script>
-                                    document.write(new Date().getFullYear())
-                                </script> PT Kayaba Indonesia
-                            </p>
-                        </div>
-                    </div>
+    <footer class="footer text-center mt-auto py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mx-auto text-center">
+                    <p class="mb-0 text-secondary">
+                        Copyright © <script>
+                            document.write(new Date().getFullYear())
+                        </script> PT Kayaba Indonesia
+                    </p>
                 </div>
-            </footer>
+            </div>
         </div>
-    </div>
+    </footer>
+
 
     <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
     <!--   Core JS Files   -->
@@ -188,6 +200,17 @@
         });
     });
     </script>
+    <script>
+        window.addEventListener('resize', function () {
+            const footer = document.querySelector('footer.footer');
+            if (window.innerHeight < 500) {
+                footer.style.display = 'none';
+            } else {
+                footer.style.display = 'block';
+            }
+        });
+    </script>
+
 
 </body>
 

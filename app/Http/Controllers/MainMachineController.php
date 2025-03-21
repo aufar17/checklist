@@ -15,9 +15,11 @@ class MainMachineController extends Controller
         }
 
         $user = Auth::user();
+        $dept = $user->dept;
 
         $data = [
             'user' => $user,
+            'dept' => $dept,
         ];
 
         return view('machine.dashboard-machine', $data);

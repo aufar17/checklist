@@ -60,6 +60,20 @@
         border-color: #007bff;
         outline: none;
     }
+
+    footer.footer {
+        position: sticky;
+        bottom: 0;
+        background: white;
+        z-index: 1000;
+    }
+
+    @media (max-height: 500px) {
+
+        footer.footer {
+            display: none;
+        }
+    }
 </style>
 
 <body class="d-flex flex-column min-vh-100">
@@ -123,23 +137,20 @@
     </main>
 
     <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-    <div class="row">
-        <div class="col-md-12">
-            <footer class="footer mb-5 text-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-8 mx-auto text-center mt-1">
-                            <p class="mb-0 text-secondary">
-                                Copyright © <script>
-                                    document.write(new Date().getFullYear())
-                                </script> PT Kayaba Indonesia
-                            </p>
-                        </div>
-                    </div>
+    <footer class="footer text-center mt-auto py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mx-auto text-center">
+                    <p class="mb-0 text-secondary">
+                        Copyright © <script>
+                            document.write(new Date().getFullYear())
+                        </script> PT Kayaba Indonesia
+                    </p>
                 </div>
-            </footer>
+            </div>
         </div>
-    </div>
+    </footer>
+
 
 
 
@@ -209,6 +220,17 @@
         });
     });
     </script>
+    <script>
+        window.addEventListener('resize', function () {
+            const footer = document.querySelector('footer.footer');
+            if (window.innerHeight < 500) {
+                footer.style.display = 'none';
+            } else {
+                footer.style.display = 'block';
+            }
+        });
+    </script>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

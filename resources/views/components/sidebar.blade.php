@@ -27,8 +27,9 @@
 ])
 
 @php
-$dept = $user?->dept ?? 'default';
+$dept = auth()->user()?->dept ?? 'default';
 @endphp
+
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
     id="sidenav-main">
@@ -56,7 +57,7 @@ $dept = $user?->dept ?? 'default';
             </x-navlink>
             @endif
             @if($dept === 'PE-2W')
-            <x-navlink href="{{ route('machine') }}" :active="request()->is(['machine']) " icon="fa-list">
+            <x-navlink href="{{ route('machine') }}" :active="request()->is(['machine'])" icon="fa-list">
                 Machine
             </x-navlink>
             @endif
