@@ -13,8 +13,5 @@ class CaptchaController extends Controller
     public function captcha()
     {
         $captcha = Captcha::create('default');
-        session(['captcha' => app('captcha')->getPhrase()]);
-        return $captcha;
     }
 }
-    

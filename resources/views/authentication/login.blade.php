@@ -70,6 +70,7 @@
 
     @media (max-height: 500px) {
 
+        /* Jika keyboard muncul, hide footer */
         footer.footer {
             display: none;
         }
@@ -91,8 +92,7 @@
                     @endif
 
                     @if ($errors->has('captcha'))
-                    <div class="alert alert-danger text-dark text-center">{{ $errors->first('captcha')
-                        }}</div>
+                    <div class="alert alert-danger text-dark text-center">Captcha tidak sesuai</div>
                     @endif
                     <div class="row no-gutters d-flex flex-column align-items-center">
                         <div class="container-main shadow-lg">
