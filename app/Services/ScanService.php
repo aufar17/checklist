@@ -113,7 +113,7 @@ class   ScanService
 
 
 
-            if ($distance > 20) {
+            if ($distance > 30) {
                 return response()->json([
                     'error' => 'Anda terlalu jauh dari lokasi machine!',
                     'details' => $response

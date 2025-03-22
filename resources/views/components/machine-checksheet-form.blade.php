@@ -23,7 +23,6 @@
                     enctype="multipart/form-data">
                     @csrf
 
-                    {{-- Tanggal & Waktu --}}
                     <div class="row">
                         <div class="col-6">
                             <div class="mb-3">
@@ -41,7 +40,6 @@
                         </div>
                     </div>
 
-                    {{-- Pemeriksa --}}
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="mb-3">
@@ -52,7 +50,6 @@
                         </div>
                     </div>
 
-                    {{-- Dokumentasi --}}
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="mb-3">
@@ -72,7 +69,6 @@
                         </div>
                     </div>
 
-                    {{-- Grouped Items --}}
                     @foreach ($groups as $group)
                     <div class="bg-secondary px-3 py-2 mt-4 mb-3 rounded">
                         <h5 class="text-white text-uppercase">{{ $group->desc }}</h5>
@@ -133,7 +129,7 @@
                                 @endif
                                 @endif
 
-                                <small class="text-muted">Standard: {{ $standard }}</small>
+                                <small class="badge text-bg-info text-white">Standard: {{ $standard }}</small>
                             </div>
                         </div>
                         @endif

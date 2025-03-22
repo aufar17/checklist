@@ -68,7 +68,6 @@
 
     @media (max-height: 500px) {
 
-        /* Jika keyboard muncul, hide footer */
         footer.footer {
             display: none;
         }
@@ -91,14 +90,14 @@
 
                 @if (session('error'))
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     </div>
                 </div>
                 @endif
                 @if(session('message'))
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="alert alert-success">{{ session('message') }}</div>
                     </div>
                 </div>
@@ -138,7 +137,7 @@
         </section>
     </main>
     <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-    <footer class="footer text-center mt-auto py-3">
+    <footer class="footer text-center mt-auto py-md-3">
         <div class="container">
             <div class="row">
                 <div class="col-12 mx-auto text-center">

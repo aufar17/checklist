@@ -27,7 +27,7 @@
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             </div>
-            <ul class="navbar-nav  justify-content-end">
+            <ul class="navbar-nav justify-content-between w-100 d-flex align-items-center">
 
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
@@ -40,14 +40,23 @@
                 </li>
                 </li>
                 <li class="nav-item">
-                    <div class="row">
-                        <div class="col-sm-">
-                            <span class="badge bg-danger d-sm-inline d-none fs-7 fw-bold mx-2">SELAMAT DATANG,
-                                <strong>{{
-                                    strtoupper($role)
-                                    }}</strong></span>
-                        </div>
-                    </div>
+                    <a class="nav-link" href="#">
+
+                    </a>
+                </li>
+
+                <li class="nav-item ms-auto me-auto">
+                    <span class="badge bg-danger fs-6 fw-bold px-3 py-2 d-flex align-items-center">
+                        <i class="fa fa-clock me-2 fs-6"></i>
+                        <span id="digital-clock" class="fs-6"></span>
+                    </span>
+                </li>
+
+
+                <li class="nav-item">
+                    <span class="badge bg-danger fs-7 fw-bold d-sm-inline d-none mx-2">
+                        SELAMAT DATANG, <strong>{{ strtoupper($role) }}</strong>
+                    </span>
                 </li>
                 {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
@@ -163,3 +172,16 @@
         </div>
     </div>
 </nav>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        let hours = now.getHours().toString().padStart(2, '0');
+        let minutes = now.getMinutes().toString().padStart(2, '0');
+        let seconds = now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('digital-clock').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); 
+</script>

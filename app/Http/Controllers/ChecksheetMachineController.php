@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Machine\InspectionMachine;
+use App\Models\Machine\Machine;
 use App\Models\Machine\MachineGroup;
 use App\Models\Machine\MachineItem;
 use App\Models\Machine\MachineQr;
@@ -23,11 +24,13 @@ class ChecksheetMachineController extends Controller
         $otp = session()->has('otp_verified');
         $checksheet = MachineQr::where('id', $id)->first();
 
-
-
-
         if (!$otp || $otp !== true) {
             return redirect()->route('admin-machine')->with('error', 'Anda harus mengakses melalui scan QR Code.');
+        }
+
+        $scanned = session('scanned');
+        if (!$scanned || (int) $scanned !== (int) $id) {
+            return redirect()->route('admin-machine')->withErrors(['error' => 'Anda harus mengakses melalui scan QR Code.']);
         }
 
         $machineData = json_decode($checksheet->content, true);
@@ -73,7 +76,7 @@ class ChecksheetMachineController extends Controller
 
     public function checksheetPost(Request $request)
     {
-        $tes =  $request->validate([
+        $request->validate([
             'tanggal-pemeriksaan' => 'required|date',
             'waktu-pemeriksaan' => 'required',
             'pemeriksa' => 'required|string',
@@ -86,13 +89,14 @@ class ChecksheetMachineController extends Controller
         $imagePath = $request->file('documentation')->store('machine', 'public');
 
         $today = Carbon::now()->format('Y-m-d');
+        $machineId = $request->input('machine_id');
 
         foreach ($request->input('values') as $slug => $value) {
             $machineItem = MachineItem::where('slug', $slug)->first();
 
             if ($machineItem) {
                 $create = InspectionMachine::create([
-                    'machine_id' => $request->input('machine_id'),
+                    'machine_id' => $machineId,
                     'machine_item_id' => $machineItem->id,
                     'value' => $value,
                     'documentation' => $imagePath,
@@ -106,6 +110,8 @@ class ChecksheetMachineController extends Controller
             }
         }
 
-        return redirect()->route('admin-machine')->with('success', 'Checksheet berhasil disimpan!');
+        $machine = Machine::where('id', $machineId)->first();
+
+        return redirect()->route('detail-machine', ['id' => $machine->id])->with('success', 'Checksheet berhasil disimpan!');
     }
 }

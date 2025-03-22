@@ -58,11 +58,11 @@ $notifBadge = 0;
                 @slot('line')
                 {{ $machineData['line'] }}
                 @endslot
-                @slot('latitude')
-                {{ $machineData['latitude'] }}
+                @slot('maker')
+                {{ $machineData['maker'] }}
                 @endslot
-                @slot('longitude')
-                {{ $machineData['longitude'] }}
+                @slot('no_fixed_asset')
+                {{ $machineData['no_fixed_asset'] }}
                 @endslot
             </x-machine-detail-card>
 

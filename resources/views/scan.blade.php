@@ -172,7 +172,12 @@ $notifBadge = 0;
             <p>Latitude: <span id="lat-text">{{ $latitude }}</span></p>
             <p>Longitude: <span id="lon-text">{{ $longitude }}</span></p>
 
+            @if ($user->dept == 'EHS')
             <a href="{{ route('admin') }}" class="btn btn-primary mt-3">Kembali</a>
+            @endif
+            @if ($user->dept == 'PE-2W')
+            <a href="{{ route('admin-machine') }}" class="btn btn-primary mt-3">Kembali</a>
+            @endif
         </div>
 
         <x-footer></x-footer>
