@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Machine\InspectionMachine;
 use App\Models\Machine\Machine;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,33 +30,44 @@ class MainMachineController extends Controller
 
     public function machine()
     {
-        $user = Auth::user();
         if (!Auth::check()) {
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
 
-        $machines = Machine::orderBy('id')->paginate(10);
+        $user = Auth::user();
+        $machines = Machine::all();
+        $today = Carbon::today();
 
+        // Status tiap mesin
+        $statusList = [];
 
-        // foreach ($machines as $hydrant) {
-        //     $statusHistory = $hydrant->status ?? [];
-        //     $statusHydrant = $hydrant->status_hydrant ?? [];
+        foreach ($machines as $machine) {
+            $inspection = InspectionMachine::where('machine_id', $machine->id)
+                ->whereDate('created_at', $today)
+                ->latest()
+                ->first();
 
-        //     $hydrant->latest_status = is_array($statusHistory) && !empty($statusHistory)
-        //         ? end($statusHistory)['status']
-        //         : 0;
+            $status = 0; // Default: Tidak ada data
 
-        //     $latestInspection = $hydrant->inspectionHydrants->first();
-        //     $hydrant->latest_inspection_date = $latestInspection ? $latestInspection->inspection_date : 'Belum ada inspeksi';
+            if ($inspection) {
+                if ($inspection->foreman_produksi && $inspection->foreman_produksi_date) {
+                    $status = 4;
+                } elseif ($inspection->line_guide && $inspection->line_guide_date) {
+                    $status = 3;
+                } elseif ($inspection->pic_maintenance && $inspection->pic_maintenance_date) {
+                    $status = 2;
+                } else {
+                    $status = 1; // Minimal operator sudah inspeksi (ada data, tapi belum dicek siapa pun)
+                }
+            }
 
-        //     $abnormal = $hydrant->inspectionHydrants->contains('values', 0);
-
-        //     $hydrant->latest_status_hydrant = $abnormal ? 1 : 0;
-        // }
+            $statusList[$machine->id] = $status;
+        }
 
         $data = [
             'machines' => $machines,
             'user' => $user,
+            'statusList' => $statusList,
         ];
 
         return view('machine.machine', $data);

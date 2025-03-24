@@ -125,12 +125,11 @@ class   ScanService
                 'code' => $machine->no_machine,
                 'name' => $machine->name,
                 'line' => $machine->line,
+                'maker' => $machine->maker,
+                'no_fixed_asset' => $machine->no_fixed_asset,
                 'latitude' => $machine->latitude,
                 'longitude' => $machine->longitude,
             ];
-
-
-
 
             $qrCodeScan = MachineQr::create([
                 'content' => json_encode($machineData),

@@ -70,7 +70,6 @@
 
     @media (max-height: 500px) {
 
-        /* Jika keyboard muncul, hide footer */
         footer.footer {
             display: none;
         }

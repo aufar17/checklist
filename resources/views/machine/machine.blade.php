@@ -109,11 +109,103 @@ $notifBadge = 0;
                                             <th class="text-center">Line</th>
                                             <th class="text-center">Maker</th>
                                             <th class="text-center">No Fixed Asset</th>
+                                            <th class="text-center">Check</th>
+                                            <th class="text-center">Status</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($machines as $machine)
+                                        <!-- Modal Validasi Inspeksi -->
+                                        <div class="modal fade" id="trackingModal-{{ $machine->id }}" tabindex="-1"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h5 class="modal-title fw-bold text-white">Validasi Inspeksi
+                                                        </h5>
+                                                        <button type="button" class="btn-close btn-close-light"
+                                                            data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @php
+                                                        $inspection = $machine->inspectionMachines->first();
+                                                        $statuses = [
+                                                        [
+                                                        'label' => 'DIBUAT',
+                                                        'user' => $inspection->created_by ?? 'Belum dibuat',
+                                                        'date' => $inspection->created_date ?? '',
+                                                        'badge' => 'danger',
+                                                        'icon' => 'file-alt',
+                                                        ],
+                                                        [
+                                                        'label' => 'DIKETAHUI',
+                                                        'user' => $inspection->known_by ?? 'Belum diketahui',
+                                                        'date' => $inspection->known_date ?? '',
+                                                        'badge' => 'warning',
+                                                        'icon' => 'eye',
+                                                        ],
+                                                        [
+                                                        'label' => 'DIPERIKSA',
+                                                        'user' => $inspection->checked_by ?? 'Belum diperiksa',
+                                                        'date' => $inspection->checked_date ?? '',
+                                                        'badge' => 'success',
+                                                        'icon' => 'check-circle',
+                                                        ],
+                                                        ];
+
+                                                        $isRejected = in_array($machine->latest_status, [-1, -2, -3]);
+                                                        @endphp
+
+                                                        <ul class="list-group">
+                                                            @foreach ($statuses as $status)
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <div class="d-flex align-items-center">
+                                                                    <span class="badge bg-{{ $status['badge'] }} me-3">
+                                                                        <i class="fas fa-{{ $status['icon'] }}"></i>
+                                                                    </span>
+                                                                    <div>
+                                                                        <h6 class="mb-0">{{ $status['label'] }}</h6>
+                                                                        <small class="text-muted">{{ $status['user']
+                                                                            }}</small>
+                                                                    </div>
+                                                                </div>
+                                                                <small class="text-muted">{{ $status['date'] }}</small>
+                                                            </li>
+                                                            @endforeach
+
+                                                            @if ($isRejected)
+                                                            <li
+                                                                class="list-group-item d-flex justify-content-between align-items-center bg-danger text-white">
+                                                                <div class="d-flex align-items-center">
+                                                                    <span class="badge bg-dark me-3">
+                                                                        <i class="fas fa-times-circle"></i>
+                                                                    </span>
+                                                                    <div>
+                                                                        <h6 class="mb-0">DITOLAK</h6>
+                                                                        <small>
+                                                                            @switch($machine->latest_status)
+                                                                            @case(-1) Ditolak oleh PIC @break
+                                                                            @case(-2) Ditolak oleh SPV @break
+                                                                            @case(-3) Ditolak oleh Foreman @break
+                                                                            @default Ditolak
+                                                                            @endswitch
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                                @if ($inspection && $inspection->rejection_note)
+                                                                <small class="fw-bold">Alasan: {{
+                                                                    $inspection->rejection_note }}</small>
+                                                                @endif
+                                                            </li>
+                                                            @endif
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <!-- Modal Konfirmasi Hapus -->
                                         <div class="modal fade" id="deleteModal{{ $machine->id }}" tabindex="-1"
                                             aria-labelledby="deleteModalLabel{{ $machine->id }}" aria-hidden="true">
@@ -124,8 +216,8 @@ $notifBadge = 0;
                                                             Konfirmasi Hapus</h5>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Apakah yakin ingin menghapus mesin
-                                                        <strong class="text-danger">{{$machine['no_machine']}}</strong>?
+                                                        Apakah yakin ingin menghapus mesin <strong
+                                                            class="text-danger">{{ $machine->no_machine }}</strong>?
                                                     </div>
                                                     <div class="modal-footer">
                                                         <form action="{{ route('delete-machine') }}" method="POST">
@@ -139,20 +231,46 @@ $notifBadge = 0;
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <!-- Table Row -->
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td class="text-center">{{ $machine['no_machine'] }}</td>
-                                            <td class="text-center">{{ $machine['name'] }}</td>
-                                            <td class="text-center">{{ $machine['line'] }}</td>
-                                            <td class="text-center">{{ $machine['maker'] }}</td>
-                                            <td class="text-center">{{ $machine['no_fixed_asset'] }}</td>
-                                            <td>
-                                                <a href="{{ route('detail-machine', ['id' => $machine['id']]) }}"
+                                            <td class="text-center">{{ $machine->no_machine }}</td>
+                                            <td class="text-center">{{ $machine->name }}</td>
+                                            <td class="text-center">{{ $machine->line }}</td>
+                                            <td class="text-center">{{ $machine->maker }}</td>
+                                            <td class="text-center">{{ $machine->no_fixed_asset }}</td>
+                                            <td class="text-center">
+                                                @php
+                                                $status = $statusList[$machine->id] ?? 0;
+                                                @endphp
+
+                                                @switch($status)
+                                                @case(0)
+                                                <span class="badge bg-secondary">Belum Inspeksi</span>
+                                                @break
+                                                @case(1)
+                                                <span class="badge bg-info">Operator sudah inspeksi</span>
+                                                @break
+                                                @case(2)
+                                                <span class="badge bg-primary">Checked PIC</span>
+                                                @break
+                                                @case(3)
+                                                <span class="badge bg-warning">Checked Line Guide</span>
+                                                @break
+                                                @case(4)
+                                                <span class="badge bg-success">Checked Foreman</span>
+                                                @break
+                                                @endswitch
+                                            </td>
+                                            <td class="text-center">
+                                                {!! $machine->statusBadge() !!}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('detail-machine', ['id' => $machine->id]) }}"
                                                     class="btn btn-info btn-sm p-2 border-0 rounded">
                                                     <i class="fa-solid fa-circle-info fs-6"></i>
                                                 </a>
-                                                <a href="{{ route('edit-machine', ['id' => $machine['id']]) }}"
+                                                <a href="{{ route('edit-machine', ['id' => $machine->id]) }}"
                                                     class="btn btn-warning btn-sm p-2 border-0 rounded">
                                                     <i class="fa-solid fa-pen-to-square fs-6"></i>
                                                 </a>
@@ -161,13 +279,16 @@ $notifBadge = 0;
                                                     data-bs-target="#deleteModal{{ $machine->id }}">
                                                     <i class="fa-solid fa-trash fs-6"></i>
                                                 </button>
-
-
                                             </td>
                                         </tr>
                                         @empty
+                                        <tr>
+                                            <td colspan="8" class="text-center">Tidak ada mesin ditemukan.</td>
+                                        </tr>
                                         @endforelse
                                     </tbody>
+
+
                                 </table>
                             </div>
 

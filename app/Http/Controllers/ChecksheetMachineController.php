@@ -35,6 +35,7 @@ class ChecksheetMachineController extends Controller
 
         $machineData = json_decode($checksheet->content, true);
 
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             dd('JSON Error:', json_last_error_msg(), $checksheet->content);
         }
