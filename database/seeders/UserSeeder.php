@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'npk' => '020202',
-                'name' => 'Aufar Manager',
+                'name' => 'Aufar Foreman',
                 'dept' => 'PE-2W',
                 'sect' => 'Non BaaN',
                 'golongan' => '4',
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'npk' => '030303',
-                'name' => 'Aufar SPV',
+                'name' => 'Line Guide',
                 'dept' => 'PE-2W',
                 'sect' => 'TES',
                 'golongan' => '4',
@@ -65,6 +65,15 @@ class UserSeeder extends Seeder
                 'dept' => 'PE-2W',
                 'sect' => 'TES',
                 'golongan' => '3',
+                'acting' => '1',
+                'password' => '123',
+            ],
+            [
+                'npk' => '050505',
+                'name' => 'Aufar Operator',
+                'dept' => 'PE-2W',
+                'sect' => 'TES',
+                'golongan' => '2',
                 'acting' => '1',
                 'password' => '123',
             ]

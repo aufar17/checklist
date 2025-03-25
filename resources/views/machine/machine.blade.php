@@ -122,7 +122,7 @@ $notifBadge = 0;
                                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-danger">
-                                                        <h5 class="modal-title fw-bold text-white">Validasi Inspeksi
+                                                        <h5 class="modal-title fw-bold text-white">Status Validasi
                                                         </h5>
                                                         <button type="button" class="btn-close btn-close-light"
                                                             data-bs-dismiss="modal"></button>
@@ -132,22 +132,22 @@ $notifBadge = 0;
                                                         $inspection = $machine->inspectionMachines->first();
                                                         $statuses = [
                                                         [
-                                                        'label' => 'DIBUAT',
-                                                        'user' => $inspection->created_by ?? 'Belum dibuat',
+                                                        'label' => 'PIC Maintenance',
+                                                        'user' => $inspection->created_by ?? 'Belum divalidasi',
                                                         'date' => $inspection->created_date ?? '',
                                                         'badge' => 'danger',
                                                         'icon' => 'file-alt',
                                                         ],
                                                         [
-                                                        'label' => 'DIKETAHUI',
-                                                        'user' => $inspection->known_by ?? 'Belum diketahui',
+                                                        'label' => 'Supervisor Produksi',
+                                                        'user' => $inspection->known_by ?? 'Belum divalidasi',
                                                         'date' => $inspection->known_date ?? '',
                                                         'badge' => 'warning',
                                                         'icon' => 'eye',
                                                         ],
                                                         [
-                                                        'label' => 'DIPERIKSA',
-                                                        'user' => $inspection->checked_by ?? 'Belum diperiksa',
+                                                        'label' => 'Foreman Produksi',
+                                                        'user' => $inspection->checked_by ?? 'Belum divalidasi',
                                                         'date' => $inspection->checked_date ?? '',
                                                         'badge' => 'success',
                                                         'icon' => 'check-circle',

@@ -90,7 +90,7 @@ $notifBadge = 0;
             @endif
             <livewire:kpi />
 
-            @if ($user->golongan == 3 && $user->acting == 1)
+            @if ($user->golongan == 2 && $user->acting == 1)
             <div class="img-container">
                 <img src="{{ asset('img/bg-dashboard.gif') }}" alt="Dashboard Image">
             </div>

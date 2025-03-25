@@ -15,6 +15,8 @@ class InspectionMachine extends Model
         'machine_item_id',
         'value',
         'documentation',
+        'operator',
+        'operator_date',
         'pic_maintenance',
         'pic_maintenance_date',
         'line_guide',
@@ -23,8 +25,8 @@ class InspectionMachine extends Model
         'foreman_produksi_date',
     ];
 
-    public function inspectionMachines(): HasMany
+    public function machine(): HasMany
     {
-        return $this->hasMany(InspectionMachine::class, 'machine_id', 'id');
+        return $this->hasMany(Machine::class, 'machine_id', 'id');
     }
 }

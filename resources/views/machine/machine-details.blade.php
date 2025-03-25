@@ -60,12 +60,8 @@
                 @endslot
                 @slot('body')
                 <x-machine-checksheet-table :machines="$machines" :machine_items="$machine_items"
-                    :inspections="$inspections" :daysInMonth="$daysInMonth" :imagePaths="$imagePaths" />
-
-
+                    :inspections="$inspections" :daysInMonth="$daysInMonth" :imagePaths="$imagePaths" :user="$user" />
                 @endslot
-
-
             </x-card>
             <x-footer></x-footer>
         </div>
