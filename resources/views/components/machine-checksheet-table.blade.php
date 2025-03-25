@@ -1,4 +1,4 @@
-@props(['machines', 'machine_items', 'inspections','daysInMonth','imagePaths'])
+@props(['user','machines', 'machine_items', 'inspections','daysInMonth','imagePaths'])
 
 <style>
     table,
@@ -122,15 +122,113 @@
             </tr>
             @endforeach
 
-            @foreach (['PIC Maintenance', 'Line Guide', 'Foreman Produksi'] as $role)
+            @foreach (['PIC Maintenance', 'Line Guide', 'Foreman Produksi'] as $roleIndex => $roleName)
             <tr>
-                <td colspan="4" style="font-weight: bold;" data-label="Petugas">Dicek Setiap (Shift 2) Oleh {{ $role }}
+                <td colspan="4" style="font-weight: bold;" data-label="Petugas">
+                    Dicek Setiap (Shift 2) Oleh {{ $roleName }}
                 </td>
-                @for ($i = 1; $i <= $daysInMonth; $i++) <td data-label="Tanggal {{ $i }}">
+
+                @for ($i = 1; $i <= $daysInMonth; $i++) <td data-label="Tanggal {{ $i }}" class="text-center">
+                    @php
+                    $user = $user ?? Auth::user();
+                    $userGolongan = $user->golongan ?? null;
+                    $userActing = $user->acting ?? null;
+                    $isValidated = false;
+                    $operatorInspected = false;
+                    $inspectionDate = null;
+                    $previousValidated = false;
+
+                    foreach ($machine_items as $item) {
+                    $key = $item->id . '_' . $i;
+
+                    if (isset($inspections[$key])) {
+                    $inspection = $inspections[$key];
+                    $operatorInspected = true;
+
+                    $isValidated = match ($roleIndex) {
+                    0 => !empty($inspection->pic_maintenance),
+                    1 => !empty($inspection->line_guide),
+                    2 => !empty($inspection->foreman_produksi),
+                    default => false,
+                    };
+
+                    $inspectionDate = match ($roleIndex) {
+                    0 => optional($inspection->pic_maintenance_date)->format('d-m-Y'),
+                    1 => optional($inspection->line_guide_date)->format('d-m-Y'),
+                    2 => optional($inspection->foreman_produksi_date)->format('d-m-Y'),
+                    default => null,
+                    };
+
+                    if ($roleIndex == 0) {
+                    $previousValidated = true;
+                    } elseif ($roleIndex == 1) {
+                    $previousValidated = !empty($inspection->pic_maintenance);
+                    } elseif ($roleIndex == 2) {
+                    $previousValidated = !empty($inspection->line_guide);
+                    }
+
+                    break;
+                    }
+                    }
+
+                    $showButton = $previousValidated && match ($roleIndex) {
+                    0 => ($userGolongan == 3 && $userActing == 1),
+                    1 => ($userGolongan == 4 && $userActing == 2),
+                    2 => ($userGolongan == 4 && $userActing == 1),
+                    default => false,
+                    };
+                    @endphp
+
+                    @if ($isValidated)
+                    <span class="text-success fw-bold">✅</span>
+                    @elseif ($showButton && $operatorInspected)
+                    <button type="button" class="btn btn-sm badge bg-success" data-bs-toggle="modal"
+                        data-bs-target="#inspectionModal-{{ $roleIndex }}-{{ $i }}">
+                        Check
+                    </button>
+
+                    <!-- Modal Validasi -->
+                    <div class="modal fade" id="inspectionModal-{{ $roleIndex }}-{{ $i }}" tabindex="-1"
+                        aria-labelledby="modalLabel-{{ $roleIndex }}-{{ $i }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalLabel-{{ $roleIndex }}-{{ $i }}">
+                                        Inspeksi <strong class="text-danger">{{ $inspectionDate ?? 'Belum Diinspeksi'
+                                            }}</strong> - {{ $roleName }}
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start">
+                                    <span>Validasi inspeksi hari ini?</span>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tutup</button>
+                                    <form action="{{ route('check') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="role_index" value="{{ $roleIndex ?? '' }}">
+                                        <input type="hidden" name="tanggal" value="{{ $i }}">
+                                        <input type="hidden" name="machine_id" value="{{ $machines->id }}">
+
+                                        <button type="submit" class="btn btn-primary" onclick="disableButton(this)">
+                                            Validasi
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     </td>
                     @endfor
             </tr>
             @endforeach
+
+
+
+
         </tbody>
     </table>
 </div>
@@ -203,3 +301,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function disableButton(button) {
+        button.disabled = true;
+        button.innerHTML = 'Memproses...';
+        button.form.submit();
+    }
+</script>

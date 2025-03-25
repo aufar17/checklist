@@ -101,8 +101,12 @@ class ChecksheetMachineController extends Controller
                     'machine_item_id' => $machineItem->id,
                     'value' => $value,
                     'documentation' => $imagePath,
-                    'pic_maintenance' => $request->input('pemeriksa'),
-                    'pic_maintenance_date' => $today,
+                    'operator' => $request->input('pemeriksa'),
+                    'operator_date' => $today,
+                    'pic_maintenance' => null,
+                    'pic_maintenance_date' => null,
+                    'line_guide' => null,
+                    'line_guide_date' => null,
                     'line_guide' => null,
                     'line_guide_date' => null,
                     'foreman_produksi' => null,
@@ -114,5 +118,47 @@ class ChecksheetMachineController extends Controller
         $machine = Machine::where('id', $machineId)->first();
 
         return redirect()->route('detail-machine', ['id' => $machine->id])->with('success', 'Checksheet berhasil disimpan!');
+    }
+
+    public function check(Request $request)
+    {
+        $user = Auth::user();
+        $roleIndex = (int) $request->input('role_index');
+        $tanggal = (int) $request->input('tanggal'); // Pastikan ini integer
+        $machineId = $request->input('machine_id');
+
+        // Pastikan tanggal memiliki format lengkap
+        $formattedDate = Carbon::now()->startOfMonth()->addDays($tanggal - 1)->toDateString();
+
+        $validRole = match ($roleIndex) {
+            0 => $user->golongan == 3 && $user->acting == 1,
+            1 => $user->golongan == 4 && $user->acting == 2,
+            2 => $user->golongan == 4 && $user->acting == 1,
+            default => false,
+        };
+
+        if (!$validRole) {
+            return back()->with('error', 'Kamu tidak punya izin untuk validasi.');
+        }
+
+        $query = InspectionMachine::where('machine_id', $machineId)
+            ->whereDate('operator_date', $formattedDate); // Gunakan tanggal yang benar
+
+        if (!$query->exists()) {
+            return back()->with('error', 'Data inspeksi belum tersedia.');
+        }
+
+        // Tentukan data yang akan diupdate
+        $updates = match ($roleIndex) {
+            0 => ['pic_maintenance' => $user->name, 'pic_maintenance_date' => now()],
+            1 => ['line_guide' => $user->name, 'line_guide_date' => now()],
+            2 => ['foreman_produksi' => $user->name, 'foreman_produksi_date' => now()],
+            default => [],
+        };
+
+        // Lakukan update ke semua baris yang cocok
+        $query->update($updates);
+
+        return redirect()->back()->with('success', 'Validasi berhasil!' . $user->name);
     }
 }

@@ -7,8 +7,10 @@ use App\Models\Machine\Machine;
 use App\Models\Machine\MachineGroup;
 use App\Models\Machine\MachineItem;
 use App\Services\MachineService;
+use Carbon\Carbon as CarbonCarbon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -89,18 +91,9 @@ class MachineController extends Controller
 
     public function detailMachine($id)
     {
-        $session = Auth::check();
-        if (!$session) {
-            return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
-        }
-
+        abort_unless(Auth::check(), 403, 'Anda harus login terlebih dahulu.');
         $user = Auth::user();
-        $machine = Machine::with(['lines', 'makers'])->find($id);
-
-
-        if (!$machine) {
-            return back()->withErrors(['error' => 'Mesin tidak ditemukan.']);
-        }
+        $machines = Machine::with(['lines', 'makers'])->findOrFail($id);
 
         $mapping = [
             'OTM102' => [1, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14],
@@ -110,36 +103,29 @@ class MachineController extends Controller
             'OTM114' => [1, 3, 4, 12, 22, 23, 24, 25, 26],
         ];
 
-        $noMachine = $machine->no_machine;
-        $itemIds = $mapping[$noMachine] ?? [];
-
+        $itemIds = $mapping[$machines->no_machine] ?? [];
         if (empty($itemIds)) {
             return redirect()->back()->with('error', 'Item inspeksi belum dikonfigurasi untuk mesin ini.');
         }
 
         $machine_items = MachineItem::with('machineGroups')->whereIn('id', $itemIds)->orderBy('id')->get();
+        $groups = MachineGroup::whereIn('id', $machine_items->pluck('group_id'))->get();
+        $startDate = now()->startOfMonth();
+        $endDate = now()->endOfMonth();
+        $daysInMonth = now()->daysInMonth;
 
-        $groupedItems = $machine_items->groupBy('group_id');
-        $groups = MachineGroup::whereIn('id', $groupedItems->keys())->get();
-
-        $startDate = Carbon::now()->startOfMonth();
-        $endDate = Carbon::now()->endOfMonth();
-        $daysInMonth = Carbon::now()->daysInMonth;
-
-        $inspectionsRaw = InspectionMachine::whereBetween('pic_maintenance_date', [$startDate, $endDate])
+        $inspectionsRaw = InspectionMachine::whereBetween('operator_date', [$startDate, $endDate])
             ->whereIn('machine_item_id', $itemIds)
-            ->where('machine_id', $machine->id)
+            ->where('machine_id', $machines->id)
             ->get();
 
 
-        $inspections = $inspectionsRaw->mapWithKeys(function ($item) {
-            $day = Carbon::parse($item->pic_maintenance_date)->day;
-            $key = $item->machine_item_id . '_' . $day;
+        $inspections = $inspectionsRaw->mapWithKeys(fn($item) => [
+            $item->machine_item_id . '_' . Carbon::parse($item->operator_date)->day => $item
+        ]);
 
-            return [$key => $item];
-        });
 
-        $imagePaths = match ($machine->id) {
+        $imagePaths = match ($machines->id) {
             1 => ['img/1-1.jpg', 'img/1-2.jpg', 'img/1-3.png'],
             2 => ['img/2-1.png', 'img/2-2.png', 'img/2-3.png', 'img/2-4.png', 'img/2-5.png'],
             3 => ['img/3-1.png', 'img/3-2.png', 'img/3-3.png', 'img/3-4.png'],
@@ -150,7 +136,7 @@ class MachineController extends Controller
 
         $data = [
             'user' => $user,
-            'machines' => $machine,
+            'machines' => $machines,
             'machine_items' => $machine_items,
             'groups' => $groups,
             'daysInMonth' => $daysInMonth,

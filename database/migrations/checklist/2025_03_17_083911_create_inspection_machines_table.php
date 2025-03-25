@@ -17,10 +17,12 @@ return new class extends Migration
             $table->integer('machine_item_id');
             $table->integer('value');
             $table->string('documentation');
-            $table->string('pic_maintenance');
-            $table->date('pic_maintenance_date');
+            $table->string('operator');
+            $table->date('operator_date');
+            $table->string('pic_maintenance')->nullable();
+            $table->date('pic_maintenance_date')->nullable();
             $table->string('line_guide')->nullable();
-            $table->date('line_guide_date')->nullable();    
+            $table->date('line_guide_date')->nullable();
             $table->string('foreman_produksi')->nullable();
             $table->date('foreman_produksi_date')->nullable();
             $table->timestamps();

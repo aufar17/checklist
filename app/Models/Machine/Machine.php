@@ -49,11 +49,10 @@ class Machine extends Model
         return $this->hasMany(MachineApproval::class, 'machine_id', 'id');
     }
 
-    // 📝 Accessor untuk status text, bisa dipanggil dengan $machine->status_text
     protected function statusText(): Attribute
     {
         return Attribute::get(fn($value, $attributes) => match ((int) $attributes['status']) {
-            MachineApproval::STATUS_PENDING           => 'Pending',
+            MachineApproval::STATUS_PENDING           => 'Belum Validasi',
             MachineApproval::STATUS_APPROVED_PIC      => 'Approved by PIC',
             MachineApproval::STATUS_APPROVED_SPV      => 'Approved by SPV',
             MachineApproval::STATUS_APPROVED_FOREMAN  => 'Approved by Foreman',
@@ -70,7 +69,7 @@ class Machine extends Model
         $status = $this->status;
 
         return match ($status) {
-            MachineApproval::STATUS_PENDING => '<button type="button" class="badge text-badge bg-warning border-0" data-bs-toggle="modal" data-bs-target="#trackingModal-' . $this->id . '">Pending</button>',
+            MachineApproval::STATUS_PENDING => '<button type="button" class="badge text-badge bg-warning border-0" data-bs-toggle="modal" data-bs-target="#trackingModal-' . $this->id . '">Belum Validasi</button>',
 
             MachineApproval::STATUS_APPROVED_PIC => '<button type="button" class="badge text-badge bg-success border-0" data-bs-toggle="modal" data-bs-target="#trackingModal-' . $this->id . '">Approved by PIC</button>',
 

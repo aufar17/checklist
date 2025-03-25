@@ -60,12 +60,8 @@
                 @endslot
                 @slot('body')
                 <x-machine-checksheet-table :machines="$machines" :machine_items="$machine_items"
-                    :inspections="$inspections" :daysInMonth="$daysInMonth" :imagePaths="$imagePaths" />
-
-
+                    :inspections="$inspections" :daysInMonth="$daysInMonth" :imagePaths="$imagePaths" :user="$user" />
                 @endslot
-
-
             </x-card>
             <x-footer></x-footer>
         </div>
@@ -84,7 +80,7 @@
     <script src="js/jquery.dataTables.js"></script>
     <script src="js/dataTables.bootstrap4.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
     <script src="{{asset('js/soft-ui-dashboard.min.js?v=1.0.3') }}"></script>
