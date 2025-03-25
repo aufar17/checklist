@@ -24,24 +24,20 @@ class Machine extends Model
         'latitude',
     ];
 
-    // 🧩 Cast status ke integer biar konsisten saat digunakan di match/casting lainnya
     protected $casts = [
         'status' => 'integer',
     ];
 
-    // 📎 Relasi ke tabel inspection_machines
     public function inspectionMachines(): HasMany
     {
         return $this->hasMany(InspectionMachine::class, 'machine_id', 'id');
     }
 
-    // 📎 Relasi ke tabel machine_approvals
     public function machineApproval(): HasMany
     {
         return $this->hasMany(MachineApproval::class, 'machine_id', 'id');
     }
 
-    // 📝 Accessor untuk status text, bisa dipanggil dengan $machine->status_text
     protected function statusText(): Attribute
     {
         return Attribute::get(fn($value, $attributes) => match ((int) $attributes['status']) {

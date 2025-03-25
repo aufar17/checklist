@@ -252,13 +252,13 @@ $notifBadge = 0;
                                                 <span class="badge bg-info">Operator sudah inspeksi</span>
                                                 @break
                                                 @case(2)
-                                                <span class="badge bg-primary">Checked PIC</span>
+                                                <span class="badge bg-primary">Sudah dicek PIC</span>
                                                 @break
                                                 @case(3)
-                                                <span class="badge bg-warning">Checked Line Guide</span>
+                                                <span class="badge bg-warning">Sudah dicek Line Guide</span>
                                                 @break
                                                 @case(4)
-                                                <span class="badge bg-success">Checked Foreman</span>
+                                                <span class="badge bg-success">Sudah dicek Foreman</span>
                                                 @break
                                                 @endswitch
                                             </td>

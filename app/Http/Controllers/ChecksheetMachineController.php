@@ -124,7 +124,7 @@ class ChecksheetMachineController extends Controller
     {
         $user = Auth::user();
         $roleIndex = (int) $request->input('role_index');
-        $tanggal = (int) $request->input('tanggal');
+        $tanggal = (int) $request->input('tanggal'); // Pastikan ini integer
         $machineId = $request->input('machine_id');
 
         // Pastikan tanggal memiliki format lengkap
@@ -159,6 +159,6 @@ class ChecksheetMachineController extends Controller
         // Lakukan update ke semua baris yang cocok
         $query->update($updates);
 
-        return back()->with('success', 'Inspeksi berhasil divalidasi oleh ' . $user->name);
+        return redirect()->back()->with('success', 'Validasi berhasil!' . $user->name);
     }
 }
