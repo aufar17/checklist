@@ -236,8 +236,8 @@ $notifBadge = 0;
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td class="text-center">{{ $machine->no_machine }}</td>
                                             <td class="text-center">{{ $machine->name }}</td>
-                                            <td class="text-center">{{ $machine->line }}</td>
-                                            <td class="text-center">{{ $machine->maker }}</td>
+                                            <td class="text-center">{{ $machine->lines->name }}</td>
+                                            <td class="text-center">{{ $machine->makers->name }}</td>
                                             <td class="text-center">{{ $machine->no_fixed_asset }}</td>
                                             <td class="text-center">
                                                 @php

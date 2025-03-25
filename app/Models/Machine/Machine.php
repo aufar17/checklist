@@ -3,9 +3,12 @@
 namespace App\Models\Machine;
 
 use App\Models\MachineApproval;
+use App\Models\MachineLine;
+use App\Models\MachineMaker;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Machine extends Model
@@ -24,18 +27,23 @@ class Machine extends Model
         'latitude',
     ];
 
-    // 🧩 Cast status ke integer biar konsisten saat digunakan di match/casting lainnya
     protected $casts = [
         'status' => 'integer',
     ];
 
-    // 📎 Relasi ke tabel inspection_machines
     public function inspectionMachines(): HasMany
     {
         return $this->hasMany(InspectionMachine::class, 'machine_id', 'id');
     }
+    public function makers(): BelongsTo
+    {
+        return $this->belongsTo(MachineMaker::class, 'maker', 'id');
+    }
+    public function lines(): BelongsTo
+    {
+        return $this->belongsTo(MachineLine::class, 'line', 'id');
+    }
 
-    // 📎 Relasi ke tabel machine_approvals
     public function machineApproval(): HasMany
     {
         return $this->hasMany(MachineApproval::class, 'machine_id', 'id');

@@ -45,10 +45,10 @@
                 {{ $machines['name'] }}
                 @endslot
                 @slot('line')
-                {{ $machines['line'] }}
+                {{ $machines->lines['name'] }}
                 @endslot
                 @slot('maker')
-                {{ $machines['maker'] }}
+                {{ $machines->makers['name'] }}
                 @endslot
                 @slot('no_fixed_asset')
                 {{ $machines['no_fixed_asset'] }}

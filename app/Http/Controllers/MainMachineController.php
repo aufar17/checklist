@@ -35,7 +35,7 @@ class MainMachineController extends Controller
         }
 
         $user = Auth::user();
-        $machines = Machine::all();
+        $machines = Machine::with(['lines', 'makers'])->get();
         $today = Carbon::today();
 
         // Status tiap mesin

@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             MachineItemSeeder::class,
             MachineGroupSeeder::class,
             MachineSeeder::class,
+            LineSeeder::class,
+            MakerSeeder::class,
         ]);
     }
 }

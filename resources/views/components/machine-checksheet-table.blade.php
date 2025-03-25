@@ -39,8 +39,8 @@
             <div class="col offset-4"><strong>No Mesin:</strong> {{ $machines->no_machine }}</div>
         </div>
         <div class="row mb-2">
-            <div class="col"><strong>Line:</strong> {{ $machines->line }}</div>
-            <div class="col offset-4"><strong>Maker:</strong> {{ $machines->maker }}</div>
+            <div class="col"><strong>Line:</strong> {{ $machines->lines->name }}</div>
+            <div class="col offset-4"><strong>Maker:</strong> {{ $machines->makers->name }}</div>
         </div>
         <div class="row">
             <div class="col"><strong>Mesin:</strong> {{ $machines->name }}</div>

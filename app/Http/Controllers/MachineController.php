@@ -95,7 +95,7 @@ class MachineController extends Controller
         }
 
         $user = Auth::user();
-        $machine = Machine::find($id);
+        $machine = Machine::with(['lines', 'makers'])->find($id);
 
 
         if (!$machine) {
