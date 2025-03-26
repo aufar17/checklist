@@ -133,14 +133,24 @@ $notifBadge = 0;
                                 </div>
                                 <div class="col-md-4 mt-2">
                                     <label class="form-label">LINE</label>
-                                    <input type="text" class="form-control" name="line">
+                                    <select name="line" class="form-select">
+                                        <option value="">-- Pilih Line --</option>
+                                        @foreach ($lines as $line)
+                                        <option value="{{ $line->id }}">{{ $line->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mt-2">
                                     <label class="form-label">MAKER</label>
-                                    <input type="text" class="form-control" name="maker">
+                                    <select name="maker" class="form-select">
+                                        <option value="">-- Pilih Maker --</option>
+                                        @foreach ($makers as $maker)
+                                        <option value="{{ $maker->id }}">{{ $maker->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="col-md-6 mt-2">

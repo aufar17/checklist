@@ -34,6 +34,7 @@ class ChecksheetMachineController extends Controller
         }
 
         $machineData = json_decode($checksheet->content, true);
+        $machine = Machine::where('id', $machineData['id'])->with(['lines', 'makers'])->first();
 
 
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -64,6 +65,7 @@ class ChecksheetMachineController extends Controller
         $data = [
             'session' => $session,
             'user' => $user,
+            'machine' => $machine,
             'checksheet' => $checksheet,
             'machineData' => $machineData,
             'groups' => $groups,

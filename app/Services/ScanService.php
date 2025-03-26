@@ -56,7 +56,6 @@ class   ScanService
                 'distance (meter)' => number_format($distance, 2),
             ];
 
-            dd($response);
 
             if ($distance > 20) {
                 return response()->json([

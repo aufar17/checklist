@@ -56,10 +56,10 @@ $notifBadge = 0;
                 {{ $machineData['name'] }}
                 @endslot
                 @slot('line')
-                {{ $machineData['line'] }}
+                {{ $machine->lines['name'] }}
                 @endslot
                 @slot('maker')
-                {{ $machineData['maker'] }}
+                {{ $machine->makers['name'] }}
                 @endslot
                 @slot('no_fixed_asset')
                 {{ $machineData['no_fixed_asset'] }}

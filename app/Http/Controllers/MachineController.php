@@ -6,6 +6,8 @@ use App\Models\Machine\InspectionMachine;
 use App\Models\Machine\Machine;
 use App\Models\Machine\MachineGroup;
 use App\Models\Machine\MachineItem;
+use App\Models\MachineLine;
+use App\Models\MachineMaker;
 use App\Services\MachineService;
 use Carbon\Carbon as CarbonCarbon;
 use Carbon\Carbon;
@@ -24,11 +26,15 @@ class MachineController extends Controller
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
 
+        $lines = MachineLine::all();
+        $makers = MachineMaker::all();
         $user = Auth::user();
 
         $data = [
             'session' => $session,
             'user' => $user,
+            'lines' => $lines,
+            'makers' => $makers,
         ];
 
         return view('machine.new-machine', $data);
@@ -56,11 +62,16 @@ class MachineController extends Controller
             return back()->withErrors(['error' => 'Anda harus login terlebih dahulu.']);
         }
 
+        $lines = MachineLine::all();
+        $makers = MachineMaker::all();
+
         $user = Auth::user();
         $machine = Machine::where('id', $id)->first();
 
         $data = [
             'machine' => $machine,
+            'lines' => $lines,
+            'makers' => $makers,
             'user' => $user
         ];
         return view('machine.edit-machine', $data);
