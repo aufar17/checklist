@@ -28,10 +28,10 @@ class ChecksheetMachineController extends Controller
             return redirect()->route('admin-machine')->with('error', 'Anda harus mengakses melalui scan QR Code.');
         }
 
-        $scanned = session('scanned');
-        if (!$scanned || (int) $scanned !== (int) $id) {
-            return redirect()->route('admin-machine')->withErrors(['error' => 'Anda harus mengakses melalui scan QR Code.']);
-        }
+        // $scanned = session('scanned');
+        // if (!$scanned || (int) $scanned !== (int) $id) {
+        //     return redirect()->route('admin-machine')->withErrors(['error' => 'Anda harus mengakses melalui scan QR Code.']);
+        // }
 
         $machineData = json_decode($checksheet->content, true);
         $machine = Machine::where('id', $machineData['id'])->with(['lines', 'makers'])->first();

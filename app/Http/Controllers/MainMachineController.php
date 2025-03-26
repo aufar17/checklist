@@ -7,6 +7,7 @@ use App\Models\Machine\Machine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MainMachineController extends Controller
 {
@@ -17,15 +18,49 @@ class MainMachineController extends Controller
         }
 
         $user = Auth::user();
-        $dept = $user->dept;
 
-        $data = [
+        $totalMachines = DB::table('machines')
+            ->distinct('id')
+            ->count('id');
+
+        $inspected = DB::table('inspection_machines')
+            ->whereNotNull('operator_date')
+            ->distinct('machine_id')
+            ->count('machine_id');
+
+        $notInspected = DB::table('inspection_machines')
+            ->whereNull('operator_date')
+            ->distinct('machine_id')
+            ->count('machine_id');
+
+        $notReported = DB::table('inspection_machines')
+            ->where('value', '=', 3)
+            ->distinct('machine_id')
+            ->count('machine_id');
+
+        $reported = DB::table('inspection_machines')
+            ->whereNotNull('pic_maintenance')
+            ->distinct('machine_id')
+            ->count('machine_id');
+
+        $notOperational = DB::table('inspection_machines')
+            ->where('value', '=', 0)
+            ->distinct('machine_id')
+            ->count('machine_id');
+
+        return view('machine.dashboard-machine', [
             'user' => $user,
-            'dept' => $dept,
-        ];
-
-        return view('machine.dashboard-machine', $data);
+            'totalMachines' => $totalMachines,
+            'inspected' => $inspected,
+            'notInspected' => $notInspected,
+            'notReported' => $notReported,
+            'reported' => $reported,
+            'notOperational' => $notOperational
+        ]);
     }
+
+
+
 
 
     public function machine()

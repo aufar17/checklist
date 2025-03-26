@@ -89,7 +89,7 @@
                     <div class="col-9">
                         <div class="numbers">
                             <p class="text-sm mb-0 text-capitalize font-weight-bold">Mesin Bermasalah (Belum Lapor)</p>
-                            <h5 class="font-weight-bolder mb-0">{{ $abnormal }}</h5>
+                            <h5 class="font-weight-bolder mb-0">{{ $abnormalNotReported }}</h5>
                         </div>
                     </div>
                     <div class="col-3 text-end">
@@ -109,7 +109,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="numbers">
                         <p class="text-sm mb-1 text-capitalize font-weight-bold">Mesin Bermasalah (Sudah Lapor)</p>
-                        <h5 class="font-weight-bolder mb-0">{{ $abnormal }}</h5>
+                        <h5 class="font-weight-bolder mb-0">{{ $abnormalReported }}</h5>
                     </div>
                     <div class="icon icon-shape bg-gradient-danger shadow text-center border-radius-md">
                         <i class="fa-solid fa-flag text-white text-lg opacity-10"></i>
@@ -127,7 +127,7 @@
                     <div class="col-8">
                         <div class="numbers">
                             <p class="text-sm mb-0 text-capitalize font-weight-bold">Mesin tidak bisa operasi</p>
-                            <h5 class="font-weight-bolder mb-0">{{ $abnormal }}</h5>
+                            <h5 class="font-weight-bolder mb-0">{{ $notOperational }}</h5>
                         </div>
                     </div>
                     <div class="col-4 text-end">

@@ -88,8 +88,18 @@ $notifBadge = 0;
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
-            <livewire:kpi />
-
+            <div class="row">
+                <x-kpi title="Total Mesin" value="{{ $totalMachines }}" color="primary" icon="fa-cogs"
+                    route="machine" />
+                <x-kpi title="Mesin Belum Inspeksi" value="{{ $notInspected }}" color="warning"
+                    icon="fa-hourglass-half" />
+                <x-kpi title="Mesin Sudah Inspeksi" value="{{ $inspected }}" color="success" icon="fa-check-circle" />
+                <x-kpi title="Mesin Bermasalah (Belum Lapor)" value="{{ $notReported }}" color="danger"
+                    icon="fa-exclamation-triangle" />
+                <x-kpi title="Mesin Bermasalah (Sudah Lapor)" value="{{ $reported }}" color="info"
+                    icon="fa-clipboard-check" />
+                <x-kpi title="Mesin Tidak Bisa Operasi" value="{{ $notOperational }}" color="dark" icon="fa-ban" />
+            </div>
             @if ($user->golongan == 2 && $user->acting == 1)
             <div class="img-container">
                 <img src="{{ asset('img/bg-dashboard.gif') }}" alt="Dashboard Image">

@@ -153,9 +153,12 @@
                     };
 
                     $inspectionDate = match ($roleIndex) {
-                    0 => optional($inspection->pic_maintenance_date)->format('d-m-Y'),
-                    1 => optional($inspection->line_guide_date)->format('d-m-Y'),
-                    2 => optional($inspection->foreman_produksi_date)->format('d-m-Y'),
+                    0 => optional($inspection->pic_maintenance_date) ?
+                    Carbon::parse($inspection->pic_maintenance_date)->format('d-m-Y') : null,
+                    1 => optional($inspection->line_guide_date) ?
+                    Carbon::parse($inspection->line_guide_date)->format('d-m-Y') : null,
+                    2 => optional($inspection->foreman_produksi_date) ?
+                    Carbon::parse($inspection->foreman_produksi_date)->format('d-m-Y') : null,
                     default => null,
                     };
 
